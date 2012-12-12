@@ -30,6 +30,9 @@ public class MonController {
 	@RequestMapping("/appelService")
 	public ModelAndView appelApplication() {
 		monInterface.createEntity();					// appel à l'application
+		monInterface.createGame();
+		monInterface.createPlayer();
+		monInterface.createCard();
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("pageDeConfirmation");			// affiche pageDeConfirmation.jsp
 		mav.addObject("titre", "Message de réponse :");	// variable titre dans pageDeConfirmation.jsp

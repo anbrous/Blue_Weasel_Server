@@ -7,6 +7,9 @@
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <jta-data-source>java:/DefaultDS</jta-data-source>
     <class>metier.MonEntity</class>
+    <class>metier.Card</class>
+    <class>metier.Game</class>
+    <class>metier.Player</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
     <property name="hibernate.connection.url" value="jdbc:hsqldb:hsql://localhost/"/>
