@@ -33,11 +33,14 @@ http://cxf.apache.org/schemas/jaxws.xsd">
   
 	<bean id="appelServiceId" class="presentation.MonController">
 		<property name="monInterface">
-			<ref bean="monImplantation"/>
+			<ref bean="myImplementation"/>
+		</property>
+		<property name="RfidInterface">
+			<ref bean="myImplementation"/>
 		</property>
 	</bean>  
 	
-	<bean id="monImplantation" class="application.MonImplantation">
+	<bean id="myImplementation" class="application.MyImplementation">
 		<constructor-arg ref="entityManagerFactory"/>
 	</bean>
 		

@@ -10,6 +10,7 @@
     <class>metier.Card</class>
     <class>metier.Game</class>
     <class>metier.Player</class>
+    <class>metier.GameStatus</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
     <property name="hibernate.connection.url" value="jdbc:hsqldb:hsql://localhost/"/>

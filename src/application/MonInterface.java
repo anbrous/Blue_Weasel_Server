@@ -8,6 +8,6 @@ public interface MonInterface {
 	
 	public void createGame();
 	
-	public void createCard();
+	public void cardsInitialisation();
 	
 }
