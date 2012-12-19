@@ -8,7 +8,6 @@ import javax.persistence.Id;
 @Entity
 public class Card {
 
-	private long id;
 	private String idRFID;
 	public enum Value{ACE, KING, QUEEN, JACK, TEN, NINE, EIGHT, SEVEN};
 	public enum Color{HEART, DIAMOND, SPADE, CLUB};
@@ -30,18 +29,9 @@ public class Card {
 	public void initializeCards (){
 		
 	}
+
 	
-
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
 	public String getIdRFID() {
 		return idRFID;
 	}

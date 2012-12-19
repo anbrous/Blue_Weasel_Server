@@ -1,5 +1,6 @@
 package application;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.persistence.EntityManager;
@@ -54,6 +55,9 @@ public class MyImplementation implements RfidInterface, MonInterface{
 	public void cardsInitialisation(){
 		
 		int i = 0;
+		ArrayList<String> cards = new ArrayList<>();
+		
+		
 		for(Value value : Value.values()){
 			
 			for(Color color : Color.values()){
@@ -74,8 +78,11 @@ public class MyImplementation implements RfidInterface, MonInterface{
 					idArecuperer = getCurrentCard(123);
 					System.out.println(" pas de current card..\n checking...");
 					if(!idArecuperer.equals("nocard")){
-						Waiting = false;
-						createIdCard(123);
+						if(!cards.contains(idArecuperer)){
+							cards.add(idArecuperer);
+							Waiting = false;
+							createIdCard(123);
+						}
 					}				
 				}
 				//Scanner scan = new Scanner(System.in);
