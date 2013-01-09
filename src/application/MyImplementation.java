@@ -80,13 +80,15 @@ public class MyImplementation implements RfidInterface, MonInterface, Initialisa
 					}
 					
 					idArecuperer = getCurrentCard(123);
-					System.out.println(" pas de current card..\n checking...");
+					//System.out.println(" pas de current card..\n checking...");
 					if(!idArecuperer.equals("nocard")){
 						if(!cards.contains(idArecuperer)){
 							cards.add(idArecuperer);
 							Waiting = false;
 							createIdCard(123);
 						}
+						else
+							System.out.println("Card already scanned !");
 					}				
 				}
 				//Scanner scan = new Scanner(System.in);

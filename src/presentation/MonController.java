@@ -1,5 +1,11 @@
 package presentation;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import metier.Card.Color;
+import metier.Card.Value;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -50,14 +56,12 @@ public class MonController {
 	 * 			</servlet-mapping>
 	 *  dans web.xml
 	 */
-	@RequestMapping("/appelService")
+	@RequestMapping("saisieAutomatique/appelService")
 	public ModelAndView appelApplication() {
 		
-		initialisationManuelleInterface.MakeTable();
-		
-		monInterface.createEntity();					// appel à l'application
-		monInterface.createGame();
-		monInterface.createPlayer();
+		//monInterface.createEntity();					// appel à l'application
+		//monInterface.createGame();
+		//monInterface.createPlayer();
 		monInterface.cardsInitialisation();
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("pageDeConfirmation");			// affiche pageDeConfirmation.jsp
@@ -66,13 +70,50 @@ public class MonController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/sendCardId", method = RequestMethod.POST) 
+	@RequestMapping(value = "saisieAutomatique/sendCardId", method = RequestMethod.POST) 
 	public ModelAndView sendApplication(@RequestParam("idRFID") String idRFID) {
 		rfidInterface.setCurrentCard(idRFID);
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("pageDeConfirmation");			// affiche pageDeConfirmation.jsp
+		mav.setViewName("pageDeSaisieAutomatique");			// affiche pageDeSaisieAutomatique.jsp
 		mav.addObject("titre", "Message de réponse :");	// variable titre dans pageDeConfirmation.jsp
 		mav.addObject("message", "Entity créée !");		// variable message dans pageDeConfirmation.jsp
+		return mav;
+	}
+	
+	@RequestMapping("/saisieManuelle")
+	public ModelAndView appelPageSaisieManuelle() {
+		
+		initialisationManuelleInterface.MakeTable(); // on créé dans la base de données une table contenant 
+													// les cartes : color, value, rfid = null
+
+		List<String> ListOfColor = new ArrayList<String>();
+		for(Color color : Color.values()){
+			ListOfColor.add(color.toString());
+		}
+		
+		List<String> ListOfValue = new ArrayList<String>();
+		for(Value value : Value.values()){
+			ListOfValue.add(value.toString());
+		}
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("pageDeSaisieManuelle");			// affiche pageDeSaisieManuelle.jsp
+
+		mav.addObject("Colors", ListOfColor);
+		mav.addObject("Values", ListOfColor); // il faut les charger dans les combobox dans le fichier jsp
+		
+		return mav;
+	}
+	
+	@RequestMapping("/saisieAutomatique")
+	public ModelAndView appelPageSaisieAutomatique() {
+		
+		initialisationManuelleInterface.MakeTable(); // on créé dans la base de données une table contenant 
+													// les cartes : color, value, rfid = null
+
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("pageDeSaisieAutomatique");			// affiche pageDeSaisieAutomatique.jsp
+
 		return mav;
 	}
 	

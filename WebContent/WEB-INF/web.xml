@@ -15,7 +15,7 @@
 	<load-on-startup>1</load-on-startup>
   </servlet>
   
-  <!-- http://localhost:8080/JPA_SpringWebMVC/do/... -->
+  <!-- http://localhost:8080/JPA_SpringWebMVC/game/... -->
   <servlet-mapping>
 	<servlet-name>game</servlet-name>
 	<url-pattern>/game/*</url-pattern>
