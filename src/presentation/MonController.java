@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import application.InitialisationManuelleInterface;
 import application.MonInterface;
 import application.RfidInterface;
 
@@ -14,6 +15,7 @@ public class MonController {
 	
 	MonInterface monInterface;
 	RfidInterface rfidInterface;
+	InitialisationManuelleInterface initialisationManuelleInterface;
 
 	
 	public MonInterface getMonInterface() {
@@ -30,6 +32,15 @@ public class MonController {
 	public void setRfidInterface(RfidInterface rfidInterface) {
 		this.rfidInterface = rfidInterface;
 	}
+	
+	
+	public InitialisationManuelleInterface getInitialisationManuelleInterface() {
+		return initialisationManuelleInterface;
+	}
+
+	public void setInitialisationManuelleInterface(InitialisationManuelleInterface initialisationManuelleInterface) {
+		this.initialisationManuelleInterface = initialisationManuelleInterface;
+	}
 
 	/**
 	 * 	http://localhost:8080/JPA_SpringWebMVC/do/appelService
@@ -41,6 +52,9 @@ public class MonController {
 	 */
 	@RequestMapping("/appelService")
 	public ModelAndView appelApplication() {
+		
+		initialisationManuelleInterface.MakeTable();
+		
 		monInterface.createEntity();					// appel à l'application
 		monInterface.createGame();
 		monInterface.createPlayer();

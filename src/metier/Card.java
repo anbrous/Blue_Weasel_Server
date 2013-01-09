@@ -8,9 +8,10 @@ import javax.persistence.Id;
 @Entity
 public class Card {
 
+	private long id;
 	private String idRFID;
-	public enum Value{ACE, KING, QUEEN, JACK, TEN, NINE, EIGHT, SEVEN};
-	public enum Color{HEART, DIAMOND, SPADE, CLUB};
+	public enum Value{Ace, King, Queen, Jack, Ten, Nine, Eight, Seven};
+	public enum Color{Spade, Heart, Club, Diamond};
 	
 	private Value value;
 	private Color color;
@@ -30,8 +31,17 @@ public class Card {
 		
 	}
 
-	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+	
+	
 	public String getIdRFID() {
 		return idRFID;
 	}
@@ -54,6 +64,36 @@ public class Card {
 
 	public void setColor(Color color) {
 		this.color = color;
+	}
+	
+	//méthode peut etre obsolète si on peut récupérer dans la base de données directement la valeur en enum
+	public Color StringColorToEnum(String color){ //color vaut entre 0 et 3 
+		
+		switch (color){
+		
+			case "0" : return Color.Spade; 		
+			case "1" : return Color.Heart; 
+			case "2" : return Color.Club; 
+			case "3" : return Color.Diamond; 
+		}
+		return Color.Spade;
+	}
+	
+	//méthode peut etre obsolète si on peut récupérer dans la base de données directement la valeur en enum
+	public Value StringValueToEnum(String value){ //color vaut entre 0 et 7
+		
+		switch (value){
+		
+			case "0" : return Value.Ace; 		
+			case "1" : return Value.King; 
+			case "2" : return Value.Queen; 
+			case "3" : return Value.Jack; 
+			case "4" : return Value.Ten; 		
+			case "5" : return Value.Nine; 
+			case "6" : return Value.Eight; 
+			case "7" : return Value.Seven;
+		}
+		return Value.Ace;
 	}
 	
 	

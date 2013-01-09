@@ -6,6 +6,7 @@ import java.util.Scanner;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceContext;
 
 import metier.Card;
 import metier.Card.Color;
@@ -15,7 +16,7 @@ import metier.GameStatus;
 import metier.MonEntity;
 import metier.Player;
 
-public class MyImplementation implements RfidInterface, MonInterface{
+public class MyImplementation implements RfidInterface, MonInterface, InitialisationManuelleInterface{
 
 	public static String idArecuperer = "nocard";
 	
@@ -25,6 +26,9 @@ public class MyImplementation implements RfidInterface, MonInterface{
 	
 	EntityManager entityManager;
 
+	@PersistenceContext
+	EntityManager em;
+	
 	public void createEntity() {
 		MonEntity entity = new MonEntity();
 		EntityTransaction tx = entityManager.getTransaction();
@@ -134,6 +138,32 @@ public class MyImplementation implements RfidInterface, MonInterface{
 		GameStatus gameStatus = entityManager.find(GameStatus.class, id);
 		tx.commit();
 		return gameStatus.getIdArecuperer();
+	}
+	
+	public void MakeTable(){
+		
+		for(Value value : Value.values()){ // pour parcourir les enumerations
+			
+			for(Color color : Color.values()){
+				
+				Card card = new Card();
+				card.setIdRFID(null);
+				card.setColor(color);
+				card.setValue(value);
+				
+				EntityTransaction tx = entityManager.getTransaction();
+				tx.begin();
+				entityManager.merge(card);
+				tx.commit();
+				
+			}
+		}
+				
+	}
+	
+	public void ManualCardConfiguration(Value value, Color color, String idRFID){ // requete SQL qui va modifier une carte dans la base de données
+		
+		//em.createQuery( “SELECT c FROM Card c WHERE c.color LIKE :nomPersonne” ).setParameter(“nomPersonne”)
 	}
 	
 	

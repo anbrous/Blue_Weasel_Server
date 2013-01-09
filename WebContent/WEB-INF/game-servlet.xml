@@ -38,6 +38,9 @@ http://cxf.apache.org/schemas/jaxws.xsd">
 		<property name="RfidInterface">
 			<ref bean="myImplementation"/>
 		</property>
+		<property name="InitialisationManuelleInterface">
+			<ref bean="myImplementation"/>
+		</property>
 	</bean>  
 	
 	<bean id="myImplementation" class="application.MyImplementation">
