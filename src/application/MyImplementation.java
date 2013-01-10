@@ -20,6 +20,8 @@ public class MyImplementation implements RfidInterface, MonInterface, Initialisa
 
 	public static String idArecuperer = "nocard";
 	
+	public static boolean pooling = false; 
+	
 	public MyImplementation(EntityManagerFactory entityManagerFactory){
 		entityManager = entityManagerFactory.createEntityManager();
 	}
@@ -57,7 +59,7 @@ public class MyImplementation implements RfidInterface, MonInterface, Initialisa
 	}
 				
 	public void cardsInitialisation(){
-		
+		pooling = true;
 		int i = 0;
 		ArrayList<String> cards = new ArrayList<>();
 		
@@ -70,14 +72,22 @@ public class MyImplementation implements RfidInterface, MonInterface, Initialisa
 				System.out.println("Please scan the "+ value + " of "+ color);
 				idArecuperer = "nocard";// implémenter une méthode pour recuperer l'ID RFID
 				boolean Waiting = true;
+							
+				if(!pooling)
+				{
+					System.out.println("On quitte la méthode cardsInitialisation");
+					return;
+				}
+					
 				
-				while(Waiting){	
+				while(Waiting && pooling){	
 					try {
 						Thread.sleep(5000);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+					
 					
 					idArecuperer = getCurrentCard(123);
 					//System.out.println(" pas de current card..\n checking...");
@@ -87,8 +97,6 @@ public class MyImplementation implements RfidInterface, MonInterface, Initialisa
 							Waiting = false;
 							createIdCard(123);
 						}
-						else
-							System.out.println("Card already scanned !");
 					}				
 				}
 				//Scanner scan = new Scanner(System.in);
@@ -102,7 +110,7 @@ public class MyImplementation implements RfidInterface, MonInterface, Initialisa
 			}
 		}
 		System.out.println("nbrs de cartes: "+i);
-
+		
 	}
 
 	public void setCurrentCard( String cardId) {

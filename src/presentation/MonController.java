@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import application.InitialisationManuelleInterface;
 import application.MonInterface;
+import application.MyImplementation;
 import application.RfidInterface;
 
 @Controller
@@ -75,7 +76,8 @@ public class MonController {
 		rfidInterface.setCurrentCard(idRFID);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("pageDeSaisieAutomatique");			// il faut rester dans la meme page jsp apres submit
-
+		mav.addObject("status", "EnCours");
+		
 		return mav;
 	}
 	
@@ -107,13 +109,28 @@ public class MonController {
 	@RequestMapping("/saisieAutomatique")
 	public ModelAndView appelPageSaisieAutomatique() {
 		
-		initialisationManuelleInterface.MakeTable(); // on créé dans la base de données une table contenant 
+		//initialisationManuelleInterface.MakeTable(); // on créé dans la base de données une table contenant 
 													// les cartes : color, value, rfid = null
-
+		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("pageDeSaisieAutomatique");			// affiche pageDeSaisieAutomatique.jsp
-
+		
 		return mav;
+		
 	}
+	
+	@RequestMapping("saisieAutomatique/quitService")
+	public ModelAndView quitterSaisieAutomatique() {
+		
+		//initialisationManuelleInterface.MakeTable(); // on créé dans la base de données une table contenant 
+													// les cartes : color, value, rfid = null
+		MyImplementation.pooling = false;
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("pageDeSaisieAutomatique");			// affiche pageDeSaisieAutomatique.jsp
+		
+		return mav;
+		
+	}
+	
 	
 }

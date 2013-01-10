@@ -10,7 +10,6 @@ public class GameStatus {
 
 	private long id;
 	private String idArecuperer;
-	
 
 	@Id
 	public long getId() {
@@ -32,6 +31,7 @@ public class GameStatus {
 	public void initializeIdArecuperer() {
 		this.idArecuperer = "nocard";
 	}
+
 
 	
 }
