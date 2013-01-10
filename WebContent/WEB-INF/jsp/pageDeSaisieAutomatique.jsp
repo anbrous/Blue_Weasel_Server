@@ -13,7 +13,7 @@
 </form>
 
 
-<form action="saisieAutomatique/sendCardId" method="POST">
+<form action="/Blue_Weasel_Server/game/saisieAutomatique/sendCard" method="POST">
 
 	<input type ="text" name="idRFID"/>
 	<input type="submit" name="submit" value="Cliquer ici pour envoyer une carte"/>

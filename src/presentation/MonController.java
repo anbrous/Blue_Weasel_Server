@@ -70,13 +70,12 @@ public class MonController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "saisieAutomatique/sendCardId", method = RequestMethod.POST) 
+	@RequestMapping(value = "saisieAutomatique/sendCard", method = RequestMethod.POST) 
 	public ModelAndView sendApplication(@RequestParam("idRFID") String idRFID) {
 		rfidInterface.setCurrentCard(idRFID);
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("pageDeSaisieAutomatique");			// affiche pageDeSaisieAutomatique.jsp
-		mav.addObject("titre", "Message de réponse :");	// variable titre dans pageDeConfirmation.jsp
-		mav.addObject("message", "Entity créée !");		// variable message dans pageDeConfirmation.jsp
+		mav.setViewName("pageDeSaisieAutomatique");			// il faut rester dans la meme page jsp apres submit
+
 		return mav;
 	}
 	
