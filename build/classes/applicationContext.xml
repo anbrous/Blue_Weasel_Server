@@ -30,11 +30,17 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 	<bean id="myImplementation" class="application.MyImplementation">
 		<constructor-arg ref="entityManagerFactory"/>
 	</bean>
-	
+
+	<bean id="adminImplementation" class="application_admin.AdminImplementation">
+		<constructor-arg ref="entityManagerFactory"/>
+	</bean>	
 	<bean id="rmiService" class="org.springframework.remoting.rmi.RmiServiceExporter">
 		<property name="serviceName" value="MyImplementation"/>
+		<property name="adminServiceName" value="AdminImplementation"/>
 		<property name="service" ref="myImplementation"/>
+		<property name="adminservice" ref="adminImplementation"/>
 		<property name="serviceInterface" value="application.MonInterface"/>
+		<property name="adminInterface" value="application_admin.AdminInterface"/>
 		<!-- defaults to 1099 -->
 		<property name="registryPort" value="1199"/>
 	</bean>

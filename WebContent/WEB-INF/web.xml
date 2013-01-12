@@ -6,6 +6,7 @@
 		<param-name>contextConfigLocation</param-name>
     	<param-value>
     		WEB-INF/game-servlet.xml
+    		WEB-INF/admin-servlet.xml
     	</param-value>
 	</context-param>
 	
@@ -20,7 +21,18 @@
 	<servlet-name>game</servlet-name>
 	<url-pattern>/game/*</url-pattern>
   </servlet-mapping>
-
+	
+  <servlet>
+	<servlet-name>admin</servlet-name>
+	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	<load-on-startup>1</load-on-startup>
+  </servlet>
+  
+  <!-- http://localhost:8080/JPA_SpringWebMVC/game/... -->
+  <servlet-mapping>
+	<servlet-name>admin</servlet-name>
+	<url-pattern>/admin/*</url-pattern>
+  </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>

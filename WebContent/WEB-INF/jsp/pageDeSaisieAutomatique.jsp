@@ -20,7 +20,7 @@
 	<input type="submit" name="Launch" value="Lancer la lecture de carte automatique"/>
 </form>
 
-<form action="/Blue_Weasel_Server/game/saisieAutomatique/sendCard" method="POST">
+<form action="/Blue_Weasel_Server/admin/saisieAutomatique/sendCard" method="POST">
 
 	<input type ="text" name="idRFID"/>
 	<input type="submit" name="submit" value="Cliquer ici pour envoyer une carte"/>
@@ -30,7 +30,7 @@
 	if(status == "EnCours")// si le status est en cours, le bouton Stop apparait
 	{	
 %>
-		<form action="/Blue_Weasel_Server/game/saisieAutomatique/quitService" method=POST>
+		<form action="/Blue_Weasel_Server/admin/saisieAutomatique/quitService" method=POST>
 			<input type="submit" name="close" value="Arrêter la lecture de carte"/>
 		</form>
 <% 
