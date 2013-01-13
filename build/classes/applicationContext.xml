@@ -27,20 +27,20 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
         <property name="persistenceUnitName" value="manager1" />
 	</bean>
 
-	<bean id="myImplementation" class="application.MyImplementation">
+	<bean id="accountImplementation" class="view.AccountImplementation">
 		<constructor-arg ref="entityManagerFactory"/>
 	</bean>
 
-	<bean id="adminImplementation" class="application_admin.AdminImplementation">
+	<bean id="adminImplementation" class="view_admin.AdminImplementation">
 		<constructor-arg ref="entityManagerFactory"/>
 	</bean>	
 	<bean id="rmiService" class="org.springframework.remoting.rmi.RmiServiceExporter">
-		<property name="serviceName" value="MyImplementation"/>
+		<property name="serviceName" value="AccountImplementation"/>
 		<property name="adminServiceName" value="AdminImplementation"/>
-		<property name="service" ref="myImplementation"/>
+		<property name="service" ref="accountImplementation"/>
 		<property name="adminservice" ref="adminImplementation"/>
-		<property name="serviceInterface" value="application.MonInterface"/>
-		<property name="adminInterface" value="application_admin.AdminInterface"/>
+		<property name="serviceInterface" value="view.AccountInterface"/>
+		<property name="adminInterface" value="view_admin.AdminInterface"/>
 		<!-- defaults to 1099 -->
 		<property name="registryPort" value="1199"/>
 	</bean>

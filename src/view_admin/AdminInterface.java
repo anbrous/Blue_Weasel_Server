@@ -1,6 +1,6 @@
-package application;
+package view_admin;
 
-public interface MonInterface {
+public interface AdminInterface {
 
 	public void createEntity();
 	

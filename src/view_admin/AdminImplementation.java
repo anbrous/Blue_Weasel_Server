@@ -1,4 +1,4 @@
-package application_admin;
+package view_admin;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -8,13 +8,13 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 
-import metier.Card;
-import metier.Card.Color;
-import metier.Card.Value;
-import metier.Game;
-import metier.GameStatus;
-import metier.MonEntity;
-import metier.Player;
+import model.Card;
+import model.Game;
+import model.GameStatus;
+import model.MonEntity;
+import model.Player;
+import model.Card.Color;
+import model.Card.Value;
 
 public class AdminImplementation implements AdminRfidInterface, AdminInterface, AdminInitialisationManuelleInterface{
 

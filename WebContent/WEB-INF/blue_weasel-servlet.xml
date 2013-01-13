@@ -31,19 +31,13 @@ http://cxf.apache.org/schemas/jaxws.xsd">
 		</property>
 	</bean>
   
-	<bean id="appelServiceId" class="presentation.MonController">
-		<property name="monInterface">
-			<ref bean="myImplementation"/>
-		</property>
-		<property name="RfidInterface">
-			<ref bean="myImplementation"/>
-		</property>
-		<property name="InitialisationManuelleInterface">
-			<ref bean="myImplementation"/>
+	<bean id="appelServiceId" class="presenter.AccountController">
+		<property name="AccountInterface">
+			<ref bean="accountImplementation"/>
 		</property>
 	</bean>  
 	
-	<bean id="myImplementation" class="application.MyImplementation">
+	<bean id="accountImplementation" class="view.AccountImplementation">
 		<constructor-arg ref="entityManagerFactory"/>
 	</bean>
 		

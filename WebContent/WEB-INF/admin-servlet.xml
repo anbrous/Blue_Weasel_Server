@@ -31,7 +31,7 @@ http://cxf.apache.org/schemas/jaxws.xsd">
 		</property>
 	</bean>
   
-	<bean id="adminService" class="presentation_admin.AdminController">
+	<bean id="adminService" class="presenter_admin.AdminController">
 		<property name="AdminInterface">
 			<ref bean="adminImplementation"/>
 		</property>
@@ -43,7 +43,7 @@ http://cxf.apache.org/schemas/jaxws.xsd">
 		</property>
 	</bean>  
 	
-	<bean id="adminImplementation" class="application_admin.AdminImplementation">
+	<bean id="adminImplementation" class="view_admin.AdminImplementation">
 		<constructor-arg ref="entityManagerFactory"/>
 	</bean>
 		

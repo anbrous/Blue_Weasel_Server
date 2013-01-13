@@ -6,11 +6,11 @@
   <persistence-unit name="manager1" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <jta-data-source>java:/DefaultDS</jta-data-source>
-    <class>metier.MonEntity</class>
-    <class>metier.Card</class>
-    <class>metier.Game</class>
-    <class>metier.Player</class>
-    <class>metier.GameStatus</class>
+    <class>model.MonEntity</class>
+    <class>model.Card</class>
+    <class>model.Game</class>
+    <class>model.Player</class>
+    <class>model.GameStatus</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
     <property name="hibernate.connection.url" value="jdbc:hsqldb:hsql://localhost/"/>
@@ -40,7 +40,7 @@
       <provider>org.hibernate.ejb.HibernatePersistence</provider>
       <jta-data-source>java:/DefaultDS</jta-data-source>
      
-      <class>metier.MonEntity</class>
+      <class>model.MonEntity</class>
       <shared-cache-mode>NONE</shared-cache-mode>
       
       <validation-mode>CALLBACK</validation-mode>

@@ -1,4 +1,4 @@
-package application_admin;
+package view_admin;
 
 public interface AdminRfidInterface {
 	

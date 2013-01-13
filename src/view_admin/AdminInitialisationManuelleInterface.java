@@ -1,7 +1,7 @@
-package application_admin;
+package view_admin;
 
-import metier.Card.Color;
-import metier.Card.Value;
+import model.Card.Color;
+import model.Card.Value;
 
 public interface AdminInitialisationManuelleInterface {
 

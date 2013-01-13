@@ -1,10 +1,10 @@
-package presentation_admin;
+package presenter_admin;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import metier.Card.Color;
-import metier.Card.Value;
+import model.Card.Color;
+import model.Card.Value;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import view_admin.AdminImplementation;
+import view_admin.AdminInitialisationManuelleInterface;
+import view_admin.AdminInterface;
+import view_admin.AdminRfidInterface;
 
-import application_admin.AdminImplementation;
-import application_admin.AdminInitialisationManuelleInterface;
-import application_admin.AdminInterface;
-import application_admin.AdminRfidInterface;
+
 
 @Controller
 public class AdminController {
@@ -63,9 +64,9 @@ public class AdminController {
 	@RequestMapping("saisieAutomatique/appelService")
 	public ModelAndView appelApplication() {
 		
-		//monInterface.createEntity();					// appel à l'application
-		//monInterface.createGame();
-		//monInterface.createPlayer();
+		//accountInterface.createEntity();					// appel à l'view
+		//accountInterface.createGame();
+		//accountInterface.createPlayer();
 		adminInterface.cardsInitialisation();
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("pageDeConfirmation");			// affiche pageDeConfirmation.jsp
