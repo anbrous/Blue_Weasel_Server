@@ -93,7 +93,7 @@ public class AdminController {
 		return mav;
 	}
 	
-	@RequestMapping("/saisieManuelle")
+	@RequestMapping(value = "/saisieManuelle", method = RequestMethod.POST)
 	public ModelAndView appelPageSaisieManuelle(HttpSession session) {
 		if ( session.getAttribute("login") == null) {
 
@@ -104,7 +104,7 @@ public class AdminController {
 			return mav;
 		}
 		
-		adminInitialisationManuelleInterface.MakeTable(); // on créé dans la base de données une table contenant 
+		//adminInitialisationManuelleInterface.MakeTable(); // on créé dans la base de données une table contenant 
 													// les cartes : color, value, rfid = null
 
 		List<String> ListOfColor = new ArrayList<String>();
@@ -117,14 +117,28 @@ public class AdminController {
 			ListOfValue.add(value.toString());
 		}
 		
+
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("pageDeSaisieManuelle");			// affiche pageDeSaisieManuelle.jsp
 
 		mav.addObject("Colors", ListOfColor);
-		mav.addObject("Values", ListOfColor); // il faut les charger dans les combobox dans le fichier jsp
+		mav.addObject("Values", ListOfValue); // il faut les charger dans les combobox dans le fichier jsp
+		
 		
 		return mav;
 	}
+	
+	@RequestMapping("/saisieManuelle/validationSaisieManuelle")
+	public ModelAndView validationSaisieManuelle(HttpSession session, @RequestParam("ColorSelected") String colorSelected, @RequestParam("ValueSelected") String valueSelected) {
+	
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("pageValidationSaisieManuelle");
+		System.out.println("color selected:" +colorSelected);
+		System.out.println("value selected:"+valueSelected );
+		
+		return mav;
+	}
+	
 	
 	@RequestMapping("/saisieAutomatique")
 	public ModelAndView appelPageSaisieAutomatique(HttpSession session) {
