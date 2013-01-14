@@ -3,6 +3,9 @@ package presenter_admin;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import model.Card;
 import model.Card.Color;
 import model.Card.Value;
 
@@ -53,21 +56,18 @@ public class AdminController {
 		this.adminInitialisationManuelleInterface = adminInitialisationManuelleInterface;
 	}
 
-	/**
-	 * 	http://localhost:8080/JPA_SpringWebMVC/do/appelService
-	 * 	avec 	<servlet-mapping>
-	 * 				<servlet-name>do</servlet-name>
-	 * 				<url-pattern>/do/*</url-pattern>
-	 * 			</servlet-mapping>
-	 *  dans web.xml
-	 */
 	@RequestMapping("saisieAutomatique/appelService")
-	public ModelAndView appelApplication() {
-		
-		//accountInterface.createEntity();					// appel à l'view
-		//accountInterface.createGame();
-		//accountInterface.createPlayer();
-		adminInterface.cardsInitialisation();
+	public ModelAndView appelApplication(HttpSession session) {
+		if ( session.getAttribute("login") == null) {
+
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("pageDeConfirmation"); //jsp page
+			mav.addObject("titre", "Error");
+			mav.addObject("message", "You need to be logged to access this page, sorry <br> <a href='/Blue_Weasel_Server/connection.html'> connection</a>");
+			return mav;
+		}
+		String player = (String) session.getAttribute("login");
+		adminInterface.cardsInitialisation(player);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("pageDeConfirmation");			// affiche pageDeConfirmation.jsp
 		mav.addObject("titre", "Message de réponse :");	// variable titre dans pageDeConfirmation.jsp
@@ -76,7 +76,15 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "saisieAutomatique/sendCard", method = RequestMethod.POST) 
-	public ModelAndView sendApplication(@RequestParam("idRFID") String idRFID) {
+	public ModelAndView sendApplication(HttpSession session, @RequestParam("idRFID") String idRFID) {
+		if ( session.getAttribute("login") == null) {
+
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("pageDeConfirmation"); //jsp page
+			mav.addObject("titre", "Error");
+			mav.addObject("message", "You need to be logged to access this page, sorry <br> <a href='/Blue_Weasel_Server/connection.html'> connection</a>");
+			return mav;
+		}
 		adminRfidInterface.setCurrentCard(idRFID);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("pageDeSaisieAutomatique");			// il faut rester dans la meme page jsp apres submit
@@ -86,7 +94,15 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/saisieManuelle")
-	public ModelAndView appelPageSaisieManuelle() {
+	public ModelAndView appelPageSaisieManuelle(HttpSession session) {
+		if ( session.getAttribute("login") == null) {
+
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("pageDeConfirmation"); //jsp page
+			mav.addObject("titre", "Error");
+			mav.addObject("message", "You need to be logged to access this page, sorry <br> <a href='/Blue_Weasel_Server/connection.html'> connection</a>");
+			return mav;
+		}
 		
 		adminInitialisationManuelleInterface.MakeTable(); // on créé dans la base de données une table contenant 
 													// les cartes : color, value, rfid = null
@@ -111,8 +127,15 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/saisieAutomatique")
-	public ModelAndView appelPageSaisieAutomatique() {
-		
+	public ModelAndView appelPageSaisieAutomatique(HttpSession session) {
+		if ( session.getAttribute("login") == null) {
+
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("pageDeConfirmation"); //jsp page
+			mav.addObject("titre", "Error");
+			mav.addObject("message", "You need to be logged to access this page, sorry <br> <a href='/Blue_Weasel_Server/connection.html'> connection</a>");
+			return mav;
+		}
 		//initialisationManuelleInterface.MakeTable(); // on créé dans la base de données une table contenant 
 													// les cartes : color, value, rfid = null
 		
@@ -122,7 +145,34 @@ public class AdminController {
 		return mav;
 		
 	}
-	
+
+	@RequestMapping("showCards")
+	public ModelAndView showCards(HttpSession session) {
+		if ( session.getAttribute("login") == null) {
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("pageDeConfirmation"); //jsp page
+			mav.addObject("titre", "Error");
+			mav.addObject("message", "You need to be logged to access this page, sorry <br> <a href='/Blue_Weasel_Server/connection.html'> connection</a>");
+			return mav;
+		}
+		String player = (String) session.getAttribute("login");
+		String [][] cardslist = adminInterface.showCards(player);
+		/*
+		int v,c;
+		for(v=0;v<=13;v++){
+			for (c=0;c<=3;c++){
+				System.out.print(""+v+"-"+c+":"+cardslist[v][c]+"|" );
+			}
+			System.out.println("");
+		}
+		*/
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("showCards");			
+		mav.addObject("titre", "List of Scanned cards");			
+		mav.addObject("player", player);	
+		mav.addObject("cardslist", cardslist);		
+		return mav;
+	}
 	@RequestMapping("saisieAutomatique/quitService")
 	public ModelAndView quitterSaisieAutomatique() {
 		

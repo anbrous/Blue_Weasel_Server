@@ -10,19 +10,20 @@ public class Card {
 
 	private long id;
 	private String idRFID;
+	private String player;
 	public enum Value{Ace, King, Queen, Jack, Ten, Nine, Eight, Seven};
 	public enum Color{Spade, Heart, Club, Diamond};
 	
 	private Value value;
 	private Color color;
-	
 	public Card (){
 		
 	}
 	
-	public Card (String _idRFID, Value _value, Color _color){
+	public Card (String _idRFID, String player, Value _value, Color _color){
 		
 		this.idRFID = _idRFID;
+		this.player = player;
 		this.setValue(_value);
 		this.setColor(_color);
 	}
@@ -94,6 +95,40 @@ public class Card {
 			case "7" : return Value.Seven;
 		}
 		return Value.Ace;
+	}
+	// methods to retrieve values and colors into type int
+	
+	public int ValueToInt(){
+		String string_value = ""+ this.value;
+		switch (string_value){
+			case "Ace" : return 0; 		
+			case "King" : return 1; 
+			case "Queen" : return 2; 
+			case "Jack" : return 3; 
+			case "Ten" : return 4; 		
+			case "Nine" : return 5; 
+			case "Eight" : return 6; 
+			case "Seven" : return 7;
+		}
+		return (Integer) null;
+	}
+	
+	public int ColorToInt() {
+		String string_color = ""+ this.color;
+		switch (string_color){
+			case "Spade" : return 0; 		
+			case "Heart" : return 1;
+			case "Club" : return 2; 
+			case "Diamond" : return 3;
+		}
+		return (Integer) null;
+	}
+	public String getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(String player) {
+		this.player = player;
 	}
 	
 	

@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Welcome to Blue Weasel</h1>
-<h2>Sign In</h2>
+<h2>Log In</h2>
 <form action="bw/connection/" method="post">
 <input type="hidden" name="action" value="signin"/>
 <input type="hidden" name="nickname" value="anonymous"/>
@@ -22,6 +22,9 @@
 		<tr><td></td><td><input type="submit" name="signin" value="Connexion"></td></tr>
 	</table>
 </form>
+
+<h2>Log Out</h2>
+<input type="button" value="log out" onclick="javascript:window.location('bw/logout/')" />
 <h2>Sign Up</h2>
 
 <form action="bw/connection/" method="post">
@@ -42,5 +45,6 @@
 		<tr><td></td><td><input type="submit" name="signup" value="Register"></td></tr>
 	</table>
 </form>
+
 </body>
 </html>

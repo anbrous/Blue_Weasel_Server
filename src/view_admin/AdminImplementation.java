@@ -1,6 +1,7 @@
 package view_admin;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import javax.persistence.EntityManager;
@@ -58,7 +59,7 @@ public class AdminImplementation implements AdminRfidInterface, AdminInterface, 
 		tx.commit();
 	}
 				
-	public void cardsInitialisation(){
+	public void cardsInitialisation(String player){
 		pooling = true;
 		int i = 0;
 		ArrayList<String> cards = new ArrayList<>();
@@ -102,7 +103,7 @@ public class AdminImplementation implements AdminRfidInterface, AdminInterface, 
 				//Scanner scan = new Scanner(System.in);
 				//idArecuperer = scan.next();
 				//idArecuperer = ""+i;
-				Card card = new Card(idArecuperer, value, color);
+				Card card = new Card(idArecuperer, player, value, color);
 				EntityTransaction tx = entityManager.getTransaction();
 				tx.begin();
 				entityManager.merge(card);
@@ -150,6 +151,7 @@ public class AdminImplementation implements AdminRfidInterface, AdminInterface, 
 		return gameStatus.getIdArecuperer();
 	}
 	
+
 	public void MakeTable(){
 		
 		for(Value value : Value.values()){ // pour parcourir les enumerations
@@ -158,6 +160,7 @@ public class AdminImplementation implements AdminRfidInterface, AdminInterface, 
 				
 				Card card = new Card();
 				card.setIdRFID(null);
+				card.setPlayer("auto");
 				card.setColor(color);
 				card.setValue(value);
 				
@@ -175,6 +178,26 @@ public class AdminImplementation implements AdminRfidInterface, AdminInterface, 
 		
 		//em.createQuery( “SELECT c FROM Card c WHERE c.color LIKE :nomPersonne” ).setParameter(“nomPersonne”)
 	}
-	
-	
+
+	public String[][] showCards(String player) {
+
+		String[][] response = new String [14][4];
+		int c,v;
+		for (v = 0; v <= 13 ; v++){
+			for (c = 0; c <= 3 ; c++){
+				response[v][c] = "null";
+			}
+			
+		}
+		List<Card> cardslist2 = em.createQuery("SELECT c FROM Card c").getResultList();
+		for ( Card card : cardslist2) {
+			if ( card.getPlayer() != null){
+				if ( card.getPlayer().equals(player)){
+					response[card.ValueToInt()][card.ColorToInt()] = card.getIdRFID();
+				}
+			}
+		}
+		return response;
+	}
+
 }
