@@ -1,12 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
+<%@ page import="org.ajaxanywhere.AAUtils"%>
+<%@ page import="java.util.regex.Matcher"%>
+<%@ page import="java.util.regex.Pattern"%>
+<%@ taglib uri="http://ajaxanywhere.sourceforge.net/" prefix="aa" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+
+<%
+	Pattern EmailPattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" 
+	+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+
+%>
 </head>
 <body>
+
+<script src="aa/aa.js"></script><script>ajaxAnywhere.formName = "main";</script>
 
 <h1>Welcome to Blue Weasel</h1>
 <h2>Log In</h2>
@@ -31,7 +45,7 @@
 <input type="button" value="log out" onclick="javascript:window.location('bw/logout/')" />
 <h2>Sign Up</h2>
 
-<form action="bw/connection/" method="post">
+<form action="bw/connection/" method="post" name=main>
 <input type="hidden" name="action" value="signup"/>
 	<table>
 		<tr>
@@ -40,7 +54,23 @@
 		</tr>
 		<tr>
 			<td>Email Address:</td>
-			<td><input type="text" name="email"/></td>
+			<td><input type="text" name="email" onchange="ajaxAnywhere.submitAJAX();"/></td>
+			<aa:zone name="notificationError"> 
+				<% 
+				String test = "boris.esigetel@hotmail.fr";
+				
+				Matcher matcher = EmailPattern.matcher(test);
+				Boolean emailCorrect = matcher.matches();
+
+					if(!emailCorrect)
+					{
+				%>
+						Email not correct!
+				
+				<%		
+					}
+				%>
+			</aa:zone>
 		</tr>
 		<tr>
 			<td>Password</td>
@@ -51,8 +81,10 @@
 			<td><input type="password" name="password2"/></td>
 		</tr>
 		<tr><td></td><td><input type="submit" name="signup" value="Register"></td></tr>
+		
 	</table>
 </form>
+
 
 </body>
 </html>

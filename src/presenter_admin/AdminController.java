@@ -203,7 +203,6 @@ public class AdminController {
 		mav.setViewName("pageDeSaisieAutomatique");			// affiche pageDeSaisieAutomatique.jsp
 		
 		return mav;
-		
 	}
 	
 	
