@@ -68,31 +68,31 @@ public class Card {
 	}
 	
 	//méthode peut etre obsolète si on peut récupérer dans la base de données directement la valeur en enum
-	public Color StringColorToEnum(String color){ //color vaut entre 0 et 3 
+	public static Color StringColorToEnum(String color){ //color vaut entre 0 et 3 
 		
 		switch (color){
 		
-			case "0" : return Color.Spade; 		
-			case "1" : return Color.Heart; 
-			case "2" : return Color.Club; 
-			case "3" : return Color.Diamond; 
+			case "Spade" : return Color.Spade; 		
+			case "Heart" : return Color.Heart; 
+			case "Club" : return Color.Club; 
+			case "Diamond" : return Color.Diamond; 
 		}
 		return Color.Spade;
 	}
 	
 	//méthode peut etre obsolète si on peut récupérer dans la base de données directement la valeur en enum
-	public Value StringValueToEnum(String value){ //color vaut entre 0 et 7
+	public static Value StringValueToEnum(String value){ //color vaut entre 0 et 7
 		
 		switch (value){
 		
-			case "0" : return Value.Ace; 		
-			case "1" : return Value.King; 
-			case "2" : return Value.Queen; 
-			case "3" : return Value.Jack; 
-			case "4" : return Value.Ten; 		
-			case "5" : return Value.Nine; 
-			case "6" : return Value.Eight; 
-			case "7" : return Value.Seven;
+			case "Ace" : return Value.Ace; 		
+			case "King" : return Value.King; 
+			case "Queen" : return Value.Queen; 
+			case "Jack" : return Value.Jack; 
+			case "Ten" : return Value.Ten; 		
+			case "Nine" : return Value.Nine; 
+			case "Eight" : return Value.Eight; 
+			case "Seven" : return Value.Seven;
 		}
 		return Value.Ace;
 	}

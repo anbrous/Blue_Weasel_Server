@@ -8,6 +8,6 @@ public interface AccountInterface {
 	
 	public void createGame();
 	
-	public String connection( String action, String name, String email, String password);
+	public String connection( String action, String name, String email, String password, String password2);
 	
 }

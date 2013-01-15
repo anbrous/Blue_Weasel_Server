@@ -174,9 +174,19 @@ public class AdminImplementation implements AdminRfidInterface, AdminInterface, 
 				
 	}
 	
-	public void ManualCardConfiguration(Value value, Color color, String idRFID){ // requete SQL qui va modifier une carte dans la base de données
+	public void ManualCardConfiguration(Value value, Color color, String idRFID){ 
 		
-		//em.createQuery( “SELECT c FROM Card c WHERE c.color LIKE :nomPersonne” ).setParameter(“nomPersonne”)
+		Card card = new Card();
+		card.setIdRFID(idRFID);
+		card.setPlayer("auto");
+		card.setColor(color);
+		card.setValue(value);
+		
+		EntityTransaction tx = entityManager.getTransaction();
+		tx.begin();
+		entityManager.merge(card);
+		tx.commit();
+		
 	}
 
 	public String[][] showCards(String player) {

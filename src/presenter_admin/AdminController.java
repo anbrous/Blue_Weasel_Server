@@ -129,12 +129,18 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/saisieManuelle/validationSaisieManuelle")
-	public ModelAndView validationSaisieManuelle(HttpSession session, @RequestParam("ColorSelected") String colorSelected, @RequestParam("ValueSelected") String valueSelected) {
+	public ModelAndView validationSaisieManuelle(HttpSession session, @RequestParam("ColorSelected") String colorSelected, 
+			@RequestParam("ValueSelected") String valueSelected, @RequestParam("idRFID") String idRFID) {
 	
+		
+		adminInitialisationManuelleInterface.ManualCardConfiguration(Card.StringValueToEnum(valueSelected), Card.StringColorToEnum(colorSelected), idRFID);
+		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("pageValidationSaisieManuelle");
-		System.out.println("color selected:" +colorSelected);
+		
+		System.out.println("color selected:"+colorSelected);
 		System.out.println("value selected:"+valueSelected );
+		System.out.println("RFID scaned:"+idRFID );
 		
 		return mav;
 	}

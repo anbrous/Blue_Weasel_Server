@@ -16,8 +16,9 @@
 	Values = (ArrayList<String>) request.getAttribute("Values");
 %>
 
-<form action="/Blue_Weasel_Server/admin/saisieManuelle/validationSaisieManuelle" method="post">Select color:
-	<select name="ColorSelected" size="4">
+<form action="/Blue_Weasel_Server/admin/saisieManuelle/validationSaisieManuelle" method="post">
+Select color:
+	<select name="ColorSelected" size="1">
 <%
 	for(String color : Colors)
 	{
@@ -27,7 +28,7 @@
 	}
 %>
 	</select>
-
+<br/>
 Select value:
 	<select name="ValueSelected" size="1">
 <%
@@ -39,10 +40,11 @@ Select value:
 	}
 %>
 	</select>
-
-<%String colorSelected=(String)request.getAttribute("ColorSelected");out.println("couleur: "+ colorSelected);%>
-<%String valueSelected=(String)request.getAttribute("ValueSelected");out.println("value: "+ valueSelected);%>
-
+<br/>
+Scan a card:
+	<input type ="text" name="idRFID"/>
+(le taper pour l'instant)
+<br/>
 	<input type="submit" name="save" value="Save a card"/>
 </form>
 

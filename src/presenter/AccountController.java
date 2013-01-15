@@ -17,7 +17,6 @@ public class AccountController {
 	AccountInterface accountInterface;
 
 	
-	
 	public AccountInterface getAccountInterface() {
 		return accountInterface;
 	}
@@ -49,12 +48,14 @@ public class AccountController {
 		
 	}
 	@RequestMapping(value = "connection/", method = RequestMethod.POST) 
-	public ModelAndView sendApplication( HttpSession session, @RequestParam("action") String action , @RequestParam("nickname") String nickname , @RequestParam("bw_email") String email , @RequestParam("bw_pwd") String password ) {
-		String response = accountInterface.connection(action, nickname, email, password);
+	public ModelAndView sendApplication( HttpSession session, @RequestParam("action") String action , 
+			@RequestParam("username") String username , @RequestParam("email") String email ,
+			@RequestParam("password1") String password1, @RequestParam("password2") String password2 ) {
+		String response = accountInterface.connection(action, username, email, password1, password2);
 		ModelAndView mav = new ModelAndView();
 		if ( response == "signedin") {
 			// we use session variable to keep the user logged in
-			session.setAttribute("login", nickname);
+			session.setAttribute("login", username);
 			session.setAttribute("email", email);
 			//access to the page
 			mav.setViewName("pageDeConfirmation"); //jsp page
@@ -63,7 +64,7 @@ public class AccountController {
 		}
 		else if ( response == "registered") {
 			// we use session variable to keep the user logged in
-			session.setAttribute("login", nickname);
+			session.setAttribute("login", username);
 			session.setAttribute("email", email);
 			mav.setViewName("pageDeConfirmation"); //jsp page
 			mav.addObject("titre", "Signing Up");
