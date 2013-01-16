@@ -1,6 +1,10 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
+<%@ page import="org.ajaxanywhere.AAUtils"%>
+<%@ taglib uri="http://ajaxanywhere.sourceforge.net/" prefix="aa" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -15,6 +19,8 @@
 	ArrayList<String> Values = new ArrayList<String>();
 	Values = (ArrayList<String>) request.getAttribute("Values");
 %>
+
+<script src="aa/aa.js"></script><script>ajaxAnywhere.formName = "main";</script>
 
 <form action="/Blue_Weasel_Server/admin/saisieManuelle/validationSaisieManuelle" method="post">
 Select color:
@@ -46,6 +52,7 @@ Scan a card:
 (le taper pour l'instant)
 <br/>
 	<input type="submit" name="save" value="Save a card"/>
+
 </form>
 
 

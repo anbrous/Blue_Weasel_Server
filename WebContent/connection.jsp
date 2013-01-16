@@ -6,17 +6,24 @@
 <%@ page import="java.util.regex.Pattern"%>
 <%@ taglib uri="http://ajaxanywhere.sourceforge.net/" prefix="aa" %>
 
+<%
+if (AAUtils.isAjaxRequest(request)){
+    AAUtils.addZonesToRefresh(request, "notificationError");
+}
+%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 
+
 <%
 	Pattern EmailPattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" 
 	+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
-
 %>
+
 </head>
 <body>
 
@@ -45,7 +52,7 @@
 <input type="button" value="log out" onclick="javascript:window.location('bw/logout/')" />
 <h2>Sign Up</h2>
 
-<form method="post" name=main>
+<form action="bw/connection/" method="post" name="main">
 <input type="hidden" name="action" value="signup"/>
 	<table>
 		<tr>
@@ -54,7 +61,7 @@
 		</tr>
 		<tr>
 			<td>Email Address:</td>
-			<td><input type="text" name="email" onchange="ajaxAnywhere.submitAJAX()"/></td>
+			<td><input type="text" name="email" onkeyup="ajaxAnywhere.submitAJAX();" onkeydown="ajaxAnywhere.submitAJAX();"/></td>
 			<td>
 			<aa:zone name="notificationError"> 
 				<% 
@@ -86,8 +93,8 @@
 		<tr><td></td><td><input type="submit" name="signup" value="Register"></td></tr>
 		
 	</table>
+	
 </form>
-
 
 </body>
 </html>

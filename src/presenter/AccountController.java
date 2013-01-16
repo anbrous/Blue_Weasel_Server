@@ -2,7 +2,6 @@ package presenter;
 
 import javax.servlet.http.HttpSession;
 
-import org.ajaxanywhere.AAUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -54,10 +53,6 @@ public class AccountController {
 			@RequestParam("password1") String password1, @RequestParam("password2") String password2 ) {
 		
 		 
-//		if (AAUtils.isAjaxRequest(request)){
-//	        AAUtils.addZones(request, "countriesList");
-//	    }
-		
 		String response = accountInterface.connection(action, username, email, password1, password2);
 		ModelAndView mav = new ModelAndView();
 		if ( response == "signedin") {
