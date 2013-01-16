@@ -6,18 +6,20 @@
 <%@ page import="java.util.regex.Pattern"%>
 <%@ taglib uri="http://ajaxanywhere.sourceforge.net/" prefix="aa" %>
 
-<%
-if (AAUtils.isAjaxRequest(request)){
-    AAUtils.addZonesToRefresh(request, "notificationError");
-}
-%>
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"> 
 <title>Insert title here</title>
 
+<%
+if (AAUtils.isAjaxRequest(request)){
+    AAUtils.addZonesToRefresh(request, "notificationError");
+}
+
+%>
 
 <%
 	Pattern EmailPattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" 
@@ -27,7 +29,7 @@ if (AAUtils.isAjaxRequest(request)){
 </head>
 <body>
 
-<script src="aa/aa.js"></script><script>ajaxAnywhere.formName = "main";</script>
+<script type="text/javascript" src="aa.js"></script><script type="text/javascript">ajaxAnywhere.formName = "main";</script>
 
 <h1>Welcome to Blue Weasel</h1>
 <h2>Log In</h2>
@@ -52,7 +54,7 @@ if (AAUtils.isAjaxRequest(request)){
 <input type="button" value="log out" onclick="javascript:window.location('bw/logout/')" />
 <h2>Sign Up</h2>
 
-<form action="bw/connection/" method="post" name="main">
+<form action="bw/connection/" method="post" name=main>
 <input type="hidden" name="action" value="signup"/>
 	<table>
 		<tr>
@@ -61,12 +63,12 @@ if (AAUtils.isAjaxRequest(request)){
 		</tr>
 		<tr>
 			<td>Email Address:</td>
-			<td><input type="text" name="email" onkeyup="ajaxAnywhere.submitAJAX();" onkeydown="ajaxAnywhere.submitAJAX();"/></td>
+			<td><input type="text" name="email" onkeypress="ajaxAnywhere.submitAJAX();" /></td>
 			<td>
 			<aa:zone name="notificationError"> 
 				<% 
 				Boolean emailCorrect = true;
-				String test = request.getParameter("email");;
+				String test = request.getParameter("email");
 				if(test != null)
 				{
 					Matcher matcher = EmailPattern.matcher(test);

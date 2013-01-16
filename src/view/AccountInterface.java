@@ -10,4 +10,5 @@ public interface AccountInterface {
 	
 	public String connection( String action, String name, String email, String password, String password2);
 	
+	
 }

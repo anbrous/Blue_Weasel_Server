@@ -20,8 +20,6 @@
 	Values = (ArrayList<String>) request.getAttribute("Values");
 %>
 
-<script src="aa/aa.js"></script><script>ajaxAnywhere.formName = "main";</script>
-
 <form action="/Blue_Weasel_Server/admin/saisieManuelle/validationSaisieManuelle" method="post">
 Select color:
 	<select name="ColorSelected" size="1">
