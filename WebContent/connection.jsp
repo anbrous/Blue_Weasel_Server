@@ -45,7 +45,7 @@
 <input type="button" value="log out" onclick="javascript:window.location('bw/logout/')" />
 <h2>Sign Up</h2>
 
-<form action="bw/connection/" method="post" name=main>
+<form method="post" name=main>
 <input type="hidden" name="action" value="signup"/>
 	<table>
 		<tr>
@@ -54,23 +54,26 @@
 		</tr>
 		<tr>
 			<td>Email Address:</td>
-			<td><input type="text" name="email" onchange="ajaxAnywhere.submitAJAX();"/></td>
+			<td><input type="text" name="email" onchange="ajaxAnywhere.submitAJAX()"/></td>
+			<td>
 			<aa:zone name="notificationError"> 
 				<% 
-				String test = "boris.esigetel@hotmail.fr";
-				
-				Matcher matcher = EmailPattern.matcher(test);
-				Boolean emailCorrect = matcher.matches();
-
+				Boolean emailCorrect = true;
+				String test = request.getParameter("email");;
+				if(test != null)
+				{
+					Matcher matcher = EmailPattern.matcher(test);
+					emailCorrect = matcher.matches();
+				}
 					if(!emailCorrect)
 					{
 				%>
-						Email not correct!
-				
+						<font color="red">Email not correct! </font>
 				<%		
 					}
 				%>
 			</aa:zone>
+			</td>
 		</tr>
 		<tr>
 			<td>Password</td>
