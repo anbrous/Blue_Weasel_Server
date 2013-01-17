@@ -33,7 +33,7 @@ if (AAUtils.isAjaxRequest(request)){
 
 <h1>Welcome to Blue Weasel</h1>
 <h2>Log In</h2>
-<form action="bw/connection/" method="post">
+<form action="bw/connection/" method="post" name=main>
 <input type="hidden" name="action" value="signin"/>
 <input type="hidden" name="username" value="anonymous"/>
 <input type="hidden" name="password2" value="anypwd"/>
@@ -64,8 +64,7 @@ if (AAUtils.isAjaxRequest(request)){
 		<tr>
 			<td>Email Address:</td>
 			<td><input type="text" name="email" onkeypress="ajaxAnywhere.submitAJAX();" /></td>
-			<td>
-			<aa:zone name="notificationError"> 
+			
 				<% 
 				Boolean emailCorrect = true;
 				String test = request.getParameter("email");
@@ -77,12 +76,15 @@ if (AAUtils.isAjaxRequest(request)){
 					if(!emailCorrect)
 					{
 				%>
+				<td>
+					<aa:zone name="notificationError"> 
 						<font color="red">Email not correct! </font>
+					</aa:zone>
+				</td>
 				<%		
 					}
 				%>
-			</aa:zone>
-			</td>
+			
 		</tr>
 		<tr>
 			<td>Password</td>

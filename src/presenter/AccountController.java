@@ -52,6 +52,10 @@ public class AccountController {
 			@RequestParam("username") String username , @RequestParam("email") String email ,
 			@RequestParam("password1") String password1, @RequestParam("password2") String password2 ) {
 		
+		 System.out.println("bastien rentre:");
+		 System.out.println("username "+username);
+		 System.out.println("email: "+email);
+		 System.out.println("password1: "+password1);
 		 
 		String response = accountInterface.connection(action, username, email, password1, password2);
 		ModelAndView mav = new ModelAndView();

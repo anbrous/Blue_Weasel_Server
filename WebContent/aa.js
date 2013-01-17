@@ -47,7 +47,7 @@ AjaxAnywhere.prototype.findForm = function () {
     if (typeof form != "object")
         alert("AjaxAnywhere error: Form with name [" + this.formName + "] not found");
     return form;
-};
+}
 
 
 /**
@@ -56,7 +56,7 @@ AjaxAnywhere.prototype.findForm = function () {
 AjaxAnywhere.prototype.bindById = function () {
     var key = "AjaxAnywhere." + this.id;
     window[key] = this;
-};
+}
 
 /**
 * Finds an instance by id.
@@ -64,7 +64,7 @@ AjaxAnywhere.prototype.bindById = function () {
 AjaxAnywhere.findInstance = function(id) {
     var key = "AjaxAnywhere." + id;
     return window[key];
-};
+}
 
 /**
 * This function is used to submit all form fields by AJAX request to the server.
@@ -118,7 +118,7 @@ AjaxAnywhere.prototype.submitAJAX = function(additionalPostData, submitButton) {
 
     this.sendPreparedRequest(postData);
 
-};
+}
 /**
 * sends a GET request to the server.
 */
@@ -152,7 +152,7 @@ AjaxAnywhere.prototype.getAJAX = function(url, zonesToRefresh) {
     this.req.open("GET", url, true);
 
     this.sendPreparedRequest("");
-};
+}
 
 /**
 * @private
@@ -170,7 +170,7 @@ AjaxAnywhere.prototype.sendPreparedRequest = function (postData) {
     this.req.send(postData);
 
     this.onRequestSent();
-};
+}
 /**
 * Used internally by AjaxAnywhere. Aborts previous request if not completed.
 */
@@ -180,7 +180,7 @@ AjaxAnywhere.prototype.dropPreviousRequest = function() {
         this.req.abort();
         this.handlePrevousRequestAborted();
     }
-};
+}
 
 /**
 * Internally used to prepare Post data.
@@ -219,7 +219,7 @@ AjaxAnywhere.prototype.preparePostData = function(submitButton) {
                       encodeURIComponent(submitButton.name) + ".y=1";
     }
     return result;
-};
+}
 
 /**
 * Pauses the thread of execution for the specified number of milliseconds
@@ -351,7 +351,7 @@ AjaxAnywhere.prototype.callback = function() {
     }
 
 
-};
+}
 
 /**
 *  Default sample loading message show function. Overrride it if you like.
@@ -380,7 +380,7 @@ AjaxAnywhere.prototype.showLoadingMessage = function() {
     div.style.left = (document.body.offsetWidth - 100 - (document.all?20:0)) + "px";
 
     div.style.display = "";
-};
+}
 
 /**
 *  Default sample loading message hide function. Overrride it if you like.
@@ -390,7 +390,7 @@ AjaxAnywhere.prototype.hideLoadingMessage = function() {
     if (div != null)
         div.style.display = "none";
 
-};
+}
 
 /**
 * This function is used to facilitatte AjaxAnywhere integration with existing projects/frameworks.
@@ -414,7 +414,7 @@ AjaxAnywhere.prototype.substituteFormSubmitFunction = function() {
                "ajax.submitAJAX();";
     form.submit = new Function(code);
 
-};
+}
 /**
 * Substitutes the default behavior of &lt;input type=submit|image&gt; to submit the form via AjaxAnywhere.
 *
@@ -472,7 +472,7 @@ AjaxAnywhere.prototype.substituteSubmitButtonsBehavior = function (keepExistingO
         }
     }
 
-};
+}
 /**
 * Performs a single element behavior substitution
 *
@@ -499,7 +499,7 @@ AjaxAnywhere.prototype.substituteSubmitBehavior = function (el, keepExistingOnCl
 
     el.onclick = handleSubmitButtonClick;
     el.ajaxAnywhereId = this.id;
-};
+}
 
 /**
 *
@@ -538,7 +538,7 @@ AjaxAnywhere.prototype.restoreSubstitutedSubmitButtons = function() {
             }
         }
     }
-};
+}
 
 /**
 * @private
@@ -570,7 +570,7 @@ function handleSubmitButtonClick(_event) {
 */
 AjaxAnywhere.prototype.isFormSubmitByAjax = function () {
     return true;
-};
+}
 
 /**
 * Some browsers (notably IE) do not load images from thier cache when content is updated using
@@ -583,14 +583,14 @@ AjaxAnywhere.prototype.isFormSubmitByAjax = function () {
 */
 AjaxAnywhere.prototype.setDelayBeforeLoad = function (isDelay) {
     this.delayBeforeContentUpdate = isDelay;
-};
+}
 
 /**
 * Returns the current delay behavior.
 */
 AjaxAnywhere.prototype.isDelayBeforeLoad = function () {
     return this.delayBeforeContentUpdate;
-};
+}
 
 /**
 * Sets the delay period in milliseconds. The default delay is 100 milliseconds.
@@ -598,14 +598,14 @@ AjaxAnywhere.prototype.isDelayBeforeLoad = function () {
 */
 AjaxAnywhere.prototype.setDelayTime = function (delayMillis) {
     this.delayInMillis = delayMillis;
-};
+}
 
 /**
 * Returns the delay period in milliseconds.
 */
 AjaxAnywhere.prototype.getDelayTime = function () {
     return this.delayInMillis;
-};
+}
 
 /**
 *   If an exception is throws on the server-side during AJAX request, it will be processed
@@ -614,7 +614,7 @@ AjaxAnywhere.prototype.getDelayTime = function () {
 */
 AjaxAnywhere.prototype.handleException = function(type, details) {
     alert(details);
-};
+}
 /**
 *   If an HTTP Error code returned during AJAX request, it will be processed
 * by this function. The default implementation is alert(code);
@@ -632,14 +632,14 @@ AjaxAnywhere.prototype.handleHttpErrorCode = function(code) {
             alert("Please, disable your pop-up blocker for this site first.");
         }
     }
-};
+}
 
 /**
 * Override it if you need.
 */
 AjaxAnywhere.prototype.handlePrevousRequestAborted = function() {
     alert("AjaxAnywhere default error handler. INFO: previous AJAX request dropped");
-};
+}
 
 
 /**
@@ -649,7 +649,7 @@ AjaxAnywhere.prototype.handlePrevousRequestAborted = function() {
 */
 AjaxAnywhere.prototype.getGlobalScriptsDeclarationsList = function(script) {
     return null;
-};
+}
 
 /**
 * This function should be overridden by AjaxAnywhere user to implement client-side
@@ -664,29 +664,29 @@ AjaxAnywhere.prototype.getGlobalScriptsDeclarationsList = function(script) {
 AjaxAnywhere.prototype.getZonesToReload = function(url, submitButton) {
     return this.getZonesToReaload();
     // backward compatibility only
-};
+}
 /**
 * depreceted : wrond spelling : Reaload will be removed in later versions
 */
 AjaxAnywhere.prototype.getZonesToReaload = function(url, submitButton) {
     return "";
-};
+}
 
 /**
 * Override this method to implement a custom action
 */
 AjaxAnywhere.prototype.onRequestSent = function () {
-};
+}
 /**
 * Override this method to implement a custom action
 */
 AjaxAnywhere.prototype.onBeforeResponseProcessing = function () {
-};
+}
 /**
 * Override this method to implement a custom action
 */
 AjaxAnywhere.prototype.onAfterResponseProcessing = function () {
-};
+}
 
 /**
 * Provides a default implementation from graceful degradation for getAJAX()
@@ -695,7 +695,7 @@ AjaxAnywhere.prototype.onAfterResponseProcessing = function () {
 AjaxAnywhere.prototype.onGetAjaxNotSupported = function (url) {
     location.href = url;
     return false;
-};
+}
 
 /**
 * Provides a default implementation from graceful degradation for submitAJAX()
@@ -720,7 +720,7 @@ AjaxAnywhere.prototype.onSubmitAjaxNotSupported = function (additionalPostData, 
 
     form.attributes["action"].nodeValue= url_backup;
     return false;
-};
+}
 /**
 * submit the form in tradiditional way :
 * @private
@@ -745,7 +745,7 @@ AjaxAnywhere.prototype.submitOld = function (form,submitButton){
     if (submitButton!=null ){
         form.removeChild(submitHolder);
     }
-};
+}
 
 // default instance.
 ajaxAnywhere = new AjaxAnywhere();
