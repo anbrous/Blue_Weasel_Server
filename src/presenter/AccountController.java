@@ -93,43 +93,55 @@ public class AccountController {
 	
 	@RequestMapping(value = "checkEmail/", method = RequestMethod.POST)
 	public ModelAndView checkEmail(HttpServletRequest req, HttpServletResponse resp) {
-
+		String action = req.getParameter("action");
 		String w = req.getParameter("email");
-		//String pwd1 = req.getParameter("pwd1");
-		//String pwd2 = req.getParameter("pwd2");
+		String pwd1 = req.getParameter("password1");
+		String pwd2 = req.getParameter("password2");
+		
 		Pattern EmailPattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" 
 				+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
 
 				String msg = "";
+		if(action.equals("email"))
+		{
+			Boolean emailCorrect = false;
+			if(w != null)
+			{
+				Matcher matcher = EmailPattern.matcher(w);
+				emailCorrect = matcher.matches();
+			}
 
-				Boolean emailCorrect = false;
-				if(w != null)
-				{
-					Matcher matcher = EmailPattern.matcher(w);
-					emailCorrect = matcher.matches();
-				}
-
-				if(w == "")
-				{
-					msg = "";
-				}
-				else if(!emailCorrect)
-				{
-					msg = "Email not correct...";
+			if(w == "")
+			{
+				msg = "";
+			}
+			else if(!emailCorrect)
+			{
+				msg = "<font color = 'red'>Wrong email</font>";
+			}
+			else
+			{
+				msg = "<font color = 'green'>Correct email!</font>";
+			}
+		
+		}
+		else if (action.equals("password1")||action.equals("password2"))
+		{
+			if(pwd2 != null && !pwd2.equals("")) {
+				if(!pwd1.equals(pwd2)){
+					msg = "<font color = 'red'>2nd Password mismatches the 1st one!</font>";
 				}
 				else
-				{
-					msg = "Email correct!";
-				}
-		
+					msg = "<font color = 'green'>Correct password</font>";
+					
+				
+			}
+			else
+				msg = "";
+		}
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("testEmail"); //jsp page
 		mav.addObject("message", msg);
-		
-		/*if(!pwd2.equals("")) {
-			
-		}
-		*/
 		return mav;
 	}
 

@@ -60,7 +60,7 @@ function xmlhttpPost(strURL ,formName, paramValue, resultID) {
 			updatepage(self.xmlHttpReq.responseText, resultID);
 		}
 	}
-	self.xmlHttpReq.send(getquerystring(formName, paramValue, paramValue));
+	self.xmlHttpReq.send(getquerystring(formName, paramValue));
 }
 
 function xmlhttpPost2(strURL ,formName, paramValue1, paramValue2, resultID) {
@@ -81,16 +81,14 @@ function xmlhttpPost2(strURL ,formName, paramValue1, paramValue2, resultID) {
 			updatepage(self.xmlHttpReq.responseText, resultID);
 		}
 	}
-	alert(getquerystring(formName, paramValue1)+"&"+getquerystring(formName, paramValue2));
+	/*alert(getquerystring(formName, paramValue1)+"&"+getquerystring(formName, paramValue2));*/
 	self.xmlHttpReq.send(getquerystring(formName, paramValue1)+"&"+getquerystring(formName, paramValue2));
 }
-function getquerystring(formName, boxName, paramValue) {
-	/* var form = document.forms[formName];// utilise le nom du formulaire */
-	var emailbox = document.getElementById(boxName);
-	var word = emailbox.value;// utilise le nom de l'input text
-	alert('value: '+word);
-	qstr = paramValue+"="+ escape(word); // NOTE: no '?' before querystring 
-								// la valeur saisie sera récupérable avec "req.getParameter("w");"
+function getquerystring(formName, paramValue) {
+    var form = document.forms[formName];// utilise le nom du formulaire */
+	var word = form.elements[paramValue].value;  // utilise le nom de l'input text
+	qstr = "action="+paramValue+"&"+paramValue+"="+ escape(word); // NOTE: no '?' before querystring 
+								// la valeur saisie sera récupérable avec "req.getParameter("paramValue");"
 	return qstr;
 }
 
@@ -108,7 +106,7 @@ function updatepage(str, resultID){
 		</tr>
 		<tr>
 			<td>Email Address:</td>
-			<td><input type="text" id="email" name="email" onkeyup='JavaScript:xmlhttpPost("bw/checkEmail/", "f1", "email", "email_info");'/></td>
+			<td><input type="text" value="" id="email" name="email" onkeyup='JavaScript:xmlhttpPost("bw/checkEmail/", "f1", "email", "email_info");'/></td>
 			<td><div id="email_info"></div></td>
 		</tr>
 		<tr>
@@ -117,7 +115,7 @@ function updatepage(str, resultID){
 		</tr>
 		<tr>
 			<td>Password2</td>
-			<td><input type="password" name="password2" onkeyup='JavaScript:xmlhttpPost2("bw/checkEmail/", "f1", "pwd1","pwd2", "pwd_info");'/></td>	
+			<td><input type="password" name="password2" onkeyup='JavaScript:xmlhttpPost2("bw/checkEmail/", "f1", "password1","password2", "pwd_info");'/></td>	
 			<td><div id="pwd_info"></div></td>
 		</tr>
 		<tr><td></td><td><input type="submit" name="signup" value="Register"></td></tr>
