@@ -1,5 +1,10 @@
 package presenter;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -83,6 +88,48 @@ public class AccountController {
 			mav.addObject("message", response);
 			
 		}
+		return mav;
+	}
+	
+	@RequestMapping(value = "checkEmail/", method = RequestMethod.POST)
+	public ModelAndView checkEmail(HttpServletRequest req, HttpServletResponse resp) {
+
+		String w = req.getParameter("email");
+		//String pwd1 = req.getParameter("pwd1");
+		//String pwd2 = req.getParameter("pwd2");
+		Pattern EmailPattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" 
+				+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+
+				String msg = "";
+
+				Boolean emailCorrect = false;
+				if(w != null)
+				{
+					Matcher matcher = EmailPattern.matcher(w);
+					emailCorrect = matcher.matches();
+				}
+
+				if(w == "")
+				{
+					msg = "";
+				}
+				else if(!emailCorrect)
+				{
+					msg = "Email not correct...";
+				}
+				else
+				{
+					msg = "Email correct!";
+				}
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("testEmail"); //jsp page
+		mav.addObject("message", msg);
+		
+		/*if(!pwd2.equals("")) {
+			
+		}
+		*/
 		return mav;
 	}
 

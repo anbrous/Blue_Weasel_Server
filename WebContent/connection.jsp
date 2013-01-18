@@ -42,44 +42,62 @@
 <h2>Sign Up</h2>
 
 <script language="Javascript">
-function xmlhttpPost(strURL) {
-var xmlHttpReq = false;
-var self = this;
-// Mozilla/Safari
-if (window.XMLHttpRequest) {
-self.xmlHttpReq = new XMLHttpRequest();
-}
-// IE
-else if (window.ActiveXObject) {
-self.xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
-}
-self.xmlHttpReq.open('POST', strURL, true);
-self.xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-self.xmlHttpReq.onreadystatechange = function() {
-if (self.xmlHttpReq.readyState == 4) {
-updatepage(self.xmlHttpReq.responseText);
-}
-}
-self.xmlHttpReq.send(getquerystring());
-}
-
-function getquerystring() {
-var form = document.forms['f1'];
-var word = form.word.value;
-qstr = 'w=' + escape(word); // NOTE: no '?' before querystring
-return qstr;
+function xmlhttpPost(strURL ,formName, paramValue, resultID) {
+	var xmlHttpReq = false;
+	var self = this;
+	// Mozilla/Safari
+	if (window.XMLHttpRequest) {
+		self.xmlHttpReq = new XMLHttpRequest();
+	}
+	// IE
+	else if (window.ActiveXObject) {
+		self.xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	self.xmlHttpReq.open('POST', strURL, true);
+	self.xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	self.xmlHttpReq.onreadystatechange = function() {
+		if (self.xmlHttpReq.readyState == 4) {
+			updatepage(self.xmlHttpReq.responseText, resultID);
+		}
+	}
+	self.xmlHttpReq.send(getquerystring(formName, paramValue, paramValue));
 }
 
-function updatepage(str){
-document.getElementById("result").innerHTML = str;
+function xmlhttpPost2(strURL ,formName, paramValue1, paramValue2, resultID) {
+	var xmlHttpReq = false;
+	var self = this;
+	// Mozilla/Safari
+	if (window.XMLHttpRequest) {
+		self.xmlHttpReq = new XMLHttpRequest();
+	}
+	// IE
+	else if (window.ActiveXObject) {
+		self.xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	self.xmlHttpReq.open('POST', strURL, true);
+	self.xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	self.xmlHttpReq.onreadystatechange = function() {
+		if (self.xmlHttpReq.readyState == 4) {
+			updatepage(self.xmlHttpReq.responseText, resultID);
+		}
+	}
+	alert(getquerystring(formName, paramValue1)+"&"+getquerystring(formName, paramValue2));
+	self.xmlHttpReq.send(getquerystring(formName, paramValue1)+"&"+getquerystring(formName, paramValue2));
+}
+function getquerystring(formName, boxName, paramValue) {
+	/* var form = document.forms[formName];// utilise le nom du formulaire */
+	var emailbox = document.getElementById(boxName);
+	var word = emailbox.value;// utilise le nom de l'input text
+	alert('value: '+word);
+	qstr = paramValue+"="+ escape(word); // NOTE: no '?' before querystring 
+								// la valeur saisie sera récupérable avec "req.getParameter("w");"
+	return qstr;
+}
+
+function updatepage(str, resultID){
+	document.getElementById(resultID).innerHTML = str;
 }
 </script>
-
-<form name="changef1">
-<p>Your name: <input name="word" type="text">
-<input value="Go" type="button" onclick='JavaScript:xmlhttpPost("hello.jsp")'></p>
-<div id="result"></div>
-</form>
 
 <form action="bw/connection/" method="post" name="f1">
 <input type="hidden" name="action" value="signup"/>
@@ -90,27 +108,8 @@ document.getElementById("result").innerHTML = str;
 		</tr>
 		<tr>
 			<td>Email Address:</td>
-			<td><input type="text" name="email" onkeypress='JavaScript:xmlhttpPost("hello.jsp")'/></td>
-			
-				<% 
-				Boolean emailCorrect = true;
-				String test = request.getParameter("email");
-				if(test != null)
-				{
-					Matcher matcher = EmailPattern.matcher(test);
-					emailCorrect = matcher.matches();
-				}
-					if(!emailCorrect)
-					{
-				%>
-				<td>
-						<font color="red">Email not correct! </font>
-						<div id="result"></div>
-				</td>
-				<%		
-					}
-				%>
-			
+			<td><input type="text" id="email" name="email" onkeyup='JavaScript:xmlhttpPost("bw/checkEmail/", "f1", "email", "email_info");'/></td>
+			<td><div id="email_info"></div></td>
 		</tr>
 		<tr>
 			<td>Password</td>
@@ -118,7 +117,8 @@ document.getElementById("result").innerHTML = str;
 		</tr>
 		<tr>
 			<td>Password2</td>
-			<td><input type="password" name="password2"/></td>
+			<td><input type="password" name="password2" onkeyup='JavaScript:xmlhttpPost2("bw/checkEmail/", "f1", "pwd1","pwd2", "pwd_info");'/></td>	
+			<td><div id="pwd_info"></div></td>
 		</tr>
 		<tr><td></td><td><input type="submit" name="signup" value="Register"></td></tr>
 		
