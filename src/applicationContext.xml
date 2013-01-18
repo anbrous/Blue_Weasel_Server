@@ -34,13 +34,21 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 	<bean id="adminImplementation" class="view_admin.AdminImplementation">
 		<constructor-arg ref="entityManagerFactory"/>
 	</bean>	
+	
+	<bean id="belotImplementation" class="view_belot.BelotImplementation">
+		<constructor-arg ref="entityManagerFactory"/>
+	</bean>	
+	
 	<bean id="rmiService" class="org.springframework.remoting.rmi.RmiServiceExporter">
 		<property name="serviceName" value="AccountImplementation"/>
 		<property name="adminServiceName" value="AdminImplementation"/>
+		<property name="belotServiceName" value="BelotImplementation"/>
 		<property name="service" ref="accountImplementation"/>
 		<property name="adminservice" ref="adminImplementation"/>
+		<property name="belotservice" ref="belotImplementation"/>
 		<property name="serviceInterface" value="view.AccountInterface"/>
 		<property name="adminInterface" value="view_admin.AdminInterface"/>
+		<property name="belotInterface" value="view_belot.BelotInterface"/>
 		<!-- defaults to 1099 -->
 		<property name="registryPort" value="1199"/>
 	</bean>

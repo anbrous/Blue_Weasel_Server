@@ -7,6 +7,7 @@
     	<param-value>
     		WEB-INF/blue_weasel-servlet.xml
     		WEB-INF/admin-servlet.xml
+    		WEB-INF/belot_game-servlet.xml
     	</param-value>
 	</context-param>
 	
@@ -33,6 +34,20 @@
 	<servlet-name>admin</servlet-name>
 	<url-pattern>/admin/*</url-pattern>
   </servlet-mapping>
+  
+    <servlet>
+	<servlet-name>belot_game</servlet-name>
+	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	<load-on-startup>1</load-on-startup>
+  </servlet>
+  
+  <!-- http://localhost:8080/JPA_SpringWebMVC/game/... -->
+  <servlet-mapping>
+	<servlet-name>belot_game</servlet-name>
+	<url-pattern>/belot/*</url-pattern>
+  </servlet-mapping>
+  
+  
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
