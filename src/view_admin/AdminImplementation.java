@@ -2,7 +2,6 @@ package view_admin;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -13,7 +12,7 @@ import model.Card;
 import model.Game;
 import model.GameStatus;
 import model.MonEntity;
-import model.Player;
+import model.Member;
 import model.Card.Color;
 import model.Card.Value;
 
@@ -40,14 +39,14 @@ public class AdminImplementation implements AdminRfidInterface, AdminInterface, 
 		tx.commit();
 	}
 		
-	public void createPlayer() {
-		Player player = new Player();
-		player.setEmail("beau_le_bobo");
-		player.setName("Bobo");
-		player.setPassword("esigetel2013");
+	public void createMember() {
+		Member member = new Member();
+		member.setEmail("beau_le_bobo");
+		member.setName("Bobo");
+		member.setPassword("esigetel2013");
 		EntityTransaction tx = entityManager.getTransaction();
 		tx.begin();
-		entityManager.merge(player);
+		entityManager.merge(member);
 		tx.commit();
 	}
 	public void createGame() {

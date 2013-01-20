@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
 import model.Card;
 import model.Game;
 import model.MonEntity;
-import model.Player;
+import model.Member;
 
 public class AccountImplementation implements AccountInterface {
 
@@ -39,13 +39,13 @@ public class AccountImplementation implements AccountInterface {
 	}
 		
 	public void createPlayer(String nickname, String  email, String password) {
-		Player player = new Player();
-		player.setEmail(email);
-		player.setName(nickname);
-		player.setPassword(password);
+		Member member = new Member();
+		member.setEmail(email);
+		member.setName(nickname);
+		member.setPassword(password);
 		EntityTransaction tx = entityManager.getTransaction();
 		tx.begin();
-		entityManager.merge(player);
+		entityManager.merge(member);
 		tx.commit();
 	}
 	public void createGame() {
@@ -60,10 +60,10 @@ public class AccountImplementation implements AccountInterface {
 	public boolean checkEmailExistance(String email){
 		
 		boolean found = false;
-		List<Player> players = em.createQuery("SELECT p FROM Player p ").getResultList();
-		for ( Player player : players) {
-			if ( player.getEmail() != null){
-				if ( player.getEmail().equals(email)){
+		List<Member> members = em.createQuery("SELECT p FROM Member p ").getResultList();
+		for ( Member member : members) {
+			if ( member.getEmail() != null){
+				if ( member.getEmail().equals(email)){
 					found = true;
 				}
 			}
@@ -76,10 +76,10 @@ public class AccountImplementation implements AccountInterface {
 	public boolean checkUserNameExistance(String username){
 		
 		boolean found = false;
-		List<Player> players = em.createQuery("SELECT p FROM Player p ").getResultList();
-		for ( Player player : players) {
-			if ( player.getName() != null){
-				if ( player.getName().equals(username)){
+		List<Member> members = em.createQuery("SELECT p FROM Member p ").getResultList();
+		for ( Member member : members) {
+			if ( member.getName() != null){
+				if ( member.getName().equals(username)){
 					found = true;
 				}
 			}

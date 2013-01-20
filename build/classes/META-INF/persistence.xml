@@ -9,7 +9,7 @@
     <class>model.MonEntity</class>
     <class>model.Card</class>
     <class>model.Game</class>
-    <class>model.Player</class>
+    <class>model.Member</class>
     <class>model.GameStatus</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
