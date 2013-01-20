@@ -1,0 +1,254 @@
+#game_table {
+	position:fixed;
+	border:black 2px solid;
+	height: 500px;
+	width:600px;
+	margin-top:5%;
+	margin-left:10%;
+	padding:5px;
+	background:green;
+	border:3px solid #207437;
+	border-radius:40px;
+	-moz-border-radius:40px;
+	-webkit-border-radius:40px;	
+	-moz-box-shadow: 0 0 5px 5px #888;
+	-webkit-box-shadow: 0 0 5px 5px#888;
+	box-shadow: 0 0 5px 5px #888;
+}
+
+#top_seat {
+	/* border:1px blue solid; */
+	height: 15%;
+}
+.nameplayer {
+	width:100%;
+	margin:auto;
+}
+#top_hand {
+	/* border:1px purple solid; */
+	height: 95%;
+	width: 50%;
+	margin:auto;
+}
+
+
+
+#middle_seats {
+	/* border:1px yellow solid;*/
+	height: 60%;
+}
+
+#left_seat {
+	 /* border : 1px red solid; */
+	float:left;
+	height:100%;
+	width:15%;
+	margin:3%;
+}
+#left_hand {
+	/* border:1px purple solid; */
+	height: 100px;
+	width:300px;
+	margin-top:120px;
+	margin-left:-100px;
+	transform:rotate(90deg); 
+-ms-transform:rotate(90deg); /* Internet Explorer */
+-moz-transform:rotate(90deg); /* Firefox */
+-webkit-transform:rotate(90deg); /* Safari et Chrome */ 
+-o-transform:rotate(90deg); /* Opera */
+}
+#game_area {
+	/* border : 1px red solid; */
+	float:left;
+	height:100%;
+	width:63%;
+	
+}
+#card_top {
+	position: absolute;
+	height:96px;
+	width:71px;
+	background-image: url("../img/cards/b2fv.png");
+	margin-left: 150px;
+	margin-top: 90px;
+}
+#card_left {
+	position: absolute;
+	height:96px;
+	width:71px;
+	background-image: url("../img/cards/b2fv.png");
+	margin-left: 110px;
+	margin-top: 140px;
+	transform:rotate(90deg); 
+-ms-transform:rotate(90deg); /* Internet Explorer */
+-moz-transform:rotate(90deg); /* Firefox */
+-webkit-transform:rotate(90deg); /* Safari et Chrome */ 
+-o-transform:rotate(90deg); /* Opera */
+}
+#card_right {
+	position: absolute;
+	height:96px;
+	width:71px;
+	background-image: url("../img/cards/b2fv.png");
+	margin-left: 190px;
+	margin-top: 140px;
+	transform:rotate(90deg); 
+-ms-transform:rotate(90deg); /* Internet Explorer */
+-moz-transform:rotate(90deg); /* Firefox */
+-webkit-transform:rotate(90deg); /* Safari et Chrome */ 
+-o-transform:rotate(90deg); /* Opera */
+}
+#card_bottom {
+	position: absolute;
+	height:96px;
+	width:71px;
+	background-image: url("../img/cards/b2fv.png");
+	margin-left: 150px;
+	margin-top: 190px;
+}
+
+
+#right_seat {
+	/* border : 1px red solid; */
+	float:left;
+	height:100%;
+	width:15%;
+	
+}
+#right_hand {
+	/*border:1px purple solid;*/
+	height: 100px;
+	width:300px;
+	margin-top:120px;
+	margin-left:-100px;
+	transform:rotate(90deg); 
+-ms-transform:rotate(90deg); /* Internet Explorer */
+-sand-transform:rotate(90deg); /* Internet Explorer */
+-moz-transform:rotate(90deg); /* Firefox */
+-webkit-transform:rotate(90deg); /* Safari et Chrome */ 
+-o-transform:rotate(90deg); /* Opera */
+}
+#bottom_seat {
+	/* border:1px blue solid; */
+	height: 15%;
+}
+#bottom_hand {
+	/* border:1px purple solid; */
+	height: 95%;
+	width: 50%;
+	margin:auto;
+	
+}
+.hand_cards {
+	position: absolute;
+	height:96px;
+	width:71px;
+	background-image: url("../img/cards/b1fv.png");
+}
+
+.info_tab {
+	margin-top: 80px;
+	border: 2px blue dashed;
+	height: 90px;
+}
+
+#hct1 {
+	margin-left:60px;
+}
+
+#hct2 {
+	margin-left:80px;
+}
+#hct3 {
+	margin-left:100px;
+}
+#hct4 {
+	margin-left:120px;
+}
+#hct5 {
+	margin-left:140px;
+}
+#hct6 {
+	margin-left:160px;
+}
+#hct7 {
+	margin-left:180px;
+}
+#hct8 {
+	margin-left:200px;
+}
+#hcb1 {
+	margin-left:60px;
+}
+
+#hcb2 {
+	margin-left:80px;
+}
+#hcb3 {
+	margin-left:100px;
+}
+#hcb4 {
+	margin-left:120px;
+}
+#hcb5 {
+	margin-left:140px;
+}
+#hcb6 {
+	margin-left:160px;
+}
+#hcb7 {
+	margin-left:180px;
+}
+#hcb8 {
+	margin-left:200px;
+}
+#hcl1 {
+	margin-left:60px;
+}
+
+#hcl2 {
+	margin-left:80px;
+}
+#hcl3 {
+	margin-left:100px;
+}
+#hcl4 {
+	margin-left:120px;
+}
+#hcl5 {
+	margin-left:140px;
+}
+#hcl6 {
+	margin-left:160px;
+}
+#hcl7 {
+	margin-left:180px;
+}
+#hcl8 {
+	margin-left:200px;
+}
+#hcr1 {
+	margin-left:60px;
+}
+
+#hcr2 {
+	margin-left:80px;
+}
+#hcr3 {
+	margin-left:100px;
+}
+#hcr4 {
+	margin-left:120px;
+}
+#hcr5 {
+	margin-left:140px;
+}
+#hcr6 {
+	margin-left:160px;
+}
+#hcr7 {
+	margin-left:180px;
+}
+#hcr8 {
+	margin-left:200px;
+}

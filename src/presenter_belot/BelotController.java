@@ -37,5 +37,14 @@ public class BelotController {
 		
 	}
 
+	@RequestMapping("show_table/")
+	public ModelAndView show_table(HttpSession session) {
+		//long gameid = (long) session.getAttribute("game");
+		ModelAndView mav = new ModelAndView();
+		//mav.addObject("gameide", gameid);
+		mav.setViewName("showTable");
+		return mav;
+		
+	}
 	
 }
