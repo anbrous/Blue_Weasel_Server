@@ -57,7 +57,6 @@ public class AccountController {
 			@RequestParam("username") String username , @RequestParam("email") String email ,
 			@RequestParam("password1") String password1, @RequestParam("password2") String password2 ) {
 		
-		 System.out.println("bastien rentre:");
 		 System.out.println("username "+username);
 		 System.out.println("email: "+email);
 		 System.out.println("password1: "+password1);
@@ -110,9 +109,12 @@ public class AccountController {
 		String w = req.getParameter("email");
 		String pwd1 = req.getParameter("password1");
 		String pwd2 = req.getParameter("password2");
+		String username = req.getParameter("username");
 		
 		Pattern EmailPattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" 
 				+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+		
+		Pattern userNamePattern = Pattern.compile("^[_A-Za-z0-9-\\+]+$");
 
 				String msg = "";
 		if(action.equals("email"))
@@ -151,6 +153,28 @@ public class AccountController {
 			}
 			else
 				msg = "";
+		}
+		else if (action.equals("username"))
+		{
+			
+			Boolean userNameCorrect = false;
+			if(username != null)
+			{
+				Matcher matcher = userNamePattern.matcher(username);
+				userNameCorrect = matcher.matches();
+			}
+			if(username == "")
+			{
+				msg = "";
+			}
+			else if(!userNameCorrect)
+			{
+				msg = "<font color = 'red'>Wrong username</font>";
+			}
+			else
+			{
+				msg = "<font color = 'green'>Correct username!</font>";
+			}
 		}
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("testEmail"); //jsp page

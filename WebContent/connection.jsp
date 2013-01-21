@@ -15,6 +15,18 @@
 	+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
 %>
 
+<script type="text/javascript" src="js/jquery-1.9.0.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	if($("#username").val()){
+		JavaScript:xmlhttpPost("bw/checkEmail/", "f1", "username", "username_info");
+	}
+	if ($("#email").val()){
+		JavaScript:xmlhttpPost("bw/checkEmail/", "f1", "email", "email_info");
+	}
+
+});
+</script>
 </head>
 <body>
 
@@ -42,6 +54,7 @@
 <h2>Sign Up</h2>
 
 <script language="Javascript">
+
 function xmlhttpPost(strURL ,formName, paramValue, resultID) {
 	var xmlHttpReq = false;
 	var self = this;
@@ -59,12 +72,53 @@ function xmlhttpPost(strURL ,formName, paramValue, resultID) {
 		if (self.xmlHttpReq.readyState == 4) {
 			updatepage(self.xmlHttpReq.responseText, resultID);
 			
-			if(self.xmlHttpReq.responseText.indexOf("Wrong email") != -1)// si le message contient "Wrong email" alors,...
+			if(self.xmlHttpReq.responseText.indexOf("Wrong") != -1)// si le message contient "Wrong email" alors,...
 			{
-				alert(document.documentElement.signup);// tenter de changer l'input signeup en disabled = "abled"
+				if(self.xmlHttpReq.responseText.indexOf("email") != -1) {
+
+					$('#submit').data('email_check', 'false');
+				}
+				else if (self.xmlHttpReq.responseText.indexOf("username") != -1) {
+
+					$('#submit').data('username_check', 'false');
+				}
+			}
+			else if (self.xmlHttpReq.responseText.indexOf("Correct") != -1)
+			{
+				if(self.xmlHttpReq.responseText.indexOf("email") != -1)
+				{
+					$('#submit').data('email_check', 'true');
+				}
+				else if(self.xmlHttpReq.responseText.indexOf("username") != -1)
+				{
+					$('#submit').data('username_check', 'true');
+				}
+			}
+			else // si les champs sont vide, on ne permet pas non plus un submit
+			{
+				if(paramValue == "email"){
+					$('#submit').data('email_check', 'false');
+					
+				}
+				else if (paramValue == "username") {
+					$('#submit').data('username_check', 'false');
+				}
 			}
 			
+
+			if($('#submit').data('email_check') == 'true' && $('#submit').data('password_check')== 'true' && $('#submit').data('username_check')== 'true')
+			{
+				$('#submit').prop('disabled' , false);
+			}
+			else
+			{
+				$('#submit').prop('disabled' , true);
+				
+			}
+
 		}
+
+
 	}
 	self.xmlHttpReq.send(getquerystring(formName, paramValue));
 }
@@ -85,11 +139,39 @@ function xmlhttpPost2(strURL ,formName, paramValue1, paramValue2, resultID) {
 	self.xmlHttpReq.onreadystatechange = function() {
 		if (self.xmlHttpReq.readyState == 4) {
 			updatepage(self.xmlHttpReq.responseText, resultID);
+
+			if(self.xmlHttpReq.responseText.indexOf("mismatches") != -1)// si le message contient "mismatches" alors,...
+			{
+				//document.f1.signup.disabled = true; 
+				//alert("disabled");
+				$('#submit').data('password_check', 'false');
+			}
+			else if (self.xmlHttpReq.responseText.indexOf("Correct") != -1)
+			{
+				//document.f1.signup.disabled = ; 
+				//alert("enabled");
+				$('#submit').data('password_check', 'true');
+			}
+			else // si les champs sont vide, on ne permet pas non plus un submit
+			{
+				$('#submit').data('password_check', 'false');
+			}
+			if($('#submit').data('email_check') == 'true' && $('#submit').data('password_check')== 'true' && $('#submit').data('username_check')== 'true')
+			{
+				$('#submit').prop('disabled' , false);
+			}
+			else
+			{
+				$('#submit').prop('disabled' , true);
+				
+			}
 		}
 	}
 	/*alert(getquerystring(formName, paramValue1)+"&"+getquerystring(formName, paramValue2));*/
 	self.xmlHttpReq.send(getquerystring(formName, paramValue1)+"&"+getquerystring(formName, paramValue2));
 }
+
+
 function getquerystring(formName, paramValue) {
     var form = document.forms[formName];// utilise le nom du formulaire */
 	var word = form.elements[paramValue].value;  // utilise le nom de l'input text
@@ -108,23 +190,24 @@ function updatepage(str, resultID){
 	<table>
 		<tr>
 			<td>Nickname:</td>
-			<td><input type="text" name="username"/></td>
+			<td><input type="text" id="username" name="username" onkeyup='JavaScript:xmlhttpPost("bw/checkEmail/", "f1", "username", "username_info");' onfocus='JavaScript:xmlhttpPost("bw/checkEmail/", "f1", "username", "username_info");'/></td>
+			<td><div id="username_info"></div></td>
 		</tr>
 		<tr>
 			<td>Email Address:</td>
-			<td><input type="text" value="" id="email" name="email" onkeyup='JavaScript:xmlhttpPost("bw/checkEmail/", "f1", "email", "email_info");'/></td>
+			<td><input type="text" value="" id="email" name="email" onkeyup='JavaScript:xmlhttpPost("bw/checkEmail/", "f1", "email", "email_info");' onfocus='JavaScript:xmlhttpPost("bw/checkEmail/", "f1", "email", "email_info");'/></td>
 			<td><div id="email_info"></div></td>
 		</tr>
 		<tr>
 			<td>Password</td>
-			<td><input type="password" name="password1"/></td>
+			<td><input type="password" id="password1" name="password1" onkeyup='JavaScript:xmlhttpPost2("bw/checkEmail/", "f1", "password1","password2", "pwd_info");' /></td>
 		</tr>
 		<tr>
 			<td>Password2</td>
-			<td><input type="password" name="password2" onkeyup='JavaScript:xmlhttpPost2("bw/checkEmail/", "f1", "password1","password2", "pwd_info");'/></td>	
+			<td><input type="password" id="password2" name="password2" onkeyup='JavaScript:xmlhttpPost2("bw/checkEmail/", "f1", "password1","password2", "pwd_info");'/></td>	
 			<td><div id="pwd_info"></div></td>
 		</tr>
-		<tr><td></td><td><input type="submit" disabled="disabled" name="signup" value="Register"></td></tr>
+		<tr><td></td><td><input id="submit" data-email_check="false" data-password_check ="false" data-username_check="false" disabled="disabled" type="submit" name="signup" value="Register"></td></tr>
 		
 	</table>
 	
