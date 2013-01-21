@@ -14,4 +14,8 @@ public interface AccountInterface {
 	
 	public boolean checkUserNameExistance(String username);
 	
+	public boolean checkPasswordCorrespondance(String email, String password);
+	
+	public String getUsernameByEmail(String email);
+	
 }

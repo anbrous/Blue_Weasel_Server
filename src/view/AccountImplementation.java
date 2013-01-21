@@ -88,6 +88,23 @@ public class AccountImplementation implements AccountInterface {
 		return found;	
 	}
 	
+	public boolean checkPasswordCorrespondance(String email, String password){
+		
+		boolean correct = false;
+		List<Member> members = em.createQuery("SELECT m FROM Member m WHERE m.email LIKE :emailMember").setParameter("emailMember", email).getResultList();
+		if(password.equals(members.get(0).getPassword()))
+			correct = true;
+
+		return correct;
+	}
+	
+	public String getUsernameByEmail(String email){
+		
+		List<Member> members = em.createQuery("SELECT m FROM Member m WHERE m.email LIKE :emailMember").setParameter("emailMember", email).getResultList();
+
+		return members.get(0).getName();
+	}
+	
 	public String connection( String action, String username, String email, String password, String password2) {
 		if( action.equals("signin")) {
 			return "signedin";

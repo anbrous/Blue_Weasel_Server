@@ -10,7 +10,6 @@ public class Game {
 
 	private long id;
 	private String gameName;
-	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,5 +29,10 @@ public class Game {
 		this.gameName = gameName;
 	}
 	
-	
+	//player 1 a 4
+	//Score team1, score team 2
+	// winning score
+	// statusGame
+	// atout en cours
+	//
 }

@@ -6,6 +6,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 
+import model.Card;
+import model.Member;
 import model.MonEntity;
 public class BelotImplementation implements BelotInterface {
 
@@ -25,6 +27,11 @@ public class BelotImplementation implements BelotInterface {
 		tx.begin();
 		entityManager.merge(entity);
 		tx.commit();
+	}
+	
+	public void playerPlayAcard(Member member, Card card){
+		
+		
 	}
 
 	

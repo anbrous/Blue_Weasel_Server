@@ -58,6 +58,12 @@ function xmlhttpPost(strURL ,formName, paramValue, resultID) {
 	self.xmlHttpReq.onreadystatechange = function() {
 		if (self.xmlHttpReq.readyState == 4) {
 			updatepage(self.xmlHttpReq.responseText, resultID);
+			
+			if(self.xmlHttpReq.responseText.indexOf("Wrong email") != -1)// si le message contient "Wrong email" alors,...
+			{
+				alert(document.documentElement.signup);// tenter de changer l'input signeup en disabled = "abled"
+			}
+			
 		}
 	}
 	self.xmlHttpReq.send(getquerystring(formName, paramValue));
@@ -118,7 +124,7 @@ function updatepage(str, resultID){
 			<td><input type="password" name="password2" onkeyup='JavaScript:xmlhttpPost2("bw/checkEmail/", "f1", "password1","password2", "pwd_info");'/></td>	
 			<td><div id="pwd_info"></div></td>
 		</tr>
-		<tr><td></td><td><input type="submit" name="signup" value="Register"></td></tr>
+		<tr><td></td><td><input type="submit" disabled="disabled" name="signup" value="Register"></td></tr>
 		
 	</table>
 	

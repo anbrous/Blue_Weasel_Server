@@ -65,13 +65,26 @@ public class AccountController {
 		String response = accountInterface.connection(action, username, email, password1, password2);
 		ModelAndView mav = new ModelAndView();
 		if ( response == "signedin") {
+			
+			mav.setViewName("pageDeConfirmation");
+			mav.addObject("titre", "Connection");
+			
+			if(accountInterface.checkEmailExistance(email))
+			{	
+				if(accountInterface.checkPasswordCorrespondance(email, password1))
+				{
+					username = accountInterface.getUsernameByEmail(email);
+					mav.addObject("message", "The player "+ username +" is connected!");
+				}
+				else
+					mav.addObject("message", "Incorrect password!");
+			}
+			else
+				mav.addObject("message", "The Email is not registered!");
+			
 			// we use session variable to keep the user logged in
 			session.setAttribute("login", username);
 			session.setAttribute("email", email);
-			//access to the page
-			mav.setViewName("pageDeConfirmation"); //jsp page
-			mav.addObject("titre", "Connection");
-			mav.addObject("message", "Connection succed, please Boris, make this part rock well");
 		}
 		else if ( response == "registered") {
 			// we use session variable to keep the user logged in
@@ -79,7 +92,7 @@ public class AccountController {
 			session.setAttribute("email", email);
 			mav.setViewName("pageDeConfirmation"); //jsp page
 			mav.addObject("titre", "Signing Up");
-			mav.addObject("message", "A player has been created, please Boris get this part Rockyyy !!");
+			mav.addObject("message", "The player "+username+" is created!");
 		}
 			
 		else {

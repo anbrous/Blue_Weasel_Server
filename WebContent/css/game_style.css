@@ -24,7 +24,7 @@
 	width:100%;
 	margin:auto;
 	text-shadow: 3px 3px 3px #084503;
-    filter: dropshadow(color=#084503, offx=3, offy=3);
+    /*filter: dropshadow(color=#084503, offx=3, offy=3);*/
 }
 #top_hand {
 	/*border:1px purple solid;*/
