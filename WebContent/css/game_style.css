@@ -4,12 +4,16 @@
 	height: 550px;
 	width:700px;
 	margin-left:20%;
+	margin-top:1%;
 	padding:5px;
 	background:green;
 	border:3px solid #207437;
 	border-radius:40px;
 	-moz-border-radius:40px;
-	-webkit-border-radius:40px;
+	-webkit-border-radius:40px;	
+	-moz-box-shadow: 0 0 5px 5px #888;
+	-webkit-box-shadow: 0 0 5px 5px#888;
+	box-shadow: 0 0 5px 5px #888;
 }
 
 #top_seat {
@@ -19,6 +23,8 @@
 .nameplayer {
 	width:100%;
 	margin:auto;
+	text-shadow: 3px 3px 3px #084503;
+    filter: dropshadow(color=#084503, offx=3, offy=3);
 }
 #top_hand {
 	/*border:1px purple solid;*/
