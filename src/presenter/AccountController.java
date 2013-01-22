@@ -65,7 +65,7 @@ public class AccountController {
 		ModelAndView mav = new ModelAndView();
 		if ( response == "signedin") {
 			
-			mav.setViewName("pageDeConfirmation");
+			mav.setViewName("redirectPage");
 			mav.addObject("titre", "Connection");
 			
 			if(accountInterface.checkEmailExistance(email))
@@ -77,6 +77,7 @@ public class AccountController {
 				}
 				else
 					mav.addObject("message", "Incorrect password!");
+					mav.addObject("redirect", "connection.html");
 			}
 			else
 				mav.addObject("message", "The Email is not registered!");
@@ -84,6 +85,7 @@ public class AccountController {
 			// we use session variable to keep the user logged in
 			session.setAttribute("login", username);
 			session.setAttribute("email", email);
+			mav.addObject("redirect", "connection.html");
 		}
 		else if ( response == "registered") {
 			// we use session variable to keep the user logged in
@@ -91,7 +93,8 @@ public class AccountController {
 			session.setAttribute("email", email);
 			mav.setViewName("pageDeConfirmation"); //jsp page
 			mav.addObject("titre", "Signing Up");
-			mav.addObject("message", "The player "+username+" is created!");
+			mav.addObject("message", "Your account has been successfully created, "+username+" !!!");
+			mav.addObject("redirect", "connection.html");
 		}
 			
 		else {

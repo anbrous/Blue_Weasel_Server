@@ -1,18 +1,51 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<script src="ajaxjs.js"></script>
-
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Blue Weasel</title>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" href="css/page_style.css"/>
+<script type="text/javascript" src="js/jquery-1.9.0.js"></script>
+<script type="text/javascript" src="js/jquery.shuffleLetters.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		
+		// container is the DOM element;
+		// userText is the textbox
+		
+		var container = $("#header_text")
+		
+		// Shuffle the contents of container
+		container.shuffleLetters();
+		
+	});
+</script>
 </head>
 <body>
+<div class="container">
+	<div id="header" class="header">
+	<h1 id="header_text" >Welcome To Blue Weasel !!</h1>
+	</div>
+	
+	<div id="content" class="content">
+	<div id="nav">
+    <ul>
+        <li><a href="admin.html">Administration page</a></li>
+        <li><a href="bw/game_list/">List of available games</a></li>
+        <li><a href="connection.html">Connection</a></li>
+        <li><a href="belot/createGameForm">Create a game</a></li>
+    </ul>
+    </div>
+	
+	<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 
-<a href="admin.html">Administration page</a><br />
-
-<a href="bw/game_list/">List of available games</a><br />
-<a href="connection.jsp">Connection</a><br />
-<a href="belot/createGameForm">Create a game</a>
-
+	
+	
+	
+	</div>
+	<div id="footer" class="footer">
+	&copy;Copyright Blue Weasel, Esigetel 2013, All rights reserved.
+	</div>
+</div>
 </body>
 </html>

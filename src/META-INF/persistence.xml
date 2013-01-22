@@ -10,6 +10,7 @@
     <class>model.Card</class>
     <class>model.Game</class>
     <class>model.Member</class>
+    <class>model.Player</class>
     <class>model.GameStatus</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>

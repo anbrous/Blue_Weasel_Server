@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import view_belot.BelotImplementation;
 import view_belot.BelotInterface;
 
 
@@ -64,6 +65,7 @@ public class BelotController {
 	@RequestMapping("show_table/")
 	public ModelAndView show_table(HttpSession session) {
 		//Simulation
+		belotInterface.simulation();
 		// all codes must be created in interafces and implementation, and it will be called from the controller
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("player1", "Android");
