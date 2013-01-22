@@ -23,6 +23,9 @@ public class AdminImplementation implements AdminRfidInterface, AdminInterface, 
 	
 	public static boolean pooling = false; 
 	
+	GameStatus gameStatusTest = new GameStatus();
+	
+	
 	public AdminImplementation(EntityManagerFactory entityManagerFactory){
 		entityManager = entityManagerFactory.createEntityManager();
 	}
@@ -64,13 +67,21 @@ public class AdminImplementation implements AdminRfidInterface, AdminInterface, 
 		int i = 0;
 		ArrayList<String> cards = new ArrayList<>();
 		
-		
+		Card cd = new Card();
 		for(Value value : Value.values()){
 			
 			for(Color color : Color.values()){
 				
 				i++;
 				System.out.println("Please scan the "+ value + " of "+ color);
+				cd.setColor(color); cd.setValue(value);
+				gameStatusTest.setCardValue(cd.ValueToInt() +"-"+ cd.ColorToInt());
+				System.out.println("Card test: color "+ cd.ValueToInt()+" value: "+ cd.ColorToInt());
+				EntityTransaction tx1 = entityManager.getTransaction();
+				tx1.begin();
+				entityManager.merge(gameStatusTest);
+				tx1.commit();
+				
 				idArecuperer = "nocard";// implémenter une méthode pour recuperer l'ID RFID
 				boolean Waiting = true;
 							
