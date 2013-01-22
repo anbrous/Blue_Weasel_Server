@@ -13,6 +13,7 @@ import model.Game;
 import model.GameStatus;
 import model.MonEntity;
 import model.Member;
+import model.Player;
 import model.Card.Color;
 import model.Card.Value;
 
@@ -102,6 +103,7 @@ public class AdminImplementation implements AdminRfidInterface, AdminInterface, 
 				//Scanner scan = new Scanner(System.in);
 				//idArecuperer = scan.next();
 				//idArecuperer = ""+i;
+				
 				Card card = new Card(idArecuperer, player, value, color);
 				EntityTransaction tx = entityManager.getTransaction();
 				tx.begin();
@@ -159,7 +161,7 @@ public class AdminImplementation implements AdminRfidInterface, AdminInterface, 
 				
 				Card card = new Card();
 				card.setIdRFID(null);
-				card.setPlayer("auto");
+				card.setMember("auto");
 				card.setColor(color);
 				card.setValue(value);
 				
@@ -177,7 +179,7 @@ public class AdminImplementation implements AdminRfidInterface, AdminInterface, 
 		
 		Card card = new Card();
 		card.setIdRFID(idRFID);
-		card.setPlayer("auto");
+		card.setMember("auto");
 		card.setColor(color);
 		card.setValue(value);
 		

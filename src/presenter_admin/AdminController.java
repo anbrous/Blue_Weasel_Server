@@ -66,8 +66,8 @@ public class AdminController {
 			mav.addObject("message", "You need to be logged to access this page, sorry <br> <a href='/Blue_Weasel_Server/connection.html'> connection</a>");
 			return mav;
 		}
-		String player = (String) session.getAttribute("login");
-		adminInterface.cardsInitialisation(player);
+		String member = (String) session.getAttribute("login");
+		adminInterface.cardsInitialisation(member);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("pageDeConfirmation");			// affiche pageDeConfirmation.jsp
 		mav.addObject("titre", "Message de réponse :");	// variable titre dans pageDeConfirmation.jsp

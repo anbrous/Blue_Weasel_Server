@@ -1,12 +1,16 @@
 package view_belot;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 
 import model.Card;
+import model.Card.Color;
 import model.Game;
 import model.Member;
 import model.MonEntity;
@@ -38,36 +42,57 @@ public class BelotImplementation implements BelotInterface {
 
 	public void simulation(){
 		System.out.println("Starting simulation of creating a game");
-		Game game = new Game();
-		Player player1 = new Player();
-		player1.setName("Boris");
-		player1.setType(Type.Virtual);
-		Player player2 = new Player();
-		player2.setName("Timal");
-		player2.setType(Type.Virtual);
-		Player player3 = new Player();
-		player3.setName("Lamine");
-		player3.setType(Type.Virtual);
-		Player player4 = new Player();
-		player4.setName("Lyvia");
-		player4.setType(Type.Virtual);
+//		Game game = new Game();
+//		Player player1 = new Player();
+//		player1.setName("Boris");
+//		player1.setType(Type.Virtual);
+//		Player player2 = new Player();
+//		player2.setName("Timal");
+//		player2.setType(Type.Virtual);
+//		Player player3 = new Player();
+//		player3.setName("Lamine");
+//		player3.setType(Type.Virtual);
+//		Player player4 = new Player();
+//		player4.setName("Lyvia");
+//		player4.setType(Type.Virtual);
 
 		
-		game.setGameName("testGame");
-		game.setTeam1_score(260);
-		game.setTeam2_score(570);
-		game.setCurrentMaster(player2.getName());
-		game.setCurrentTeamTrump("team1");
-	/*	game.setPlayer1(player1);
-		game.setPlayer2(player2);
-		game.setPlayer3(player3);
-		game.setPlayer4(player4); */
-		game.setGameStatus("simulation");
+//		game.setGameName("testGame");
+//		game.setTeam1_score(260);
+//		game.setTeam2_score(570);
+//		game.setCurrentMaster(player2.getName());
+//		game.setCurrentTeamTrump("team1");
+//		game.setGameStatus("simulation");
+		//game.setPlayer1(player1);
+		//game.setPlayer2(player2);
+		//game.setPlayer3(player3);
+		//game.setPlayer4(player4); 
+		
+		Player player = new Player();
+		player.setName("Boris");
+		
+		Card card1 = new Card();
+		card1.setColor(Color.Diamond);
+		card1.setPlayer(player);
+		
+		Card card2 = new Card();
+		card2.setColor(Color.Heart);
+		card2.setPlayer(player);
+		
+		List<Card> cards = new ArrayList<Card>();
+		cards.add(card1);
+		cards.add(card2);
+		
+		player.setHandcards(cards);
+		
+		card1.setPlayer(player);
+		card2.setPlayer(player);
 		
 		System.out.println("Starting persistence");
-		EntityTransaction tx = em.getTransaction();
+		
+		EntityTransaction tx = entityManager.getTransaction();
 		tx.begin();
-		em.persist(game);
+		entityManager.persist(player);
 		tx.commit();
 		
 	}

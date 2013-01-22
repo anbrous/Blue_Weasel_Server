@@ -2,11 +2,13 @@ package model;
 
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -16,7 +18,9 @@ public class Player {
 	private String name;
 	public enum Type{Real, Virtual};
 	private Type type;
-	//private Collection<Card> handcards;
+	//private Game game;
+	
+	private Collection<Card> handcards;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,7 +31,7 @@ public class Player {
 	public void setId(long id) {
 		this.id = id;
 	}
-	//@OneToOne
+	
 	public String getName() {
 		return name;
 	}
@@ -43,13 +47,25 @@ public class Player {
 	public void setType(Type type) {
 		this.type = type;
 	}
-	/*
-	@ManyToMany
+	
+	@OneToMany(cascade=CascadeType.ALL, mappedBy = "player")
 	public Collection<Card> getHandcards() {
 		return handcards;
 	}
 
 	public void setHandcards(Collection<Card> handcards) {
 		this.handcards = handcards;
-	} */
+	} 
+	/*
+	@OneToOne(cascade=CascadeType.PERSIST)
+	public Game getGame() {
+		return game;
+	}
+
+	public void setGame(Game game) {
+		this.game = game;
+	}
+	*/
+
+	
 }

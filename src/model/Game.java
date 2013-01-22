@@ -1,5 +1,6 @@
 package model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,10 +17,10 @@ public class Game {
 	private String currentTrump;
 	private String currentTeamTrump;
 	private String currentMaster;
-	/*private Player player1;
+	private Player player1;
 	private Player player2;
-	private Player player3;
-	private Player player4;*/
+	//private Player player3;
+	//private Player player4;
 	private int team1_score;
 	private int team2_score;
 	
@@ -98,8 +99,8 @@ public class Game {
 	public void setCurrentMaster(String currentMaster) {
 		this.currentMaster = currentMaster;
 	}
-/*
-	//@OneToOne(mappedBy = "name")
+	/*
+	@OneToOne(cascade=CascadeType.PERSIST, mappedBy = "game")
 	public Player getPlayer1() {
 		return player1;
 	}
@@ -107,8 +108,8 @@ public class Game {
 	public void setPlayer1(Player player1) {
 		this.player1 = player1;
 	}
-
-	//@OneToOne(mappedBy = "name")
+	
+	@OneToOne
 	public Player getPlayer2() {
 		return player2;
 	}
@@ -116,8 +117,8 @@ public class Game {
 	public void setPlayer2(Player player2) {
 		this.player2 = player2;
 	}
-
-	//@OneToOne(mappedBy = "name")
+	
+	@OneToOne(mappedBy = "game")
 	public Player getPlayer3() {
 		return player3;
 	}
@@ -126,7 +127,7 @@ public class Game {
 		this.player3 = player3;
 	}
 
-	//@OneToOne(mappedBy = "name")
+	@OneToOne(mappedBy = "game")
 	public Player getPlayer4() {
 		return player4;
 	}

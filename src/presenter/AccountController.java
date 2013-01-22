@@ -117,7 +117,7 @@ public class AccountController {
 		Pattern EmailPattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" 
 				+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
 		
-		Pattern userNamePattern = Pattern.compile("^[_A-Za-z0-9-\\+]+$");
+		Pattern userNamePattern = Pattern.compile("^[^ ]+$"); //^[_A-Za-z0-9-\\+]+$
 
 				String msg = "";
 		if(action.equals("email"))

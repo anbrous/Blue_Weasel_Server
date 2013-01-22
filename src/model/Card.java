@@ -4,13 +4,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Card {
 
 	private long id;
 	private String idRFID;
-	private String player;
+	private String member;
+	private Player player;
 	public enum Value{Ace, King, Queen, Jack, Ten, Nine, Eight, Seven};
 	public enum Color{Spade, Heart, Club, Diamond};
 	
@@ -20,10 +22,10 @@ public class Card {
 		
 	}
 	
-	public Card (String _idRFID, String player, Value _value, Color _color){
+	public Card (String _idRFID, String member, Value _value, Color _color){
 		
 		this.idRFID = _idRFID;
-		this.player = player;
+		this.setMember(member);
 		this.setValue(_value);
 		this.setColor(_color);
 	}
@@ -123,12 +125,22 @@ public class Card {
 		}
 		return (Integer) null;
 	}
-	public String getPlayer() {
+	
+	@ManyToOne
+	public Player getPlayer() {
 		return player;
 	}
 
-	public void setPlayer(String player) {
+	public void setPlayer(Player player) {
 		this.player = player;
+	}
+
+	public String getMember() {
+		return member;
+	}
+
+	public void setMember(String member) {
+		this.member = member;
 	}
 	
 	
