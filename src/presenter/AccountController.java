@@ -145,17 +145,34 @@ public class AccountController {
 		}
 		else if (action.equals("password1")||action.equals("password2"))
 		{
-			if(pwd2 != null && !pwd2.equals("")) {
-				if(!pwd1.equals(pwd2)){
-					msg = "<font color = 'red'>2nd Password mismatches the 1st one!</font>";
-				}
-				else
-					msg = "<font color = 'green'>Correct password</font>";
-					
-				
+			Boolean passwordCorrect = false;
+			if(pwd1 != null)
+			{
+				Matcher matcher = userNamePattern.matcher(pwd1);
+				passwordCorrect = matcher.matches();
+			}
+			
+			if(pwd1 == "")
+			{
+				msg = "";
+			}
+			else if (!passwordCorrect)
+			{
+				msg = "<font color = 'red'>Password mismatches the pattern!</font>";
 			}
 			else
-				msg = "";
+			{
+				if(pwd2 != null && !pwd2.equals("")) {
+					if(!pwd1.equals(pwd2)){
+						msg = "<font color = 'red'>2nd Password mismatches the 1st one!</font>";
+					}
+					else
+						msg = "<font color = 'green'>Correct password</font>";	
+				}
+				else
+					msg = "";
+			}
+						
 		}
 		else if (action.equals("username"))
 		{
