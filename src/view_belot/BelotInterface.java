@@ -12,5 +12,5 @@ public interface BelotInterface {
 	
 	public void simulation();
 
-	public ArrayList<Game> gameList();
+	public ArrayList<Game> gameList(String status);
 }

@@ -35,9 +35,13 @@ public class BelotImplementation implements BelotInterface {
 		tx.commit();
 	}
 	
-	public ArrayList<Game> gameList(){
+	public ArrayList<Game> gameList(String status){
 	
-		ArrayList<Game> listOfGames = (ArrayList<Game>) entityManager.createQuery("SELECT g FROM Game g").getResultList();
+		ArrayList<Game> listOfGames = new ArrayList<>();
+		if(status.equals("all"))
+			listOfGames = (ArrayList<Game>) entityManager.createQuery("SELECT g FROM Game g").getResultList();
+		else
+			listOfGames = (ArrayList<Game>) entityManager.createQuery("SELECT g FROM Game g WHERE g.gameStatus LIKE :gameStatus").setParameter("gameStatus", status).getResultList();
 		
 		return listOfGames;
 	}
@@ -58,12 +62,12 @@ public class BelotImplementation implements BelotInterface {
 		player4.setName("Lyvia");
 		player4.setType(Type.Virtual);
 	
-		game.setGameName("testGame");
+		game.setGameName("testGameAwaiting");
 		game.setTeam1_score(260);
 		game.setTeam2_score(570);
 		game.setCurrentMaster(player2.getName());
 		game.setCurrentTeamTrump("team1");
-		game.setGameStatus("simulation");
+		game.setGameStatus("awaiting");
 		game.setWinningScore(1000);
 		game.setPlayer1(player1.getName());
 		game.setPlayer2(player2.getName());

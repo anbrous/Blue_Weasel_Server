@@ -67,7 +67,7 @@ public class AccountController {
 		if ( response == "signedin") {
 			String nickname = accountInterface.getUsernameByEmail(email);
 			mav.addObject("titre", "Connection");
-			mav.addObject("message", "You have been successfully connected , "+nickname+" !!!");
+			mav.addObject("message", "You have been successfully connected, "+nickname+" !!!");
 			// we use session variable to keep the user logged in
 			session.setAttribute("login", nickname);
 			session.setAttribute("email", email);

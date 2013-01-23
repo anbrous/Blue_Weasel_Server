@@ -64,7 +64,7 @@ public class AdminImplementation implements AdminRfidInterface, AdminInterface, 
 				
 	public void cardsInitialisation(String player){
 		pooling = true;
-		int i = 0;
+
 		createIdCard(123);
 		ArrayList<String> cards = new ArrayList<>();
 		
@@ -72,16 +72,13 @@ public class AdminImplementation implements AdminRfidInterface, AdminInterface, 
 		for(Value value : Value.values()){
 			
 			for(Color color : Color.values()){
-				System.out.println("test1");
-				i++;
+
 				System.out.println("Please scan the "+ value + " of "+ color);
+				
 				cd.setColor(color); cd.setValue(value);
-				cardValueTempo.setValueArecuperer(cd.ValueToInt() +"-"+ cd.ColorToInt());
+				saveCardValueTempo777(cd.ValueToInt() +"-"+ cd.ColorToInt());
+				
 				System.out.println("Card test: color "+ cd.ValueToInt()+" value: "+ cd.ColorToInt());
-//				EntityTransaction tx1 = entityManager.getTransaction();
-//				tx1.begin();
-//				entityManager.merge(cardValueTempo);
-//				tx1.commit();
 				
 				idArecuperer = "nocard";// implémenter une méthode pour recuperer l'ID RFID
 				boolean Waiting = true;
@@ -100,9 +97,7 @@ public class AdminImplementation implements AdminRfidInterface, AdminInterface, 
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					System.out.println("test1");
 					idArecuperer = getCurrentCard(123);
-					System.out.println("test2");
 					//System.out.println(" pas de current card..\n checking...");
 					if(!idArecuperer.equals("nocard")){
 						if(!cards.contains(idArecuperer)){
@@ -115,16 +110,13 @@ public class AdminImplementation implements AdminRfidInterface, AdminInterface, 
 				//Scanner scan = new Scanner(System.in);
 				//idArecuperer = scan.next();
 				//idArecuperer = ""+i;
-				System.out.println("test3");
 				Card card = new Card(idArecuperer, player, value, color);
 				EntityTransaction tx = entityManager.getTransaction();
 				tx.begin();
 				entityManager.merge(card);
 				tx.commit();
-				System.out.println("test4");
 			}
 		}
-		System.out.println("nbrs de cartes: "+i);
 		
 	}
 
@@ -221,6 +213,26 @@ public class AdminImplementation implements AdminRfidInterface, AdminInterface, 
 			}
 		}
 		return response;
+	}
+	
+	public void saveCardValueTempo777(String cardValue){
+		
+		CardValueTempo cardValueTempo = new CardValueTempo();
+		cardValueTempo.setId(777);
+		cardValueTempo.setValueArecuperer(cardValue);
+		EntityTransaction tx1 = entityManager.getTransaction();
+		tx1.begin();
+		entityManager.merge(cardValueTempo);
+		tx1.commit();
+	}
+	
+	public String getCardValueTempo777(){
+		
+		EntityTransaction tx = entityManager.getTransaction();
+		tx.begin();
+		CardValueTempo cardValueTempo = entityManager.find(CardValueTempo.class, 777);
+		tx.commit();
+		return cardValueTempo.getValueArecuperer();
 	}
 
 }

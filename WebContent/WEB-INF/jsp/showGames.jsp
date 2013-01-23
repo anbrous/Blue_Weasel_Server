@@ -19,16 +19,19 @@ listOfGames = (ArrayList<Game>) request.getAttribute("listOfGames");
 %>
 List of games:
 <br/>
+
+<ul>
 <%
 for(Game game : listOfGames)
 {
 %>
 
-	Id:<%=game.getId() %> / Status : <%=game.getGameStatus() %>
-	<br/>
+	<li>Id:<%=game.getId() %> / Status : <%=game.getGameStatus() %></li>
+
 <%
 }
 %>
 
+</ul>
 </body>
 </html>

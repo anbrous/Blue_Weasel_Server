@@ -3,6 +3,8 @@ package presenter_admin;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.Card;
@@ -72,6 +74,19 @@ public class AdminController {
 		mav.setViewName("pageDeConfirmation");			// affiche pageDeConfirmation.jsp
 		mav.addObject("titre", "Message de réponse :");	// variable titre dans pageDeConfirmation.jsp
 		mav.addObject("message", "Entity créée !");		// variable message dans pageDeConfirmation.jsp
+		return mav;
+	}
+	
+	@RequestMapping(value = "appelServiceAJAX/", method = RequestMethod.POST)
+	public ModelAndView appelServiceAJAX(HttpServletRequest req, HttpServletResponse resp) {
+
+		//String username = req.getParameter("username");
+		
+		String cardValue = adminInterface.getCardValueTempo777();
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("testEmail"); //jsp page
+		mav.addObject("message", "Scanner la carte suivante: "+cardValue);
 		return mav;
 	}
 	
@@ -200,7 +215,8 @@ public class AdminController {
 													// les cartes : color, value, rfid = null
 		AdminImplementation.pooling = false;
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("pageDeSaisieAutomatique");			// affiche pageDeSaisieAutomatique.jsp
+		mav.setViewName("redirectPage");			// affiche pageDeSaisieAutomatique.jsp
+		mav.addObject("redirect", "admin/saisieAutomatique");
 		
 		return mav;
 	}
