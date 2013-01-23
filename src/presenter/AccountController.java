@@ -63,9 +63,9 @@ public class AccountController {
 		 
 		String response = accountInterface.connection(action, username, email, password1, password2);
 		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirectPage");
 		if ( response == "signedin") {
 			
-			mav.setViewName("redirectPage");
 			mav.addObject("titre", "Connection");
 			
 			if(accountInterface.checkEmailExistance(email))
@@ -91,14 +91,12 @@ public class AccountController {
 			// we use session variable to keep the user logged in
 			session.setAttribute("login", username);
 			session.setAttribute("email", email);
-			mav.setViewName("pageDeConfirmation"); //jsp page
 			mav.addObject("titre", "Signing Up");
 			mav.addObject("message", "Your account has been successfully created, "+username+" !!!");
 			mav.addObject("redirect", "connection.html");
 		}
 			
 		else {
-			mav.setViewName("pageDeConfirmation"); //jsp page
 			mav.addObject("titre", "Error");
 			mav.addObject("message", response);
 			

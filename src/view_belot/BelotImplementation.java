@@ -42,35 +42,33 @@ public class BelotImplementation implements BelotInterface {
 
 	public void simulation(){
 		System.out.println("Starting simulation of creating a game");
-//		Game game = new Game();
-//		Player player1 = new Player();
-//		player1.setName("Boris");
-//		player1.setType(Type.Virtual);
-//		Player player2 = new Player();
-//		player2.setName("Timal");
-//		player2.setType(Type.Virtual);
-//		Player player3 = new Player();
-//		player3.setName("Lamine");
-//		player3.setType(Type.Virtual);
-//		Player player4 = new Player();
-//		player4.setName("Lyvia");
-//		player4.setType(Type.Virtual);
-
-		
-//		game.setGameName("testGame");
-//		game.setTeam1_score(260);
-//		game.setTeam2_score(570);
-//		game.setCurrentMaster(player2.getName());
-//		game.setCurrentTeamTrump("team1");
-//		game.setGameStatus("simulation");
-		//game.setPlayer1(player1);
-		//game.setPlayer2(player2);
-		//game.setPlayer3(player3);
-		//game.setPlayer4(player4); 
-		
-		Player player = new Player();
-		player.setName("Boris");
-		
+		Game game = new Game();
+		Player player1 = new Player();
+		player1.setName("Boris");
+		player1.setType(Type.Virtual);
+		Player player2 = new Player();
+		player2.setName("Timal");
+		player2.setType(Type.Virtual);
+		Player player3 = new Player();
+		player3.setName("Lamine");
+		player3.setType(Type.Virtual);
+		Player player4 = new Player();
+		player4.setName("Lyvia");
+		player4.setType(Type.Virtual);
+	
+		game.setGameName("testGame");
+		game.setTeam1_score(260);
+		game.setTeam2_score(570);
+		game.setCurrentMaster(player2.getName());
+		game.setCurrentTeamTrump("team1");
+		game.setGameStatus("simulation");
+		game.setWinningScore(1000);
+		game.setPlayer1(player1.getName());
+		game.setPlayer2(player2.getName());
+		game.setPlayer3(player3.getName());
+		game.setPlayer4(player4.getName()); 
+		game.simulation();
+		/*
 		Card card1 = new Card();
 		card1.setColor(Color.Diamond);
 		card1.setPlayer(player);
@@ -87,12 +85,12 @@ public class BelotImplementation implements BelotInterface {
 		
 		card1.setPlayer(player);
 		card2.setPlayer(player);
-		
+		*/
 		System.out.println("Starting persistence");
 		
 		EntityTransaction tx = entityManager.getTransaction();
 		tx.begin();
-		entityManager.persist(player);
+		entityManager.persist(game);
 		tx.commit();
 		
 	}

@@ -13,7 +13,6 @@ import model.Game;
 import model.GameStatus;
 import model.MonEntity;
 import model.Member;
-import model.Player;
 import model.Card.Color;
 import model.Card.Value;
 

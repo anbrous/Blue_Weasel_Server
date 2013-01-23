@@ -47,7 +47,7 @@ public class Player {
 	public void setType(Type type) {
 		this.type = type;
 	}
-	
+	/*
 	@OneToMany(cascade=CascadeType.ALL, mappedBy = "player")
 	public Collection<Card> getHandcards() {
 		return handcards;
