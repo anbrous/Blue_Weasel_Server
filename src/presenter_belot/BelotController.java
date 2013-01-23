@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import model.Card;
 import model.Game;
-import model.GameStatus;
+import model.CardIdTempo;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -78,10 +78,10 @@ public class BelotController {
 		long id = 1;
 		Game game = new Game();
 		game.simulation();
-		/*thegame.setId(id);
-		Game game = entityManager.find(Game.class, thegame);
+		//thegame.setId(id);
+		//game = entityManager.find(Game.class, id);
 		System.out.println(game.getCurrent_card_bottom());
-		*/
+		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("player1", game.getPlayer1());
 		mav.addObject("player2", game.getPlayer2());
@@ -104,6 +104,28 @@ public class BelotController {
 		mav.setViewName("showTable");
 		return mav;
 		
+	}
+	
+	@RequestMapping("gamelist/")  //(value = "gamelist/", method = RequestMethod.POST)
+	public ModelAndView gameList(HttpSession session) {//(HttpSession session, @RequestParam("status") String status) {
+		if ( session.getAttribute("login") == null) {
+
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("pageDeConfirmation"); //jsp page
+			mav.addObject("titre", "Error");
+			mav.addObject("message", "You need to be logged to access this page, sorry <br> <a href='/Blue_Weasel_Server/connection.html'> connection</a>");
+			return mav;
+		}
+		
+		List<Game> ListOfGamesFound = belotInterface.gameList(); 
+		
+		//session.setAttribute("gameid", gameid);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("listOfGames", ListOfGamesFound);
+		mav.setViewName("gameList"); //jsp page
+		return mav;
+	
+	
 	}
 	
 }

@@ -65,27 +65,12 @@ public class AccountController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirectPage");
 		if ( response == "signedin") {
-			
+			String nickname = accountInterface.getUsernameByEmail(email);
 			mav.addObject("titre", "Connection");
-			
-			if(accountInterface.checkEmailExistance(email))
-			{	
-				if(accountInterface.checkPasswordCorrespondance(email, password1))
-				{
-					username = accountInterface.getUsernameByEmail(email);
-					mav.addObject("message", "The player "+ username +" is connected!");
-				}
-				else
-					mav.addObject("message", "Incorrect password!");
-					mav.addObject("redirect", "connection.html");
-			}
-			else
-				mav.addObject("message", "The Email is not registered!");
-			
+			mav.addObject("message", "You have been successfully connected , "+nickname+" !!!");
 			// we use session variable to keep the user logged in
-			session.setAttribute("login", username);
+			session.setAttribute("login", nickname);
 			session.setAttribute("email", email);
-			mav.addObject("redirect", "connection.html");
 		}
 		else if ( response == "registered") {
 			// we use session variable to keep the user logged in
@@ -93,10 +78,11 @@ public class AccountController {
 			session.setAttribute("email", email);
 			mav.addObject("titre", "Signing Up");
 			mav.addObject("message", "Your account has been successfully created, "+username+" !!!");
-			mav.addObject("redirect", "connection.html");
+			//mav.addObject("redirect", "");
 		}
 			
 		else {
+			mav.addObject("redirect", "connection.html");
 			mav.addObject("titre", "Error");
 			mav.addObject("message", response);
 			

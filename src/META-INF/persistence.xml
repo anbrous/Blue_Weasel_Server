@@ -11,7 +11,8 @@
     <class>model.Game</class>
     <class>model.Member</class>
     <class>model.Player</class>
-    <class>model.GameStatus</class>
+    <class>model.CardValueTempo</class>
+    <class>model.CardIdTempo</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
     <property name="hibernate.connection.url" value="jdbc:hsqldb:hsql://localhost/"/>

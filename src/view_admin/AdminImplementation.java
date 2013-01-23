@@ -9,8 +9,9 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 
 import model.Card;
+import model.CardValueTempo;
 import model.Game;
-import model.GameStatus;
+import model.CardIdTempo;
 import model.MonEntity;
 import model.Member;
 import model.Card.Color;
@@ -22,7 +23,7 @@ public class AdminImplementation implements AdminRfidInterface, AdminInterface, 
 	
 	public static boolean pooling = false; 
 	
-	GameStatus gameStatusTest = new GameStatus();
+	CardValueTempo cardValueTempo = new CardValueTempo();
 	
 	
 	public AdminImplementation(EntityManagerFactory entityManagerFactory){
@@ -64,22 +65,23 @@ public class AdminImplementation implements AdminRfidInterface, AdminInterface, 
 	public void cardsInitialisation(String player){
 		pooling = true;
 		int i = 0;
+		createIdCard(123);
 		ArrayList<String> cards = new ArrayList<>();
 		
 		Card cd = new Card();
 		for(Value value : Value.values()){
 			
 			for(Color color : Color.values()){
-				
+				System.out.println("test1");
 				i++;
 				System.out.println("Please scan the "+ value + " of "+ color);
 				cd.setColor(color); cd.setValue(value);
-				gameStatusTest.setCardValue(cd.ValueToInt() +"-"+ cd.ColorToInt());
+				cardValueTempo.setValueArecuperer(cd.ValueToInt() +"-"+ cd.ColorToInt());
 				System.out.println("Card test: color "+ cd.ValueToInt()+" value: "+ cd.ColorToInt());
-				EntityTransaction tx1 = entityManager.getTransaction();
-				tx1.begin();
-				entityManager.merge(gameStatusTest);
-				tx1.commit();
+//				EntityTransaction tx1 = entityManager.getTransaction();
+//				tx1.begin();
+//				entityManager.merge(cardValueTempo);
+//				tx1.commit();
 				
 				idArecuperer = "nocard";// implémenter une méthode pour recuperer l'ID RFID
 				boolean Waiting = true;
@@ -98,9 +100,9 @@ public class AdminImplementation implements AdminRfidInterface, AdminInterface, 
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					
-					
+					System.out.println("test1");
 					idArecuperer = getCurrentCard(123);
+					System.out.println("test2");
 					//System.out.println(" pas de current card..\n checking...");
 					if(!idArecuperer.equals("nocard")){
 						if(!cards.contains(idArecuperer)){
@@ -113,12 +115,13 @@ public class AdminImplementation implements AdminRfidInterface, AdminInterface, 
 				//Scanner scan = new Scanner(System.in);
 				//idArecuperer = scan.next();
 				//idArecuperer = ""+i;
-				
+				System.out.println("test3");
 				Card card = new Card(idArecuperer, player, value, color);
 				EntityTransaction tx = entityManager.getTransaction();
 				tx.begin();
 				entityManager.merge(card);
 				tx.commit();
+				System.out.println("test4");
 			}
 		}
 		System.out.println("nbrs de cartes: "+i);
@@ -133,33 +136,32 @@ public class AdminImplementation implements AdminRfidInterface, AdminInterface, 
 
 	public void createIdCard(long id){
 		
-		GameStatus gameStatus = new GameStatus();
-		gameStatus.setId(id);
-		gameStatus.initializeIdArecuperer();
+		CardIdTempo cardIdTempo = new CardIdTempo();
+		cardIdTempo.setId(id);
+		cardIdTempo.initializeIdArecuperer();
 		EntityTransaction tx = entityManager.getTransaction();
 		tx.begin();
-		entityManager.merge(gameStatus);
+		entityManager.merge(cardIdTempo);
 		tx.commit();
 	}
 	
 	public void createIdCard(String idCard, long id){
 		
-		GameStatus gameStatus = new GameStatus();
-		gameStatus.setId(id);
-		gameStatus.setIdArecuperer(idCard);
+		CardIdTempo cardIdTempo = new CardIdTempo();
+		cardIdTempo.setId(id);
+		cardIdTempo.setIdArecuperer(idCard);
 		EntityTransaction tx = entityManager.getTransaction();
 		tx.begin();
-		entityManager.merge(gameStatus);
+		entityManager.merge(cardIdTempo);
 		tx.commit();
 	}
 
 	public String getCurrentCard(long id) {
-		
 		EntityTransaction tx = entityManager.getTransaction();
 		tx.begin();
-		GameStatus gameStatus = entityManager.find(GameStatus.class, id);
+		CardIdTempo cardIdTempo = entityManager.find(CardIdTempo.class, id);
 		tx.commit();
-		return gameStatus.getIdArecuperer();
+		return cardIdTempo.getIdArecuperer();
 	}
 	
 

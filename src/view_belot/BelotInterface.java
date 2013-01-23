@@ -1,6 +1,9 @@
 package view_belot;
 
+import java.util.ArrayList;
+
 import model.Card;
+import model.Game;
 import model.Member;
 
 public interface BelotInterface {
@@ -8,6 +11,6 @@ public interface BelotInterface {
 	public void createEntity();
 	
 	public void simulation();
-	
-	public void playerPlayAcard(Member member, Card card);
+
+	public ArrayList<Game> gameList();
 }

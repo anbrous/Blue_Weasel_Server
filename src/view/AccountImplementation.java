@@ -100,14 +100,29 @@ public class AccountImplementation implements AccountInterface {
 	
 	public String getUsernameByEmail(String email){
 		
-		List<Member> members = em.createQuery("SELECT m FROM Member m WHERE m.email LIKE :emailMember").setParameter("emailMember", email).getResultList();
-
+		List<Member> members = entityManager.createQuery("SELECT m FROM Member m WHERE m.email LIKE :emailMember").setParameter("emailMember", email).getResultList();
+		/*Member mbrt = new Member();
+		mbrt.setEmail(email);
+		Member mbr = em.find(Member.class,mbrt);
+		return mbr.getName();*/
 		return members.get(0).getName();
 	}
 	
 	public String connection( String action, String username, String email, String password, String password2) {
 		if( action.equals("signin")) {
-			return "signedin";
+			if(checkEmailExistance(email))
+			{	
+				if(checkPasswordCorrespondance(email, password))
+				{
+					
+					return "signedin";
+				}
+				else
+					return "Incorrect password!";
+				
+			}
+			else
+				return "The Email is not registered!";
 		}
 		else if ( action.equals("signup")) {
 			

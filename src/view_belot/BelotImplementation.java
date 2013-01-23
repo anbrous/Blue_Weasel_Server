@@ -35,9 +35,11 @@ public class BelotImplementation implements BelotInterface {
 		tx.commit();
 	}
 	
-	public void playerPlayAcard(Member member, Card card){
+	public ArrayList<Game> gameList(){
+	
+		ArrayList<Game> listOfGames = (ArrayList<Game>) entityManager.createQuery("SELECT g FROM Game g").getResultList();
 		
-		
+		return listOfGames;
 	}
 
 	public void simulation(){

@@ -6,11 +6,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class GameStatus {
+public class CardIdTempo {
 
 	private long id;
 	private String idArecuperer;
-	private String cardValue;
 	
 	@Id
 	public long getId() {
@@ -32,15 +31,6 @@ public class GameStatus {
 	public void initializeIdArecuperer() {
 		this.idArecuperer = "nocard";
 	}
-
-	public String getCardValue() {
-		return cardValue;
-	}
-
-	public void setCardValue(String cardValue) {
-		this.cardValue = cardValue;
-	}
-
 
 	
 }
