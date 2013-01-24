@@ -69,29 +69,19 @@ public class AdminController {
 			return mav;
 		}
 		String member = (String) session.getAttribute("login");
+		System.out.println("test1");
 		adminInterface.cardsInitialisation(member);
+		System.out.println("test2");
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("pageDeConfirmation");			// affiche pageDeConfirmation.jsp
+		mav.setViewName("redirectPage");			// affiche pageDeConfirmation.jsp
 		mav.addObject("titre", "Message de réponse :");	// variable titre dans pageDeConfirmation.jsp
-		mav.addObject("message", "Entity créée !");		// variable message dans pageDeConfirmation.jsp
+		mav.addObject("message", "Auto scan done!");		// variable message dans pageDeConfirmation.jsp
 		return mav;
-	}
-	
-	@RequestMapping(value = "appelServiceAJAX/", method = RequestMethod.POST)
-	public ModelAndView appelServiceAJAX(HttpServletRequest req, HttpServletResponse resp) {
-
-		String cardValueTest = req.getParameter("cardValue");
-		System.out.println("Ajax fonctionne : "+ cardValueTest);
-		String cardValue = adminInterface.getCardValueTempo777();
 		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("testEmail"); //jsp page
-		mav.addObject("message", "Scanner la carte suivante: "+cardValue);
-		return mav;
 	}
 	
-	@RequestMapping(value = "saisieAutomatique/sendCard", method = RequestMethod.POST) 
-	public ModelAndView sendApplication(HttpSession session, @RequestParam("idRFID") String idRFID) {
+	@RequestMapping("readerRFID/")
+	public ModelAndView readerRFID(HttpSession session) {
 		if ( session.getAttribute("login") == null) {
 
 			ModelAndView mav = new ModelAndView();
@@ -100,10 +90,29 @@ public class AdminController {
 			mav.addObject("message", "You need to be logged to access this page, sorry <br> <a href='/Blue_Weasel_Server/connection.html'> connection</a>");
 			return mav;
 		}
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("pageSimulationReaderRFID");			// affiche pageDeConfirmation.jsp
+		return mav;
+	}
+	
+	@RequestMapping(value = "sendCardAJAX/", method = RequestMethod.POST) 
+	public ModelAndView sendApplication(HttpSession session, HttpServletRequest req, HttpServletResponse resp) {
+		if ( session.getAttribute("login") == null) {
+
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("pageDeConfirmation"); //jsp page
+			mav.addObject("titre", "Error");
+			mav.addObject("message", "You need to be logged to access this page, sorry <br> <a href='/Blue_Weasel_Server/connection.html'> connection</a>");
+			return mav;
+		}
+		String idRFID = req.getParameter("idRFID");
+		System.out.println("idRFID: "+ idRFID);
+		System.out.println("TestSendCard: login= " + session.getAttribute("login"));
+		
 		adminRfidInterface.setCurrentCard(idRFID);
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("pageDeSaisieAutomatique");			// il faut rester dans la meme page jsp apres submit
-		mav.addObject("status", "EnCours");
+		mav.setViewName("testEmail"); //jsp page
+		mav.addObject("message", "Card: "+idRFID);
 		
 		return mav;
 	}
@@ -215,7 +224,8 @@ public class AdminController {
 		AdminImplementation.pooling = false;
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirectPage");			// affiche pageDeSaisieAutomatique.jsp
-		mav.addObject("redirect", "admin/saisieAutomatique");
+		mav.addObject("titre", "Message de réponse :");	// variable titre dans pageDeConfirmation.jsp
+		mav.addObject("message", "Auto scan done!");
 		
 		return mav;
 	}

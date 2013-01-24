@@ -26,8 +26,11 @@ for(Game game : listOfGames)
 {
 %>
 
-	<li>Id:<%=game.getId() %> / Status : <%=game.getGameStatus() %></li>
-
+	<li>
+		<span class="styleA">Id: <%=game.getGameName() %> / </span>  
+		<span class="styleB">Status: <%=game.getGameStatus() %></span>
+	</li>
+	
 <%
 }
 %>

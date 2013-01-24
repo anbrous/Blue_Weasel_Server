@@ -1,5 +1,6 @@
 package presenter_belot;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -143,6 +144,8 @@ public class BelotController {
 		System.out.println("Accès à la liste de status: "+ status);
 		
 		List<Game> ListOfGamesFound = belotInterface.gameList(status); 
+		
+		//List<Game> ListOfGamesFound = new ArrayList<>();
 		
 		//session.setAttribute("gameid", gameid);
 		ModelAndView mav = new ModelAndView();
