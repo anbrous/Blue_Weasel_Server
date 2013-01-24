@@ -230,7 +230,7 @@ public class AdminImplementation implements AdminRfidInterface, AdminInterface, 
 		
 		EntityTransaction tx = entityManager.getTransaction();
 		tx.begin();
-		CardValueTempo cardValueTempo = entityManager.find(CardValueTempo.class, 777);
+		CardValueTempo cardValueTempo = entityManager.find(CardValueTempo.class, (long)777);
 		tx.commit();
 		return cardValueTempo.getValueArecuperer();
 	}

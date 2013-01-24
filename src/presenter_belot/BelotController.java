@@ -111,12 +111,13 @@ public class BelotController {
 		if ( session.getAttribute("login") == null) {
 
 			ModelAndView mav = new ModelAndView();
-			mav.setViewName("pageDeConfirmation"); //jsp page
+			mav.setViewName("redirectPage"); //jsp page
 			mav.addObject("titre", "Error");
 			mav.addObject("message", "You need to be logged to access this page, sorry <br> <a href='/Blue_Weasel_Server/connection.html'> connection</a>");
 			return mav;
 		}
-		List<Game> ListOfGamesFound = belotInterface.gameList("awaiting"); 
+		
+		List<Game> ListOfGamesFound = belotInterface.gameList("all"); 
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("listOfGames", ListOfGamesFound);
@@ -126,14 +127,20 @@ public class BelotController {
 	
 	@RequestMapping(value = "gamelist/", method = RequestMethod.POST)
 	public ModelAndView gameList(HttpSession session, @RequestParam("status") String status) {
+		
+		System.out.println("login vaut: "+session.getAttribute("login"));
+		
 		if ( session.getAttribute("login") == null) {
 
 			ModelAndView mav = new ModelAndView();
-			mav.setViewName("pageDeConfirmation"); //jsp page
+			mav.setViewName("redirectPage"); //jsp page
 			mav.addObject("titre", "Error");
 			mav.addObject("message", "You need to be logged to access this page, sorry <br> <a href='/Blue_Weasel_Server/connection.html'> connection</a>");
 			return mav;
 		}
+		
+		
+		System.out.println("Accès à la liste de status: "+ status);
 		
 		List<Game> ListOfGamesFound = belotInterface.gameList(status); 
 		

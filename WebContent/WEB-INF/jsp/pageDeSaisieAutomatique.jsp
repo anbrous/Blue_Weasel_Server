@@ -4,7 +4,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <%
-	String status = (String) request.getAttribute("status"); 
+	String status = (String) request.getAttribute("status");
+	if(status == null)
+		status = "Stop";
 %>
 
 <html>
@@ -14,7 +16,7 @@
 </head>
 <body>
 
-<%= status %>
+Status: <%= status %>
 
 
 <script language="Javascript">
@@ -56,11 +58,12 @@ function updatepage(str, resultID){
 </script>
 
 
-<form action="saisieAutomatique/appelService" method=POST name ="f2">
-	<input type="submit" name="Launch" value="Lancer la lecture de carte automatique" onclick='JavaScript:xmlhttpPost("appelServiceAJAX/", "f2", "cardValue", "card_info");'/>
+<form action="saisieAutomatique/appelService" method=POST name ="f2"> 
+	<input type="text" name="cardValue"/>
+	<input type="submit" name="Launch" value="Lancer la lecture de carte automatique" onclick= "window.open('http://www.google.fr/','window name','width=400, height=200')"  />
 </form>
 
-<div id="card_info"></div>
+Card to scanned: <div id="card_info"></div>
 
 <form action="/Blue_Weasel_Server/admin/saisieAutomatique/sendCard" method="POST">
 

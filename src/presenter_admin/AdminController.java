@@ -80,8 +80,8 @@ public class AdminController {
 	@RequestMapping(value = "appelServiceAJAX/", method = RequestMethod.POST)
 	public ModelAndView appelServiceAJAX(HttpServletRequest req, HttpServletResponse resp) {
 
-		//String username = req.getParameter("username");
-		
+		String cardValueTest = req.getParameter("cardValue");
+		System.out.println("Ajax fonctionne : "+ cardValueTest);
 		String cardValue = adminInterface.getCardValueTempo777();
 		
 		ModelAndView mav = new ModelAndView();
@@ -164,7 +164,6 @@ public class AdminController {
 	@RequestMapping("/saisieAutomatique")
 	public ModelAndView appelPageSaisieAutomatique(HttpSession session) {
 		if ( session.getAttribute("login") == null) {
-
 			ModelAndView mav = new ModelAndView();
 			mav.setViewName("pageDeConfirmation"); //jsp page
 			mav.addObject("titre", "Error");

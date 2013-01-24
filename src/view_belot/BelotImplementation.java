@@ -36,12 +36,15 @@ public class BelotImplementation implements BelotInterface {
 	}
 	
 	public ArrayList<Game> gameList(String status){
-	
+		
 		ArrayList<Game> listOfGames = new ArrayList<>();
+		
 		if(status.equals("all"))
-			listOfGames = (ArrayList<Game>) entityManager.createQuery("SELECT g FROM Game g").getResultList();
-		else
-			listOfGames = (ArrayList<Game>) entityManager.createQuery("SELECT g FROM Game g WHERE g.gameStatus LIKE :gameStatus").setParameter("gameStatus", status).getResultList();
+		{
+			listOfGames = (ArrayList<Game>) entityManager.createQuery("SELECT g FROM Game g WHERE g.gameStatus=:gameStatus OR g.gameStatus=:gameStatus2").setParameter("gameStatus", "awaiting").setParameter("gameStatus2", "started").getResultList();	
+		}
+		else if(status.equals("history"))
+			listOfGames = (ArrayList<Game>) entityManager.createQuery("SELECT g FROM Game g WHERE g.gameStatus=:gameStatus").setParameter("gameStatus", "finished").getResultList();
 		
 		return listOfGames;
 	}
@@ -62,12 +65,12 @@ public class BelotImplementation implements BelotInterface {
 		player4.setName("Lyvia");
 		player4.setType(Type.Virtual);
 	
-		game.setGameName("testGameAwaiting");
+		game.setGameName("testGame");
 		game.setTeam1_score(260);
 		game.setTeam2_score(570);
 		game.setCurrentMaster(player2.getName());
 		game.setCurrentTeamTrump("team1");
-		game.setGameStatus("awaiting");
+		game.setGameStatus("finished");
 		game.setWinningScore(1000);
 		game.setPlayer1(player1.getName());
 		game.setPlayer2(player2.getName());
