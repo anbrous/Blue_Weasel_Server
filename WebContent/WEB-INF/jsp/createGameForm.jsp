@@ -8,8 +8,30 @@
 </head>
 <body>
 	<form method="post" action="createGame/">
-	<p> Game id: <input name="gameid" type="text" value=""/> </p>
-	<input type="submit" value="Game" />
+	
+	<table>
+		<tr>
+			<td>Game name:</td>
+			<td><input name="gamename" type="text" value=""/></td>
+		</tr>
+		
+		<tr>
+			<td>Winning score:</td>
+			<td><input name="winningscore" type="text" value=""/></td>
+		</tr>
+		
+		<tr>
+			<td>Number of virtual player:</td>
+			<td>
+			<select name="NumberSelected" size="1" onchange="">
+				<option value="1">1</option>
+				<option value="2">2</option>
+			</select>
+			</td>
+		</tr>
+
+	</table>
+	
 	</form>
 </body>
 </html>
