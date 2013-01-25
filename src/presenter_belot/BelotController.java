@@ -74,10 +74,11 @@ public class BelotController {
 	@RequestMapping("show_table/")
 	public ModelAndView show_table(HttpSession session) {
 		//Simulation
+		belotInterface.simulation();
 		// all codes must be created in interafces and implementation, and it will be called from the controller
-		long id = 22;
+		long id = 1;
 		Game game = new Game();
-		game = belotInterface.gameById(id);		
+	   	game = belotInterface.gameById(id);		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("player_top", game.getPlayer1());
 		mav.addObject("player_left", game.getPlayer2());
@@ -92,16 +93,137 @@ public class BelotController {
 		mav.addObject("team1_score",""+game.getTeam1_score());
 		mav.addObject("team2_score",""+game.getTeam2_score());
 
-		mav.addObject("player1_cards",game.player1_getHand());
-		mav.addObject("player2_cards",game.player2_getHand());
-		mav.addObject("player3_cards",game.player3_getHand());
-		mav.addObject("player4_cards",game.player4_getHand());
+		mav.addObject("player_top_cards",game.player1_getHand());
+		mav.addObject("player_left_cards",game.player2_getHand());
+		mav.addObject("player_bottom_cards",game.player3_getHand());
+		mav.addObject("player_right_cards",game.player4_getHand());
 		
 		mav.setViewName("showTable");
 		return mav;
 		
 	}
 
+	@RequestMapping("show_admintable/")
+	public ModelAndView show_admintable(HttpSession session) {
+		if ( session.getAttribute("login") == null) {
+
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("redirectPage"); //jsp page
+			mav.addObject("titre", "Error");
+			mav.addObject("redirect", "connection.html");
+			mav.addObject("message", "You need to be logged to access this page, sorry <br> <a href='/Blue_Weasel_Server/connection.html'> connection</a>");
+			return mav;
+		}
+		else if (session.getAttribute("gameid") == null) {
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("redirectPage"); //jsp page
+			mav.addObject("titre", "Error");
+			mav.addObject("redirect", "");
+			mav.addObject("message", "ERROR, stop cheating, or spying, you don't belong to this game dude <br> <a href='/Blue_Weasel_Server/connection.html'> connection</a>");
+			return mav;
+		}
+		
+		String player = (String) session.getAttribute("login"); 
+		//Simulation
+		// all codes must be created in interafces and implementation, and it will be called from the controller
+		long id = (long) session.getAttribute("gameid");
+		Game game = new Game();
+		game = belotInterface.gameById(id);
+		
+		ModelAndView mav = new ModelAndView();
+		// the following conditions shows the cards accordingly to the fact that the current player always has his cards in the bottom position
+		if( player.equals(game.getPlayer1())) {
+
+			mav.addObject("player_bottom", game.getPlayer1());
+			mav.addObject("player_right", game.getPlayer2());
+			mav.addObject("player_top", game.getPlayer3());
+			mav.addObject("player_left", game.getPlayer4());
+			
+			mav.addObject("played_card_bottom",game.getCurrent_card_1());
+			mav.addObject("played_card_right",game.getCurrent_card_2());
+			mav.addObject("played_card_top",game.getCurrent_card_3());
+			mav.addObject("played_card_left",game.getCurrent_card_4());
+			
+
+			mav.addObject("player_bottom_cards",game.player1_getHand());
+			mav.addObject("player_right_cards",game.player2_getHand());
+			mav.addObject("player_top_cards",game.player3_getHand());
+			mav.addObject("player_left_cards",game.player4_getHand());
+			
+		}
+		
+		else if( player.equals(game.getPlayer2())) {
+
+			mav.addObject("player_left", game.getPlayer1());
+			mav.addObject("player_bottom", game.getPlayer2());
+			mav.addObject("player_right", game.getPlayer3());
+			mav.addObject("player_top", game.getPlayer4());
+			
+			mav.addObject("played_card_left",game.getCurrent_card_1());
+			mav.addObject("played_card_bottom",game.getCurrent_card_2());
+			mav.addObject("played_card_right",game.getCurrent_card_3());
+			mav.addObject("played_card_top",game.getCurrent_card_4());
+			
+			mav.addObject("player_bottom_cards",game.player1_getHand());
+			mav.addObject("player_right_cards",game.player2_getHand());
+			mav.addObject("player_top_cards",game.player3_getHand());
+			mav.addObject("player_left_cards",game.player4_getHand());
+			
+		}
+		else if( player.equals(game.getPlayer3())) {
+
+			mav.addObject("player_top", game.getPlayer1());
+			mav.addObject("player_left", game.getPlayer2());
+			mav.addObject("player_bottom", game.getPlayer3());
+			mav.addObject("player_right", game.getPlayer4());
+			mav.addObject("played_card_top",game.getCurrent_card_1());
+			mav.addObject("played_card_left",game.getCurrent_card_2());
+			mav.addObject("played_card_bottom",game.getCurrent_card_3());
+			mav.addObject("played_card_right",game.getCurrent_card_4());
+
+			mav.addObject("player_top_cards",game.player1_getHand());
+			mav.addObject("player_left_cards",game.player2_getHand());
+			mav.addObject("player_bottom_cards",game.player3_getHand());
+			mav.addObject("player_right_cards",game.player4_getHand());
+			
+		}
+		else if( player.equals(game.getPlayer4())) {
+
+			mav.addObject("player_right", game.getPlayer1());
+			mav.addObject("player_top", game.getPlayer2());
+			mav.addObject("player_left", game.getPlayer3());
+			mav.addObject("player_bottom", game.getPlayer4());
+			mav.addObject("played_card_right",game.getCurrent_card_1());
+			mav.addObject("played_card_top",game.getCurrent_card_2());
+			mav.addObject("played_card_left",game.getCurrent_card_3());
+			mav.addObject("played_card_bottom",game.getCurrent_card_4());
+			
+			mav.addObject("player_right_cards",game.player1_getHand());
+			mav.addObject("player_top_cards",game.player2_getHand());
+			mav.addObject("player_left_cards",game.player3_getHand());
+			mav.addObject("player_bottom_cards",game.player4_getHand());
+		}
+		else {
+			
+			mav.setViewName("redirectPage"); //jsp page
+			mav.addObject("titre", "Error");
+			mav.addObject("redirect", "");
+			mav.addObject("message", "ERROR 1542, stop cheating, or spying, you don't belong to this game dude <br> <a href='/Blue_Weasel_Server/connection.html'> connection</a>");
+			return mav;
+			
+		}
+		
+		mav.addObject("game_status",game.getGameStatus());
+		mav.addObject("current_trump",game.getCurrentTrump());
+		mav.addObject("team1_score",""+game.getTeam1_score());
+		mav.addObject("team2_score",""+game.getTeam2_score());
+
+		
+		mav.setViewName("showTable");
+		return mav;
+		
+	}
+	
 	@RequestMapping("show_gametable/")
 	public ModelAndView show_game(HttpSession session) {
 		if ( session.getAttribute("login") == null) {
@@ -130,33 +252,46 @@ public class BelotController {
 		game = belotInterface.gameById(id);
 		
 		ModelAndView mav = new ModelAndView();
-		
+		// the following conditions shows the cards accordingly to the fact that the current player always has his cards in the bottom position
 		if( player.equals(game.getPlayer1())) {
 
 			mav.addObject("player_bottom", game.getPlayer1());
 			mav.addObject("player_right", game.getPlayer2());
 			mav.addObject("player_top", game.getPlayer3());
 			mav.addObject("player_left", game.getPlayer4());
+			
 			mav.addObject("played_card_bottom",game.getCurrent_card_1());
 			mav.addObject("played_card_right",game.getCurrent_card_2());
 			mav.addObject("played_card_top",game.getCurrent_card_3());
 			mav.addObject("played_card_left",game.getCurrent_card_4());
 			
+
+			mav.addObject("player_bottom_cards",game.player1_getHand());
+			mav.addObject("player_right_cards",game.hidelist(game.player2_getHand()));
+			mav.addObject("player_top_cards",game.hidelist(game.player3_getHand()));
+			mav.addObject("player_left_cards",game.hidelist(game.player4_getHand()));
+			
 		}
 		
-		if( player.equals(game.getPlayer2())) {
+		else if( player.equals(game.getPlayer2())) {
 
 			mav.addObject("player_left", game.getPlayer1());
 			mav.addObject("player_bottom", game.getPlayer2());
 			mav.addObject("player_right", game.getPlayer3());
 			mav.addObject("player_top", game.getPlayer4());
+			
 			mav.addObject("played_card_left",game.getCurrent_card_1());
 			mav.addObject("played_card_bottom",game.getCurrent_card_2());
 			mav.addObject("played_card_right",game.getCurrent_card_3());
 			mav.addObject("played_card_top",game.getCurrent_card_4());
 			
+			mav.addObject("player_bottom_cards",game.hidelist(game.player1_getHand()));
+			mav.addObject("player_right_cards",game.player2_getHand());
+			mav.addObject("player_top_cards",game.hidelist(game.player3_getHand()));
+			mav.addObject("player_left_cards",game.hidelist(game.player4_getHand()));
+			
 		}
-		if( player.equals(game.getPlayer3())) {
+		else if( player.equals(game.getPlayer3())) {
 
 			mav.addObject("player_top", game.getPlayer1());
 			mav.addObject("player_left", game.getPlayer2());
@@ -166,8 +301,14 @@ public class BelotController {
 			mav.addObject("played_card_left",game.getCurrent_card_2());
 			mav.addObject("played_card_bottom",game.getCurrent_card_3());
 			mav.addObject("played_card_right",game.getCurrent_card_4());
+
+			mav.addObject("player_top_cards",game.hidelist(game.player1_getHand()));
+			mav.addObject("player_left_cards",game.hidelist(game.player2_getHand()));
+			mav.addObject("player_bottom_cards",game.player3_getHand());
+			mav.addObject("player_right_cards",game.hidelist(game.player4_getHand()));
+			
 		}
-		if( player.equals(game.getPlayer4())) {
+		else if( player.equals(game.getPlayer4())) {
 
 			mav.addObject("player_right", game.getPlayer1());
 			mav.addObject("player_top", game.getPlayer2());
@@ -177,6 +318,20 @@ public class BelotController {
 			mav.addObject("played_card_top",game.getCurrent_card_2());
 			mav.addObject("played_card_left",game.getCurrent_card_3());
 			mav.addObject("played_card_bottom",game.getCurrent_card_4());
+			
+			mav.addObject("player_right_cards",game.hidelist(game.player1_getHand()));
+			mav.addObject("player_top_cards",game.hidelist(game.player2_getHand()));
+			mav.addObject("player_left_cards",game.hidelist(game.player3_getHand()));
+			mav.addObject("player_bottom_cards",game.player4_getHand());
+		}
+		else {
+			
+			mav.setViewName("redirectPage"); //jsp page
+			mav.addObject("titre", "Error");
+			mav.addObject("redirect", "");
+			mav.addObject("message", "ERROR 1542, stop cheating, or spying, you don't belong to this game dude <br> <a href='/Blue_Weasel_Server/connection.html'> connection</a>");
+			return mav;
+			
 		}
 		
 		mav.addObject("game_status",game.getGameStatus());
@@ -184,15 +339,12 @@ public class BelotController {
 		mav.addObject("team1_score",""+game.getTeam1_score());
 		mav.addObject("team2_score",""+game.getTeam2_score());
 
-		mav.addObject("player1_cards",game.player1_getHand());
-		mav.addObject("player2_cards",game.player2_getHand());
-		mav.addObject("player3_cards",game.player3_getHand());
-		mav.addObject("player4_cards",game.player4_getHand());
 		
 		mav.setViewName("showTable");
 		return mav;
 		
 	}
+	
 	@RequestMapping(value = "gamelist/", method = RequestMethod.GET)
 	public ModelAndView gameListByUser(HttpSession session) {
 		if ( session.getAttribute("login") == null) {
@@ -232,7 +384,6 @@ public class BelotController {
 		List<Game> ListOfGamesFound = belotInterface.gameList(status); 
 		
 		//List<Game> ListOfGamesFound = new ArrayList<>();
-		
 		//session.setAttribute("gameid", gameid);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("listOfGames", ListOfGamesFound);

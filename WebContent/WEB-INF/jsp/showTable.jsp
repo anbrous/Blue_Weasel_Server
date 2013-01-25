@@ -18,20 +18,20 @@
    }
    //initializing hand cards
    
-   String [] player1_cards = new String[8],player2_cards = new String[8],player3_cards = new String[8],player4_cards = new String[8];
-   Arrays.fill(player1_cards,"none");Arrays.fill(player2_cards,"none");Arrays.fill(player3_cards,"none");Arrays.fill(player4_cards,"none");
+   String [] player_top_cards = new String[8],player_left_cards = new String[8],player_bottom_cards = new String[8],player_right_cards = new String[8];
+   Arrays.fill(player_top_cards,"none");Arrays.fill(player_left_cards,"none");Arrays.fill(player_bottom_cards,"none");Arrays.fill(player_right_cards,"none");
 
-   if( request.getAttribute("player1_cards") != null ) {
-	   player1_cards = (String []) request.getAttribute("player1_cards");
+   if( request.getAttribute("player_top_cards") != null ) {
+	   player_top_cards = (String []) request.getAttribute("player_top_cards");
    }
-   if( request.getAttribute("player2_cards") != null ) {
-	   player2_cards = (String []) request.getAttribute("player2_cards");
+   if( request.getAttribute("player_left_cards") != null ) {
+	   player_left_cards = (String []) request.getAttribute("player_left_cards");
    }
-   if( request.getAttribute("player3_cards") != null ) {
-	   player3_cards = (String []) request.getAttribute("player3_cards");
+   if( request.getAttribute("player_bottom_cards") != null ) {
+	   player_bottom_cards = (String []) request.getAttribute("player_bottom_cards");
    }
-   if( request.getAttribute("player4_cards") != null ) {
-	   player4_cards = (String []) request.getAttribute("player4_cards");
+   if( request.getAttribute("player_right_cards") != null ) {
+	   player_right_cards = (String []) request.getAttribute("player_right_cards");
    }
 	// Game variables and Team score
 	String game_status = "unknown", current_trump = "unknown";
@@ -83,22 +83,22 @@
 		int i,j;
 		for(i=1;i<=8;i++) { 
 		j = i-1; %>
-		$("#hct<%=i%>").css({ 'background-image': 'url(../../img/cards/<%=player1_cards[j]%>.png)'});		
+		$("#hct<%=i%>").css({ 'background-image': 'url(../../img/cards/<%=player_top_cards[j]%>.png)'});		
 		<% } %>
 		<% 
 		for(i=1;i<=8;i++) { 
 		j = i-1; %>
-		$("#hcl<%=i%>").css({ 'background-image': 'url(../../img/cards/<%=player2_cards[j]%>.png)'});		
+		$("#hcl<%=i%>").css({ 'background-image': 'url(../../img/cards/<%=player_left_cards[j]%>.png)'});		
 		<% } %>
 		<% 
 		for(i=1;i<=8;i++) { 
 		j = i-1; %>
-		$("#hcb<%=i%>").css({ 'background-image': 'url(../../img/cards/<%=player3_cards[j]%>.png)'});		
+		$("#hcb<%=i%>").css({ 'background-image': 'url(../../img/cards/<%=player_bottom_cards[j]%>.png)'});		
 		<% } %>
 		<% 
 		for(i=1;i<=8;i++) { 
 		j = i-1; %>
-		$("#hcr<%=i%>").css({ 'background-image': 'url(../../img/cards/<%=player4_cards[j]%>.png)'});
+		$("#hcr<%=i%>").css({ 'background-image': 'url(../../img/cards/<%=player_right_cards[j]%>.png)'});
 		<% } %>
 	});
 </script>

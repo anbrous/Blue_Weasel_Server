@@ -73,13 +73,13 @@ public class BelotImplementation implements BelotInterface {
 		Player player4 = new Player();
 		player4.setName("Lyvia");
 		player4.setType(Type.Virtual);
-	
-		game.setGameName("Lyvia Game3");
+		
+		game.setGameName("Bastien Fight");
 		game.setTeam1_score(260);
 		game.setTeam2_score(570);
 		game.setCurrentMaster(player2.getName());
 		game.setCurrentTeamTrump("team1");
-		game.setGameStatus("awaiting");
+		game.setGameStatus("started");
 		game.setWinningScore(1000);
 		game.setPlayer1(player1.getName());
 		game.setPlayer2(player2.getName());

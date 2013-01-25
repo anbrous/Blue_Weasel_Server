@@ -475,6 +475,17 @@ public class Game {
 		return hand;
 	}
 	
+	public String [] hidelist( String [] hand){
+		String [] result = hand;
+		int i;
+		for(i = 0; i< result.length; i++){
+			if(!result[i].equals("none")){
+				result[i]="b1fv" ;
+			}
+		}
+		return result;
+	}
+	
 	public void simulation() {
 		// we are going to make random cards on the game
 		// we have 32 cards and 4 cards on table possibilities

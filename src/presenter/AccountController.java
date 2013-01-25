@@ -71,7 +71,7 @@ public class AccountController {
 			// we use session variable to keep the user logged in
 			session.setAttribute("login", nickname);
 			session.setAttribute("email", email);
-			session.setAttribute("gameid", (long) 22);
+			session.setAttribute("gameid", (long) 1);
 			System.out.println(session.getAttribute("login"));
 		}
 		else if ( response == "registered") {
