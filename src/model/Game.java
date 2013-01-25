@@ -24,10 +24,10 @@ public class Game {
 	private String player4;
 	private int team1_score;
 	private int team2_score;
-	private String current_card_top;
-	private String current_card_left;
-	private String current_card_bottom;
-	private String current_card_right;
+	private String current_card_1;
+	private String current_card_2;
+	private String current_card_3;
+	private String current_card_4;
 	private String player1_card1;
 	private String player1_card2;
 	private String player1_card3;
@@ -426,36 +426,36 @@ public class Game {
 		this.player4_card8 = player4_card8;
 	}
 
-	public String getCurrent_card_top() {
-		return current_card_top;
+	public String getCurrent_card_1() {
+		return current_card_1;
 	}
 
-	public void setCurrent_card_top(String current_card_top) {
-		this.current_card_top = current_card_top;
+	public void setCurrent_card_1(String current_card_1) {
+		this.current_card_1 = current_card_1;
 	}
 
-	public String getCurrent_card_left() {
-		return current_card_left;
+	public String getCurrent_card_2() {
+		return current_card_2;
 	}
 
-	public void setCurrent_card_left(String current_card_left) {
-		this.current_card_left = current_card_left;
+	public void setCurrent_card_2(String current_card_2) {
+		this.current_card_2 = current_card_2;
 	}
 
-	public String getCurrent_card_bottom() {
-		return current_card_bottom;
+	public String getCurrent_card_3() {
+		return current_card_3;
 	}
 
-	public void setCurrent_card_bottom(String current_card_bottom) {
-		this.current_card_bottom = current_card_bottom;
+	public void setCurrent_card_3(String current_card_3) {
+		this.current_card_3 = current_card_3;
 	}
 
-	public String getCurrent_card_right() {
-		return current_card_right;
+	public String getCurrent_card_4() {
+		return current_card_4;
 	}
 
-	public void setCurrent_card_right(String current_card_right) {
-		this.current_card_right = current_card_right;
+	public void setCurrent_card_4(String current_card_4) {
+		this.current_card_4 = current_card_4;
 	}
 	
 	public String [] player1_getHand(){
@@ -492,10 +492,10 @@ public class Game {
 		String[] randomcards = allcards.toArray(new String[36]);
 		
 		//now dealing those random cards;
-		this.current_card_top = randomcards[0];
-		this.current_card_left = randomcards[1];
-		this.current_card_bottom = randomcards[2];
-		this.current_card_right = randomcards[3];
+		this.current_card_1 = randomcards[0];
+		this.current_card_2 = randomcards[1];
+		this.current_card_3 = randomcards[2];
+		this.current_card_4 = randomcards[3];
 		//---
 		this.player1_card1 = randomcards[4];
 		this.player1_card2 = randomcards[5];

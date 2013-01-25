@@ -69,9 +69,7 @@ public class AdminController {
 			return mav;
 		}
 		String member = (String) session.getAttribute("login");
-		System.out.println("test1");
 		adminInterface.cardsInitialisation(member);
-		System.out.println("test2");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirectPage");			// affiche pageDeConfirmation.jsp
 		mav.addObject("titre", "Message de réponse :");	// variable titre dans pageDeConfirmation.jsp
@@ -90,6 +88,7 @@ public class AdminController {
 			mav.addObject("message", "You need to be logged to access this page, sorry <br> <a href='/Blue_Weasel_Server/connection.html'> connection</a>");
 			return mav;
 		}
+		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("pageSimulationReaderRFID");			// affiche pageDeConfirmation.jsp
 		return mav;
@@ -116,6 +115,25 @@ public class AdminController {
 		
 		return mav;
 	}
+	
+	@RequestMapping(value = "showCardToScanAJAX/", method = RequestMethod.POST) 
+	public ModelAndView showCardToScanAJAX(HttpSession session, HttpServletRequest req, HttpServletResponse resp) {
+		if ( session.getAttribute("login") == null) {
+
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("pageDeConfirmation"); //jsp page
+			mav.addObject("titre", "Error");
+			mav.addObject("message", "You need to be logged to access this page, sorry <br> <a href='/Blue_Weasel_Server/connection.html'> connection</a>");
+			return mav;
+		}
+		System.out.println("ajax show card to scan");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("testEmail"); //jsp page
+		mav.addObject("message", AdminImplementation.cardValueArecuperer);
+		
+		return mav;
+	}
+	
 	
 	@RequestMapping(value = "/saisieManuelle", method = RequestMethod.POST)
 	public ModelAndView appelPageSaisieManuelle(HttpSession session) {

@@ -13,4 +13,6 @@ public interface BelotInterface {
 	public void simulation();
 
 	public ArrayList<Game> gameList(String status);
+	
+	public Game gameById(long id );
 }

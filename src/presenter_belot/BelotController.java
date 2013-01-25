@@ -74,39 +74,125 @@ public class BelotController {
 	@RequestMapping("show_table/")
 	public ModelAndView show_table(HttpSession session) {
 		//Simulation
-		belotInterface.simulation();
 		// all codes must be created in interafces and implementation, and it will be called from the controller
-		long id = 1;
+		long id = 22;
 		Game game = new Game();
-		game.simulation();
-		//thegame.setId(id);
-		//game = entityManager.find(Game.class, id);
-		System.out.println(game.getCurrent_card_bottom());
-		
+		game = belotInterface.gameById(id);		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("player1", game.getPlayer1());
-		mav.addObject("player2", game.getPlayer2());
-		mav.addObject("player3", game.getPlayer3());
-		mav.addObject("player4", game.getPlayer4());
-		mav.addObject("played_card_top",game.getCurrent_card_top());
-		mav.addObject("played_card_left",game.getCurrent_card_left());
-		mav.addObject("played_card_bottom",game.getCurrent_card_bottom());
-		mav.addObject("played_card_right",game.getCurrent_card_right());
+		mav.addObject("player_top", game.getPlayer1());
+		mav.addObject("player_left", game.getPlayer2());
+		mav.addObject("player_bottom", game.getPlayer3());
+		mav.addObject("player_right", game.getPlayer4());
+		mav.addObject("played_card_top",game.getCurrent_card_1());
+		mav.addObject("played_card_left",game.getCurrent_card_2());
+		mav.addObject("played_card_bottom",game.getCurrent_card_3());
+		mav.addObject("played_card_right",game.getCurrent_card_4());
 		mav.addObject("game_status",game.getGameStatus());
 		mav.addObject("current_trump",game.getCurrentTrump());
 		mav.addObject("team1_score",""+game.getTeam1_score());
 		mav.addObject("team2_score",""+game.getTeam2_score());
 
 		mav.addObject("player1_cards",game.player1_getHand());
-		mav.addObject("player2_cards",game.player1_getHand());
-		mav.addObject("player3_cards",game.player1_getHand());
-		mav.addObject("player4_cards",game.player1_getHand());
+		mav.addObject("player2_cards",game.player2_getHand());
+		mav.addObject("player3_cards",game.player3_getHand());
+		mav.addObject("player4_cards",game.player4_getHand());
 		
 		mav.setViewName("showTable");
 		return mav;
 		
 	}
-	
+
+	@RequestMapping("show_gametable/")
+	public ModelAndView show_game(HttpSession session) {
+		if ( session.getAttribute("login") == null) {
+
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("redirectPage"); //jsp page
+			mav.addObject("titre", "Error");
+			mav.addObject("redirect", "connection.html");
+			mav.addObject("message", "You need to be logged to access this page, sorry <br> <a href='/Blue_Weasel_Server/connection.html'> connection</a>");
+			return mav;
+		}
+		else if (session.getAttribute("gameid") == null) {
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("redirectPage"); //jsp page
+			mav.addObject("titre", "Error");
+			mav.addObject("redirect", "");
+			mav.addObject("message", "ERROR, stop cheating, or spying, you don't belong to this game dude <br> <a href='/Blue_Weasel_Server/connection.html'> connection</a>");
+			return mav;
+		}
+		
+		String player = (String) session.getAttribute("login"); 
+		//Simulation
+		// all codes must be created in interafces and implementation, and it will be called from the controller
+		long id = (long) session.getAttribute("gameid");
+		Game game = new Game();
+		game = belotInterface.gameById(id);
+		
+		ModelAndView mav = new ModelAndView();
+		
+		if( player.equals(game.getPlayer1())) {
+
+			mav.addObject("player_bottom", game.getPlayer1());
+			mav.addObject("player_right", game.getPlayer2());
+			mav.addObject("player_top", game.getPlayer3());
+			mav.addObject("player_left", game.getPlayer4());
+			mav.addObject("played_card_bottom",game.getCurrent_card_1());
+			mav.addObject("played_card_right",game.getCurrent_card_2());
+			mav.addObject("played_card_top",game.getCurrent_card_3());
+			mav.addObject("played_card_left",game.getCurrent_card_4());
+			
+		}
+		
+		if( player.equals(game.getPlayer2())) {
+
+			mav.addObject("player_left", game.getPlayer1());
+			mav.addObject("player_bottom", game.getPlayer2());
+			mav.addObject("player_right", game.getPlayer3());
+			mav.addObject("player_top", game.getPlayer4());
+			mav.addObject("played_card_left",game.getCurrent_card_1());
+			mav.addObject("played_card_bottom",game.getCurrent_card_2());
+			mav.addObject("played_card_right",game.getCurrent_card_3());
+			mav.addObject("played_card_top",game.getCurrent_card_4());
+			
+		}
+		if( player.equals(game.getPlayer3())) {
+
+			mav.addObject("player_top", game.getPlayer1());
+			mav.addObject("player_left", game.getPlayer2());
+			mav.addObject("player_bottom", game.getPlayer3());
+			mav.addObject("player_right", game.getPlayer4());
+			mav.addObject("played_card_top",game.getCurrent_card_1());
+			mav.addObject("played_card_left",game.getCurrent_card_2());
+			mav.addObject("played_card_bottom",game.getCurrent_card_3());
+			mav.addObject("played_card_right",game.getCurrent_card_4());
+		}
+		if( player.equals(game.getPlayer4())) {
+
+			mav.addObject("player_right", game.getPlayer1());
+			mav.addObject("player_top", game.getPlayer2());
+			mav.addObject("player_left", game.getPlayer3());
+			mav.addObject("player_bottom", game.getPlayer4());
+			mav.addObject("played_card_right",game.getCurrent_card_1());
+			mav.addObject("played_card_top",game.getCurrent_card_2());
+			mav.addObject("played_card_left",game.getCurrent_card_3());
+			mav.addObject("played_card_bottom",game.getCurrent_card_4());
+		}
+		
+		mav.addObject("game_status",game.getGameStatus());
+		mav.addObject("current_trump",game.getCurrentTrump());
+		mav.addObject("team1_score",""+game.getTeam1_score());
+		mav.addObject("team2_score",""+game.getTeam2_score());
+
+		mav.addObject("player1_cards",game.player1_getHand());
+		mav.addObject("player2_cards",game.player2_getHand());
+		mav.addObject("player3_cards",game.player3_getHand());
+		mav.addObject("player4_cards",game.player4_getHand());
+		
+		mav.setViewName("showTable");
+		return mav;
+		
+	}
 	@RequestMapping(value = "gamelist/", method = RequestMethod.GET)
 	public ModelAndView gameListByUser(HttpSession session) {
 		if ( session.getAttribute("login") == null) {

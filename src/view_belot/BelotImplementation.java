@@ -49,6 +49,15 @@ public class BelotImplementation implements BelotInterface {
 		return listOfGames;
 	}
 
+	public Game gameById(long id ) {
+		
+		Game game = new Game();
+		
+		game= entityManager.find(Game.class, id);
+		
+		return game;
+		
+	}
 	public void simulation(){
 		System.out.println("Starting simulation of creating a game");
 		Game game = new Game();
@@ -65,12 +74,12 @@ public class BelotImplementation implements BelotInterface {
 		player4.setName("Lyvia");
 		player4.setType(Type.Virtual);
 	
-		game.setGameName("Boris game 77");
+		game.setGameName("Lyvia Game3");
 		game.setTeam1_score(260);
 		game.setTeam2_score(570);
 		game.setCurrentMaster(player2.getName());
 		game.setCurrentTeamTrump("team1");
-		game.setGameStatus("started");
+		game.setGameStatus("awaiting");
 		game.setWinningScore(1000);
 		game.setPlayer1(player1.getName());
 		game.setPlayer2(player2.getName());
@@ -101,6 +110,5 @@ public class BelotImplementation implements BelotInterface {
 		tx.begin();
 		entityManager.persist(game);
 		tx.commit();
-		
 	}
 }

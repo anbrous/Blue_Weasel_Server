@@ -23,6 +23,8 @@ public class AdminImplementation implements AdminRfidInterface, AdminInterface, 
 	
 	public static boolean pooling = false; 
 	
+	public static String cardValueArecuperer = "0-0";
+	
 	CardValueTempo cardValueTempo = new CardValueTempo();
 	
 	
@@ -64,7 +66,7 @@ public class AdminImplementation implements AdminRfidInterface, AdminInterface, 
 				
 	public void cardsInitialisation(String player){
 		pooling = true;
-
+		cardValueArecuperer = "0-0";
 		createIdCard(123);
 		ArrayList<String> cards = new ArrayList<>();
 		
@@ -77,6 +79,7 @@ public class AdminImplementation implements AdminRfidInterface, AdminInterface, 
 				
 				cd.setColor(color); cd.setValue(value);
 				saveCardValueTempo777(cd.ValueToInt() +"-"+ cd.ColorToInt());
+				cardValueArecuperer = cd.ValueToInt() +"-"+ cd.ColorToInt();
 				
 				System.out.println("Card test: color "+ cd.ValueToInt()+" value: "+ cd.ColorToInt());
 				

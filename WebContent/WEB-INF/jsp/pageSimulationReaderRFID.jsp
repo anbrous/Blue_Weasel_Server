@@ -25,7 +25,7 @@ function closePage(strURL) {
 	self.xmlHttpReq.send();
 }
 
-function xmlhttpPost3(strURL ,formName, paramValue, resultID) {
+function xmlhttpPost(strURL ,formName, paramValue, resultID) {
 	var xmlHttpReq = false;
 	var self = this;
 	// Mozilla/Safari
@@ -66,7 +66,7 @@ function updatepage(str, resultID){
 	<form method="POST" name="f2"> <!-- action="/Blue_Weasel_Server/admin/saisieAutomatique/sendCard"  -->
 	
 		<input type ="text" name="idRFID"/>
-		<input type="button" name="submit" value="Cliquer ici pour envoyer une carte" onclick='JavaScript:xmlhttpPost3("../sendCardAJAX/","f2","idRFID","card_info")'/>
+		<input type="button" name="submit" value="Cliquer ici pour envoyer une carte" onclick='JavaScript:xmlhttpPost("../sendCardAJAX/","f2","idRFID","card_info")'/>
 		<div id="card_info"></div>
 	</form>
 

@@ -4,17 +4,17 @@
   <%
    // initializing players
   	String player_top = "unknown", player_left = "unknown", player_right = "unknown", player_bottom = "unknown";
-   if( request.getAttribute("player1") != null ) {
-	   player_top = (String)request.getAttribute("player1");
+   if( request.getAttribute("player_top") != null ) {
+	   player_top = (String)request.getAttribute("player_top");
    }
-   if( request.getAttribute("player2") != null ) {
-	   player_left = (String)request.getAttribute("player2");
+   if( request.getAttribute("player_left") != null ) {
+	   player_left = (String)request.getAttribute("player_left");
    }
-   if( request.getAttribute("player3") != null ) {
-	   player_bottom = (String)request.getAttribute("player3");
+   if( request.getAttribute("player_bottom") != null ) {
+	   player_bottom = (String)request.getAttribute("player_bottom");
    }
-   if( request.getAttribute("player4") != null ) {
-	   player_right = (String)request.getAttribute("player4");
+   if( request.getAttribute("player_right") != null ) {
+	   player_right = (String)request.getAttribute("player_right");
    }
    //initializing hand cards
    
