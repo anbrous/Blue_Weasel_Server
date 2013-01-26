@@ -31,6 +31,16 @@ public class AccountController {
 	}
 
 
+	@RequestMapping("admin/welcome.jsp")
+	public ModelAndView welcome() {
+
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("pageDeConfirmation"); //jsp page
+		mav.addObject("titre", "Liste des jeux !");
+		mav.addObject("message", "Ici la liste des jeux ! (belote, uno, tarot etc.. )");
+		return mav;
+		
+	}
 	@RequestMapping("game_list/")
 	public ModelAndView appelApplication() {
 
@@ -46,7 +56,7 @@ public class AccountController {
 		session.removeAttribute("login");
 		session.removeAttribute("email");
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("pageDeConfirmation"); //jsp page
+		mav.setViewName("redirectPage"); //jsp page
 		mav.addObject("titre", "Loging Out");
 		mav.addObject("message", "you have successfully logged out, thanks");
 		return mav;
@@ -63,10 +73,11 @@ public class AccountController {
 		 
 		String response = accountInterface.connection(action, username, email, password1, password2);
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("redirectPage");
+
+		if( action.equals("signin" )) { mav.setViewName("emptyPage"); }
+		else { mav.setViewName("redirectPage"); }
 		if ( response == "signedin") {
 			String nickname = accountInterface.getUsernameByEmail(email);
-			mav.addObject("titre", "Connection");
 			mav.addObject("message", "You have been successfully connected, "+nickname+" !!!");
 			// we use session variable to keep the user logged in
 			session.setAttribute("login", nickname);
@@ -78,7 +89,6 @@ public class AccountController {
 			// we use session variable to keep the user logged in
 			session.setAttribute("login", username);
 			session.setAttribute("email", email);
-			mav.addObject("titre", "Signing Up");
 			mav.addObject("message", "Your account has been successfully created, "+username+" !!!");
 			//mav.addObject("redirect", "");
 		}

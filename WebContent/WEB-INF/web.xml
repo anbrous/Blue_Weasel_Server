@@ -16,8 +16,6 @@
 	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 	<load-on-startup>1</load-on-startup>
   </servlet>
-  
-  <!-- http://localhost:8080/JPA_SpringWebMVC/game/... -->
   <servlet-mapping>
 	<servlet-name>blue_weasel</servlet-name>
 	<url-pattern>/bw/*</url-pattern>
@@ -28,8 +26,6 @@
 	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 	<load-on-startup>1</load-on-startup>
   </servlet>
-  
-  <!-- http://localhost:8080/JPA_SpringWebMVC/game/... -->
   <servlet-mapping>
 	<servlet-name>admin</servlet-name>
 	<url-pattern>/admin/*</url-pattern>
@@ -40,8 +36,6 @@
 	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 	<load-on-startup>1</load-on-startup>
   </servlet>
-  
-  <!-- http://localhost:8080/JPA_SpringWebMVC/game/... -->
   <servlet-mapping>
 	<servlet-name>belot_game</servlet-name>
 	<url-pattern>/belot/*</url-pattern>
@@ -49,6 +43,6 @@
   
   
   <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
+    <welcome-file>welcome.jsp</welcome-file>
   </welcome-file-list>
 </web-app>
