@@ -35,7 +35,7 @@ public class BelotImplementation implements BelotInterface {
 		tx.commit();
 	}
 	
-	public ArrayList<Game> gameList(String status){
+	public ArrayList<Game> gameList(String status, String login){
 		
 		ArrayList<Game> listOfGames = new ArrayList<>();
 		
@@ -44,8 +44,15 @@ public class BelotImplementation implements BelotInterface {
 			listOfGames = (ArrayList<Game>) entityManager.createQuery("SELECT g FROM Game g WHERE g.gameStatus=:gameStatus OR g.gameStatus=:gameStatus2").setParameter("gameStatus", "awaiting").setParameter("gameStatus2", "started").getResultList();	
 		}
 		else if(status.equals("history"))
-			listOfGames = (ArrayList<Game>) entityManager.createQuery("SELECT g FROM Game g WHERE g.gameStatus=:gameStatus").setParameter("gameStatus", "finished").getResultList();
+		{
+			listOfGames = (ArrayList<Game>) entityManager.createQuery("SELECT g FROM Game g WHERE g.player1=:player1 OR g.player2=:player2 OR g.player3=:player3 OR g.player4=:player4").setParameter("player1", login).setParameter("player2", login).setParameter("player3", login).setParameter("player4", login).getResultList();
 		
+			for(int i = 0; i< listOfGames.size(); i++)
+			{
+				if (listOfGames.get(i).getGameStatus() != "finished")
+					listOfGames.remove(i);
+			}
+		}
 		return listOfGames;
 	}
 

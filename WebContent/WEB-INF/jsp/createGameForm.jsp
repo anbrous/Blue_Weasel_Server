@@ -49,7 +49,7 @@ function ajax_create(strURL , resultID) {
 				$("#dialog").shuffleLetters();
 				setTimeout('$( "#dialog" ).dialog( "close" );',3000 );
 				setTimeout('$( "#f1" ).hide("puff", {}, 2000);',5000 );
-				setTimeout('window.location.href="/Blue_Weasel_Server/game_table/"',6000 );
+				setTimeout('window.location.href="/Blue_Weasel_Server/belot/game_table/"',6000 );
 			}
 			else
 			{
