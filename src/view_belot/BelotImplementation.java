@@ -45,13 +45,7 @@ public class BelotImplementation implements BelotInterface {
 		}
 		else if(status.equals("history"))
 		{
-			listOfGames = (ArrayList<Game>) entityManager.createQuery("SELECT g FROM Game g WHERE g.player1=:player1 OR g.player2=:player2 OR g.player3=:player3 OR g.player4=:player4").setParameter("player1", login).setParameter("player2", login).setParameter("player3", login).setParameter("player4", login).getResultList();
-		
-			for(int i = 0; i< listOfGames.size(); i++)
-			{
-				if (listOfGames.get(i).getGameStatus() != "finished")
-					listOfGames.remove(i);
-			}
+			listOfGames = (ArrayList<Game>) entityManager.createQuery("SELECT g FROM Game g WHERE g.gameStatus=:gameStatus AND (g.player1=:player1 OR g.player2=:player2 OR g.player3=:player3 OR g.player4=:player4)").setParameter("gameStatus", "finished").setParameter("player1", login).setParameter("player2", login).setParameter("player3", login).setParameter("player4", login).getResultList();
 		}
 		return listOfGames;
 	}
