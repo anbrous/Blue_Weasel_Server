@@ -539,7 +539,7 @@ public class BelotController {
 		
 	}
 	
-	@RequestMapping(value = "gamelist/", method = RequestMethod.GET)
+	@RequestMapping(value = "gamelistServer/", method = RequestMethod.GET)
 	public ModelAndView gameListByUser(HttpSession session) {
 		if ( session.getAttribute("login") == null) {
 
@@ -555,7 +555,7 @@ public class BelotController {
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("listOfGames", ListOfGamesFound);
-		mav.setViewName("showGames"); //jsp page
+		mav.setViewName("showGamesServer"); //jsp page
 		return mav;
 	}
 	
@@ -585,7 +585,54 @@ public class BelotController {
 		mav.setViewName("showGames"); //jsp page
 		return mav;
 	
+	}
 	
+	@RequestMapping(value = "gamelistServer/", method = RequestMethod.POST)
+	public ModelAndView gameListServer(HttpSession session, @RequestParam("status") String status) {
+		
+		System.out.println("login vaut: "+session.getAttribute("login"));
+		
+		if ( session.getAttribute("login") == null) {
+
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("redirectPage"); //jsp page
+			mav.addObject("titre", "Error");
+			mav.addObject("message", "You need to be logged to access this page, sorry <br> <a href='/Blue_Weasel_Server/connection.html'> connection</a>");
+			return mav;
+		}
+		String login = (String) session.getAttribute("login");
+		
+		System.out.println("Accès à la liste de status: "+ status);
+		
+		List<Game> ListOfGamesFound = belotInterface.gameList(status, login); 
+		
+		//List<Game> ListOfGamesFound = new ArrayList<>();
+		//session.setAttribute("gameid", gameid);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("listOfGames", ListOfGamesFound);
+		mav.setViewName("showGamesServer"); //jsp page
+		return mav;
+	
+	}
+	
+	@RequestMapping(value = "joingame/", method = RequestMethod.POST)
+	public ModelAndView joingame(HttpSession session) {
+		if ( session.getAttribute("login") == null) {
+
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("redirectPage"); //jsp page
+			mav.addObject("titre", "Error");
+			mav.addObject("message", "You need to be logged to access this page, sorry <br> <a href='/Blue_Weasel_Server/connection.html'> connection</a>");
+			return mav;
+		}
+		
+		String login = (String) session.getAttribute("login");
+		List<Game> ListOfGamesFound = belotInterface.gameList("all", login); 
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("listOfGames", ListOfGamesFound);
+		mav.setViewName("showGamesServer"); //jsp page
+		return mav;
 	}
 	
 }
