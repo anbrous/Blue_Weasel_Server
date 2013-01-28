@@ -82,19 +82,18 @@ public class AccountController {
 			// we use session variable to keep the user logged in
 			session.setAttribute("login", nickname);
 			session.setAttribute("email", email);
-			session.setAttribute("gameid", (long) 1);
 			System.out.println(session.getAttribute("login"));
 		}
 		else if ( response == "registered") {
 			// we use session variable to keep the user logged in
-			session.setAttribute("login", username);
-			session.setAttribute("email", email);
+			//session.setAttribute("login", username); //remove comment for auto connection
+			//session.setAttribute("email", email); //remoce comment for auto connection
 			mav.addObject("message", "Your account has been successfully created, "+username+" !!!");
 			//mav.addObject("redirect", "");
 		}
 			
 		else {
-			mav.addObject("redirect", "connection.html");
+			mav.addObject("redirect", "");
 			mav.addObject("titre", "Error");
 			mav.addObject("message", response);
 			

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.Card;
@@ -39,7 +41,7 @@ public class BelotController {
 
 
 
-	@RequestMapping("createGameForm")
+	@RequestMapping("creategameform/")
 	public ModelAndView createGameForm(HttpSession session) {
 		if ( session.getAttribute("login") == null) {
 
@@ -55,25 +57,94 @@ public class BelotController {
 		
 	}
 
-	@RequestMapping(value = "createGame/", method = RequestMethod.POST)
-	public ModelAndView createGame(HttpSession session, @RequestParam("gameid") String gameid) {
+	@RequestMapping(value = "creategame/", method = RequestMethod.POST)
+	public ModelAndView createGame(HttpSession session, HttpServletRequest req, HttpServletResponse res) {
 		if ( session.getAttribute("login") == null) {
 
 			ModelAndView mav = new ModelAndView();
-			mav.setViewName("pageDeConfirmation"); //jsp page
+			mav.setViewName("redirectPage"); //jsp page
 			mav.addObject("titre", "Error");
-			mav.addObject("message", "You need to be logged to access this page, sorry <br> <a href='/Blue_Weasel_Server/connection.html'> connection</a>");
+			mav.addObject("message", "You need to be logged to access this page, sorry <br> <a href='/Blue_Weasel_Server/connection.html'> register</a>");
 			return mav;
 		}
-		session.setAttribute("gameid", gameid);
+		int nbofrp = Integer.parseInt(req.getParameter("nborp"));
+		int winningscore = Integer.parseInt(req.getParameter("winningscore"));
+		long game_result = 0;
+		if( nbofrp == 1) {
+			game_result = belotInterface.createGame(req.getParameter("gamename"),winningscore,req.getParameter("player1"),req.getParameter("position1"));
+		}
+		else if (nbofrp == 2) {
+			game_result = belotInterface.createGame(req.getParameter("gamename"),winningscore,req.getParameter("player1"),req.getParameter("position1"),req.getParameter("player2"),req.getParameter("position2"));
+		}
+		else if (nbofrp == 3){
+			game_result = belotInterface.createGame(req.getParameter("gamename"),winningscore,req.getParameter("player1"),req.getParameter("position1"),req.getParameter("player2"),req.getParameter("position2"),req.getParameter("player3"),req.getParameter("position3"));			
+		}
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("showTable"); //jsp page
+		mav.setViewName("emptyPage"); //jsp page ( game_result == 0) {
+		
+		if (game_result == -1) {
+			mav.addObject("message", "Sorry, this name already exists, find another name please!!");
+		}
+		else if (game_result == 0) {
+			mav.addObject("message", "Unknown error :(");
+		}
+		else if ( game_result >= 1){
+
+			mav.addObject("message", "New Game successfully created");
+			session.setAttribute("gameid", game_result);
+		}
+		
+
 		return mav;
 		
 	}
+	
+	
+
+	@RequestMapping("game_table/")
+	public ModelAndView game_table(HttpSession session) {
+		if ( session.getAttribute("login") == null) {
+
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("redirectPage"); //jsp page
+			mav.addObject("titre", "Error");
+			mav.addObject("message", "You need to be logged to access this page, sorry <br> <a href='/Blue_Weasel_Server/'> register</a>");
+			return mav;
+		}
+		if ( session.getAttribute("gameid") == null) {
+
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("redirectPage"); //jsp page
+			mav.addObject("titre", "Error");
+			mav.addObject("message", "You need to be part of a Game<br> <a href='/Blue_Weasel_Server/belot/creategameform/'>Create a game</a>");
+			return mav;
+		}
+		long id = (long) session.getAttribute("gameid");
+		Game game = new Game();
+	   	game = belotInterface.gameById(id);		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("player_top", game.getPlayer1());
+		mav.addObject("player_left", game.getPlayer2());
+		mav.addObject("player_bottom", game.getPlayer3());
+		mav.addObject("player_right", game.getPlayer4());
+		mav.addObject("played_card_top",game.getCurrent_card_1());
+		mav.addObject("played_card_left",game.getCurrent_card_2());
+		mav.addObject("played_card_bottom",game.getCurrent_card_3());
+		mav.addObject("played_card_right",game.getCurrent_card_4());
+		mav.addObject("game_status",game.getGameStatus());
+		mav.addObject("current_trump",game.getCurrentTrump());
+		mav.addObject("team1_score",""+game.getTeam1_score());
+		mav.addObject("team2_score",""+game.getTeam2_score());
+
+		
+		mav.setViewName("gameTable");
+		return mav;
+		
+	}
+	
 	@RequestMapping("show_table/")
 	public ModelAndView show_table(HttpSession session) {
-		//Simulation
+ 		//Simulation
 		belotInterface.simulation();
 		// all codes must be created in interafces and implementation, and it will be called from the controller
 		long id = 1;
@@ -119,13 +190,13 @@ public class BelotController {
 			mav.setViewName("redirectPage"); //jsp page
 			mav.addObject("titre", "Error");
 			mav.addObject("redirect", "");
-			mav.addObject("message", "ERROR, stop cheating, or spying, you don't belong to this game dude <br> <a href='/Blue_Weasel_Server/connection.html'> connection</a>");
+			mav.addObject("message", "ERROR, stop cheating, or spying, you don't belong to this game dude <br> <a href='/Blue_Weasel_Server/'> Main page</a>");
 			return mav;
 		}
 		
 		String player = (String) session.getAttribute("login"); 
 		//Simulation
-		// all codes must be created in interafces and implementation, and it will be called from the controller
+		// all codes must be created in interfaces and implementation, and it will be called from the controller
 		long id = (long) session.getAttribute("gameid");
 		Game game = new Game();
 		game = belotInterface.gameById(id);

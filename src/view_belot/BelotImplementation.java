@@ -111,4 +111,134 @@ public class BelotImplementation implements BelotInterface {
 		entityManager.persist(game);
 		tx.commit();
 	}
+
+	public boolean gamenamecheck(String name) {
+		if (entityManager.createQuery("SELECT g FROM Game g WHERE g.gameName=:gamename").setParameter("gamename", name).getResultList().size() >= 1)
+			return true;
+		else		
+			return false;
+	}
+	public long createGame(String gamename, int winningscore, String player1,
+			String position1) {
+		if(!gamenamecheck(gamename)){
+			Game game = new Game();
+			game.setGameName(gamename);
+			game.setGameStatus("awaiting");
+			game.setWinningScore(winningscore);
+			
+			switch(position1){
+			
+			case "1" : game.setPlayer1(player1); break;
+			case "2" :game.setPlayer2(player1); break;
+			case "3" :game.setPlayer3(player1); break;
+			case "4" :game.setPlayer4(player1); break;
+			}
+			
+			game.setTeam1_score(0);
+			game.setTeam2_score(0);
+			
+
+			EntityTransaction tx = entityManager.getTransaction();
+			tx.begin();
+			entityManager.persist(game);
+			tx.commit();
+			System.out.println(game.getId());
+			return game.getId();
+			
+		}	
+		else {
+			System.out.println("Name deja existant");
+			return -1;
+		}
+	}
+
+	public long createGame(String gamename, int winningscore, String player1,
+			String position1, String player2, String position2) {
+		if(!gamenamecheck(gamename)){
+			Game game = new Game();
+			game.setGameName(gamename);
+			game.setGameStatus("awaiting");
+			game.setWinningScore(winningscore);
+			
+			switch(position1){
+			
+			case "1" : game.setPlayer1(player1); break;
+			case "2" :game.setPlayer2(player1); break;
+			case "3" :game.setPlayer3(player1); break;
+			case "4" :game.setPlayer4(player1); break;
+			}
+			switch(position2){
+			
+			case "1" : game.setPlayer1(player2); break;
+			case "2" :game.setPlayer2(player2); break;
+			case "3" :game.setPlayer3(player2); break;
+			case "4" :game.setPlayer4(player2); break;
+			}
+			
+			game.setTeam1_score(0);
+			game.setTeam2_score(0);
+			
+
+			EntityTransaction tx = entityManager.getTransaction();
+			tx.begin();
+			entityManager.persist(game);
+			tx.commit();
+			System.out.println(game.getId());
+			return game.getId();
+			
+		}	
+		else {
+			System.out.println("Name deja existant");
+			return -1;
+		}
+	}
+
+	public long createGame(String gamename, int winningscore, String player1,
+			String position1, String player2, String position2, String player3,
+			String position3) {
+		if(!gamenamecheck(gamename)){
+			Game game = new Game();
+			game.setGameName(gamename);
+			game.setGameStatus("awaiting");
+			game.setWinningScore(winningscore);
+			
+			switch(position1){
+			
+			case "1" : game.setPlayer1(player1); break;
+			case "2" :game.setPlayer2(player1); break;
+			case "3" :game.setPlayer3(player1); break;
+			case "4" :game.setPlayer4(player1); break;
+			}
+			switch(position2){
+			
+			case "1" : game.setPlayer1(player2); break;
+			case "2" :game.setPlayer2(player2); break;
+			case "3" :game.setPlayer3(player2); break;
+			case "4" :game.setPlayer4(player2); break;
+			}
+			switch(position3){
+			
+			case "1" : game.setPlayer1(player3); break;
+			case "2" :game.setPlayer2(player3); break;
+			case "3" :game.setPlayer3(player3); break;
+			case "4" :game.setPlayer4(player3); break;
+			}
+			
+			game.setTeam1_score(0);
+			game.setTeam2_score(0);
+			
+
+			EntityTransaction tx = entityManager.getTransaction();
+			tx.begin();
+			entityManager.persist(game);
+			tx.commit();
+			System.out.println(game.getId());
+			return game.getId();
+			
+		}	
+		else {
+			System.out.println("Name deja existant");
+			return -1;
+		}
+	}
 }

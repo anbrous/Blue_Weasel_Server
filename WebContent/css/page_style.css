@@ -11,6 +11,15 @@ body {
 	-moz-border-radius:40px 0px 40px 0px;
 	-webkit-border-radius:40px 0px 40px 0px;	
 }
+.content .creategameform {
+	width:60%;
+	margin:auto;
+	border: 2px #ccc dashed;
+	padding:20px;
+}
+.container td {
+	padding: 15px;	
+}
 #header h1{
 	font: 55px Tahoma, Helvetica, Arial, Sans-Serif;
 	text-align: center;
@@ -52,7 +61,7 @@ body {
 }
 #nav {
 	margin-top:20px;
-	width: 100px;
+	width: 100%;
 }
 .form {
 	border:1px #ccc dashed;
@@ -65,9 +74,8 @@ body {
 	padding-right: 40px;
 }
 #nav ul {
-	float: left;
 	list-style-type: none;
-	width:950px;
+	width:450px;
 	height: 44px;
 	border-radius:10px;	
 	-moz-border-radius: 10px;

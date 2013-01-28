@@ -150,13 +150,11 @@ $(function() {
 		
 		%>
 	<div id="nav">
-    <ul>
-        <li><a href="admin.html">Administration page</a></li>
-        <li><a href="bw/game_list/">List of available games</a></li>
-        <li><a href="pageDeSelectionListofGames.html">List of games</a></li>
-        <li><a href="connection.html">Connection</a></li>
-        <li><a href="belot/createGameForm">Create a game</a></li>
-    </ul>
+	    <ul>
+	        <li><a href="belot/creategameform/">Create a game</a></li>
+	        <li><a href="belot/history/">Browse history</a></li>
+	        <li><a href="bw/logout/">Logout</a></li>
+	    </ul>
     </div>
 		
 		<%
@@ -187,7 +185,17 @@ $(function() {
 		<%
 		}
 	%>
-	
+		<%
+	if(loggedin){
+		
+		%>	<ul>
+	        <li><a href="admin.html">Administration page</a></li>
+	        <li><a href="bw/game_list/">List of available games</a></li>
+	        <li><a href="pageDeSelectionListofGames.html">List of games</a></li>
+			</ul>
+<%
+	}
+%>
 	<br /><br /><br /><br />
 
 	
