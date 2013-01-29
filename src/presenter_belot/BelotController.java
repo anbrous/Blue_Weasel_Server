@@ -23,12 +23,14 @@ import java.io.PrintWriter;
 
 
 import view_belot.BelotInterface;
+import view_belot.GamingInterface;
 
 
 @Controller
 public class BelotController {
 	
 	BelotInterface belotInterface;
+	GamingInterface gamingInterface;
 
 	EntityManager entityManager;
 	
@@ -40,6 +42,18 @@ public class BelotController {
 
 	public void setBelotInterface(BelotInterface belotInterface) {
 		this.belotInterface = belotInterface;
+	}
+
+
+
+	public GamingInterface getGamingInterface() {
+		return gamingInterface;
+	}
+
+
+
+	public void setGamingInterface(GamingInterface gamingInterface) {
+		this.gamingInterface = gamingInterface;
 	}
 
 
@@ -733,6 +747,11 @@ public class BelotController {
 		}
 		else
 		{
+			if( id == -999 ) {
+				// it is the last player
+				System.out.println(gameid);
+				gamingInterface.startGame((gameid));
+			}
 			mav.addObject("redirect", "belot/show_gametable/");
 			mav.addObject("titre", "Player join the game");
 			mav.addObject("message", "The player "+player+" has join the game "+gameid+" in position "+position);

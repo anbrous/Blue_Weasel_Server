@@ -31,8 +31,6 @@ public class AdminController {
 	AdminRfidInterface adminRfidInterface;
 	AdminInitialisationManuelleInterface adminInitialisationManuelleInterface;
 
-	
-
 	public AdminInterface getAdminInterface() {
 		return adminInterface;
 	}

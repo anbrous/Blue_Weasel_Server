@@ -269,6 +269,9 @@ public class BelotImplementation implements BelotInterface {
 			tx.begin();
 			entityManager.persist(game);
 			tx.commit();
+			
+			if( game.getPlayer1() != null && game.getPlayer2() != null && game.getPlayer3() != null && game.getPlayer4() != null )
+				return -999;
 			return game.getId();
 			
 		}	

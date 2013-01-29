@@ -19,6 +19,8 @@ public class Game {
 	private String currentTrump;
 	private String currentTeamTrump;
 	private String currentMaster;
+	private String currentCardReceiver;
+	private String playingStatus;
 	private String player1;
 	private String player2;
 	private String player3;
@@ -139,6 +141,22 @@ public class Game {
 		this.currentMaster = currentMaster;
 	}
 	
+	public String getCurrentCardReceiver() {
+		return currentCardReceiver;
+	}
+
+	public void setCurrentCardReceiver(String currentDealer) {
+		this.currentCardReceiver = currentDealer;
+	}
+
+	public String getPlayingStatus() {
+		return playingStatus;
+	}
+
+	public void setPlayingStatus(String playingStatus) {
+		this.playingStatus = playingStatus;
+	}
+
 	public String getPlayer1() {
 		return player1;
 	}
@@ -467,7 +485,21 @@ public class Game {
 	public void setGame_info(String game_info) {
 		this.game_info = game_info;
 	}
-
+ 
+	public String [] playerx_getHand(String player) {
+		
+		if (this.player1.equals(player))
+			return player1_getHand();		
+		if (this.player2.equals(player))
+			return player2_getHand();		
+		if (this.player3.equals(player))
+			return player3_getHand();		
+		if (this.player4.equals(player))
+			return player4_getHand();
+		else
+			return null;
+	}
+	
 	public String [] player1_getHand(){
 		String[] hand = {player1_card1,player1_card2,player1_card3,player1_card4,player1_card5,player1_card6,player1_card7,player1_card8};
 		return hand;
@@ -561,5 +593,21 @@ public class Game {
 		this.player4_card7 = randomcards[34];
 		this.player4_card8 = randomcards[35];
 		
+	}
+	
+	public String nextRoundPlayer( String currentplayer  ){
+		
+		if(this.player1.equals(currentplayer))
+			return this.player2;
+		else if (this.player2.equals(currentplayer))
+			return this.player3;
+		else if (this.player3.equals(currentplayer))
+			return this.player1_card2;
+		else if (this.player3.equals(currentplayer))
+			return this.player4;
+		else if (this.player4.equals(currentplayer))
+			return this.player1;
+		else
+			return "error";
 	}
 }

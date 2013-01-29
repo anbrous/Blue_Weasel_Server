@@ -3,7 +3,7 @@
     <%@page import="java.util.ArrayList"%>
     <%@page import="model.Game;"%>
 Players:
-<li>${seatTop}</li>
-<li>${seatLeft}</li>
-<li>${seatBottom}</li>
-<li>${seatRight}</li>
+<li>0 / ${seatTop}</li>
+<li>1 / ${seatLeft}</li>
+<li>2 / ${seatBottom}</li>
+<li>3 / ${seatRight}</li>
