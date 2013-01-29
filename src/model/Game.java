@@ -15,6 +15,8 @@ public class Game {
 	private String gameName;
 	private String gameStatus;
 	private int winningScore;
+	private String playingStatus;
+	private String playerTurn;
 	private String currentTrump;
 	private String currentTeamTrump;
 	private String currentMaster;
@@ -95,6 +97,22 @@ public class Game {
 
 	public void setWinningScore(int winningScore) {
 		this.winningScore = winningScore;
+	}
+
+	public String getPlayingStatus() {
+		return playingStatus;
+	}
+
+	public void setPlayingStatus(String playingStatus) {
+		this.playingStatus = playingStatus;
+	}
+
+	public String getPlayerTurn() {
+		return playerTurn;
+	}
+
+	public void setPlayerTurn(String playerTurn) {
+		this.playerTurn = playerTurn;
 	}
 
 	public String getCurrentTrump() {
@@ -486,6 +504,25 @@ public class Game {
 		return result;
 	}
 	
+	public void putNextPlayer() {
+		if(playerTurn.equals(player1)){
+			this.playerTurn = player2;
+		}
+		else if (playerTurn.equals(player2)){
+			this.playerTurn = player3;
+		}
+		else if (playerTurn.equals(player3)){
+			this.playerTurn = player4;
+		}
+		else if (playerTurn.equals(player4)){
+			this.playerTurn = player1;
+		}
+		else {
+			this.playerTurn = player1;
+		}
+	}
+	
+
 	public void simulation() {
 		// we are going to make random cards on the game
 		// we have 32 cards and 4 cards on table possibilities
@@ -543,6 +580,5 @@ public class Game {
 		this.player4_card6 = randomcards[33];
 		this.player4_card7 = randomcards[34];
 		this.player4_card8 = randomcards[35];
-		
 	}
 }
