@@ -37,8 +37,16 @@ http://cxf.apache.org/schemas/jaxws.xsd">
 			<ref bean="belotImplementation"/>
 		</property>
 	</bean>  
+	<bean id="gamingServiceId" class="presenter_belot.GamingController">
+		<property name="GamingInterface">
+			<ref bean="gamingImplementation"/>
+		</property>
+	</bean>  
 	
 	<bean id="belotImplementation" class="view_belot.BelotImplementation">
+		<constructor-arg ref="entityManagerFactory"/>
+	</bean>
+	<bean id="gamingImplementation" class="view_belot.GamingImplementation">
 		<constructor-arg ref="entityManagerFactory"/>
 	</bean>
 	
@@ -56,4 +64,3 @@ http://cxf.apache.org/schemas/jaxws.xsd">
 	</bean>
 	
 </beans>
-
