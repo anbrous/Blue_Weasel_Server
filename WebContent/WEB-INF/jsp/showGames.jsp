@@ -8,5 +8,5 @@ listOfGames = (ArrayList<Game>) request.getAttribute("listOfGames");
 %>
 Games:
 <%for(Game game : listOfGames){%>
-<li>Id: <%=game.getGameName() %> / Status: <%=game.getGameStatus() %></li>
+<li>Id: <%=game.getId() %> / Name: <%=game.getGameName() %> / Status: <%=game.getGameStatus() %></li>
 <%}%>

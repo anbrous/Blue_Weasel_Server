@@ -6,7 +6,7 @@
 ArrayList<String> seats = new ArrayList<String>();
 seats = (ArrayList<String>) request.getAttribute("seats");
 %>
-Games:
+Seats:
 <%for(String seat : seats){%>
 <li><%= seat %></li>
 <%}%>

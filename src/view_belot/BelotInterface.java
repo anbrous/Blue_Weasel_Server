@@ -24,5 +24,6 @@ public interface BelotInterface {
 	public long createGame( String gamename, int winningscore, String player1, String position1, String player2, String position2, String player3, String position3 );
 		//return id of created game
 
-
+	public long joinGame(long gameid, String player, String position); 
+		//return id of the game, return '-2' otherwise
 }

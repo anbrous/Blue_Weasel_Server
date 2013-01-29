@@ -586,9 +586,43 @@ public class BelotController {
 			seats.add("right");
 		}	
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("seats", seats);	
+		mav.addObject("seats", seats);
+		mav.addObject("gameid", gameid);
 		mav.setViewName("showGameSeats"); //jsp page
 		return mav;
+	}
+	
+	@RequestMapping(value = "join_game/", method = RequestMethod.POST)
+	public ModelAndView join_game(HttpSession session, @RequestParam("position") String position, @RequestParam("gameid") long gameid) {
+
+		if ( session.getAttribute("login") == null) {
+
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("redirectPage"); //jsp page
+			mav.addObject("titre", "Error");
+			mav.addObject("message", "You need to be logged to access this page, sorry <br> <a href='/Blue_Weasel_Server/connection.html'> connection</a>");
+			return mav;
+		}
+
+		String player = (String) session.getAttribute("login");
+		
+		long id = belotInterface.joinGame(gameid, player, position);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirectPage"); //jsp page
+		
+		if(id == -2)
+		{	
+			mav.addObject("titre", "Error");
+			mav.addObject("message", "Player "+player+" already in game");
+		}
+		else
+		{
+			mav.addObject("titre", "Player join the game");
+			mav.addObject("message", "The player "+player+" has join the game "+gameid+" in position "+position);
+		}		
+		return mav;
+	
 	}
 	
 	@RequestMapping(value = "gamelist/", method = RequestMethod.POST)
