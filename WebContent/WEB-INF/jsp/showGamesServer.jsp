@@ -35,7 +35,7 @@ for(Game game : listOfGames)
 }
 %>
 <br/>
-<form action="/Blue_Weasel_Server/belot/game_available_seats/" method="POST">
+<form action="/Blue_Weasel_Server/belot/game_available_seats_server/" method="POST">
 
 Join a game:
 <select  name="gameid" size="1">

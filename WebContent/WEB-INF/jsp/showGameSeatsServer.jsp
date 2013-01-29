@@ -4,7 +4,16 @@
     <%@page import="model.Game;"%>
 <% 
 ArrayList<String> seats = new ArrayList<String>();
-seats = (ArrayList<String>) request.getAttribute("seats");
+
+if(request.getAttribute("seatTop").equals("free"))
+	seats.add("top");
+if(request.getAttribute("seatLeft").equals("free"))
+	seats.add("left");
+if(request.getAttribute("seatBottom").equals("free"))
+	seats.add("bottom");
+if(request.getAttribute("seatRight").equals("free"))
+	seats.add("right");
+	
 String id = (String) request.getParameter("gameid");
 %>
 <html>
@@ -13,11 +22,21 @@ String id = (String) request.getParameter("gameid");
 <title>join game</title>
 </head>
 <body>
-Games:
+Players:
+<ul>
+<li>${seatTop}</li>
+<li>${seatLeft}</li>
+<li>${seatBottom}</li>
+<li>${seatRight}</li>
+</ul>
+
+<table>
 <%for(String seat : seats){%>
-<li><%= seat %><form method="post" action="/Blue_Weasel_Server/belot/join_game/">
+<tr><td><%= seat %></td><td><form method="post" action="/Blue_Weasel_Server/belot/join_game/">
 <input type="hidden" name="gameid" value="<%= id%>">
-<input type="hidden" name="position" value="<%= seat%>" /><input type="submit" value="Join the game" /></form></li>
+<input type="hidden" name="position" value="<%= seat%>" /><input type="submit" value="Join the game" /></form></td></tr>
 <%}%>
+</table>
+
 </body>
 </html>

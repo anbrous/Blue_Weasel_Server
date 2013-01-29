@@ -618,6 +618,66 @@ public class BelotController {
 		mav.setViewName("showGameSeats"); //jsp page
 		return mav;
 	}
+
+	@RequestMapping(value = "game_available_seats_server/", method = RequestMethod.POST)
+	public ModelAndView game_available_seats_server(HttpSession session, @RequestParam("gameid") long gameid ) {
+		if ( session.getAttribute("login") == null) {
+
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("redirectPage"); //jsp page
+			mav.addObject("titre", "Error");
+			mav.addObject("message", "You need to be logged to access this page, sorry <br> <a href='/Blue_Weasel_Server/connection.html'>register</a>");
+			return mav;
+		}
+		long id = (long) gameid;
+		String login = (String) session.getAttribute("login");
+		Game game = belotInterface.gameById(id); 
+		//ArrayList<String> seats = new ArrayList<String>();
+		
+		String seatTop = "";
+		String seatLeft = "";
+		String seatBottom = "";
+		String seatRight = "";
+		
+		if(game.getPlayer1() == null) {
+			//seats.add("top");
+			seatTop = "free";
+		}
+		else
+			seatTop = game.getPlayer1();
+		
+		if(game.getPlayer2() == null) {
+			//seats.add("left");
+			seatLeft = "free";
+		}
+		else
+			seatLeft = game.getPlayer2();
+		if(game.getPlayer3() == null) {
+			//seats.add("bottom");
+			seatBottom = "free";
+		}
+		else
+			seatBottom = game.getPlayer3();
+		if(game.getPlayer4() == null) {
+			//seats.add("right");
+			seatRight = "free";
+		}	
+		else
+			seatRight = game.getPlayer4();
+		
+		
+		ModelAndView mav = new ModelAndView();
+		//mav.addObject("seats", seats);
+		mav.addObject("gameid", gameid);
+		
+		mav.addObject("seatTop", seatTop);
+		mav.addObject("seatLeft", seatLeft);
+		mav.addObject("seatBottom", seatBottom);
+		mav.addObject("seatRight", seatRight);
+		
+		mav.setViewName("showGameSeatsServer"); //jsp page
+		return mav;
+	}
 	
 	@RequestMapping(value = "join_game/", method = RequestMethod.POST)
 	public ModelAndView join_game(HttpSession session, @RequestParam("position") String position, @RequestParam("gameid") long gameid) {
@@ -645,6 +705,7 @@ public class BelotController {
 		}
 		else
 		{
+			mav.addObject("redirect", "belot/show_gametable/");
 			mav.addObject("titre", "Player join the game");
 			mav.addObject("message", "The player "+player+" has join the game "+gameid+" in position "+position);
 		}		

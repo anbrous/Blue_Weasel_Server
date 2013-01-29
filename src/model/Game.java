@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 import javax.persistence.Entity;
@@ -476,8 +477,18 @@ public class Game {
 	}
 	
 	public String [] hidelist( String [] hand){
-		String [] result = hand;
+		
+		String [] result;
+		if(hand == null)
+		{
+			result = new String [8];
+			Arrays.fill(result,"none");
+		}
+		else
+			result = hand;
+		
 		int i;
+		
 		for(i = 0; i< result.length; i++){
 			if(!result[i].equals("none")){
 				result[i]="b1fv" ;
