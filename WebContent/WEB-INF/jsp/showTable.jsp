@@ -47,7 +47,7 @@
 		score2 = (String) request.getAttribute("team2_score");
 	
    // current cards
-   String played_card_top = "b1fv", played_card_left = "b1fv", played_card_bottom = "b1fv", played_card_right = "b1fv";
+   String played_card_top = "none", played_card_left = "none", played_card_bottom = "none", played_card_right = "none";
    
    if( request.getAttribute("played_card_top") != null ) {
 	   played_card_top = (String)request.getAttribute("played_card_top");
@@ -179,6 +179,7 @@
 				<tr>
 					<td>Team2</td><td><%= player_left %></td><td><%= player_right %></td><td>Score: <%= score2 %> </td>
 				</tr>
+				<tr><td>info:</td><td>${game_info}</td></tr>
 			</table>
 		</div>
 	</div>

@@ -107,6 +107,7 @@
 				<tr>
 					<td>Team2</td><td><%= player_left %></td><td><%= player_right %></td><td>Score: <%= score2 %> </td>
 				</tr>
+				<tr><td>info:</td><td>${game_info}</td></tr>
 			</table>
 		</div>
 	</div>

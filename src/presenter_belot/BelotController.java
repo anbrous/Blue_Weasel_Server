@@ -106,6 +106,12 @@ public class BelotController {
 
 	@RequestMapping("game_table/")
 	public ModelAndView game_table(HttpSession session) {
+
+		/**
+		 * 
+		 *  This part represents just show the game on the central screen on the real game table
+		 * 
+		 **/
 		if ( session.getAttribute("login") == null) {
 
 			ModelAndView mav = new ModelAndView();
@@ -146,6 +152,12 @@ public class BelotController {
 	
 	@RequestMapping("show_table/")
 	public ModelAndView show_table(HttpSession session) {
+
+		/**
+		 * 
+		 *  This part represents just show the game but not accordingly to the player
+		 * 
+		 **/
  		//Simulation
 		belotInterface.simulation();
 		// all codes must be created in interafces and implementation, and it will be called from the controller
@@ -170,6 +182,8 @@ public class BelotController {
 		mav.addObject("player_left_cards",game.player2_getHand());
 		mav.addObject("player_bottom_cards",game.player3_getHand());
 		mav.addObject("player_right_cards",game.player4_getHand());
+		mav.addObject("game_info",game.getGame_info());
+		
 		
 		mav.setViewName("showTable");
 		return mav;
@@ -178,6 +192,12 @@ public class BelotController {
 
 	@RequestMapping("show_admintable/")
 	public ModelAndView show_admintable(HttpSession session) {
+
+		/**
+		 * 
+		 *  This part represents the table with a view of every cards
+		 * 
+		 **/
 		if ( session.getAttribute("login") == null) {
 
 			ModelAndView mav = new ModelAndView();
@@ -290,6 +310,7 @@ public class BelotController {
 		mav.addObject("current_trump",game.getCurrentTrump());
 		mav.addObject("team1_score",""+game.getTeam1_score());
 		mav.addObject("team2_score",""+game.getTeam2_score());
+		mav.addObject("game_info",game.getGame_info());
 		
 		mav.setViewName("showTable");
 		return mav;
@@ -298,6 +319,11 @@ public class BelotController {
 	
 	@RequestMapping("show_gametable/")
 	public ModelAndView show_game(HttpSession session) {
+		/**
+		 * 
+		 *  This part represents the game accordingly to the player, so the player sees only his cards at the bottom place
+		 * 
+		 **/
 		if ( session.getAttribute("login") == null) {
 
 			ModelAndView mav = new ModelAndView();
@@ -410,6 +436,7 @@ public class BelotController {
 		mav.addObject("current_trump",game.getCurrentTrump());
 		mav.addObject("team1_score",""+game.getTeam1_score());
 		mav.addObject("team2_score",""+game.getTeam2_score());
+		mav.addObject("game_info",game.getGame_info());
 
 		mav.setViewName("showTable");
 		return mav;
@@ -533,6 +560,7 @@ public class BelotController {
 		mav.addObject("current_trump",game.getCurrentTrump());
 		mav.addObject("team1_score",""+game.getTeam1_score());
 		mav.addObject("team2_score",""+game.getTeam2_score());
+		mav.addObject("game_info",game.getGame_info());
 
 		mav.setViewName("showTablet");
 		return mav;
@@ -708,6 +736,7 @@ public class BelotController {
 			mav.addObject("redirect", "belot/show_gametable/");
 			mav.addObject("titre", "Player join the game");
 			mav.addObject("message", "The player "+player+" has join the game "+gameid+" in position "+position);
+			session.setAttribute("gameid", gameid);
 		}		
 		return mav;
 	

@@ -132,6 +132,7 @@ public class BelotImplementation implements BelotInterface {
 			game.setGameName(gamename);
 			game.setGameStatus("awaiting");
 			game.setWinningScore(winningscore);
+			game.setGame_info("Please wait for other players");
 			
 			switch(position1){
 			
@@ -159,32 +160,7 @@ public class BelotImplementation implements BelotInterface {
 		}
 	}
 
-	
-	public long joinGame(long gameid, String player,
-			String position) {
 
-		Game game = gameById(gameid);
-		if(!player.equals(game.getPlayer1()) && !player.equals(game.getPlayer2()) && !player.equals(game.getPlayer3()) && !player.equals(game.getPlayer4())){
-			
-			switch(position){
-			
-			case "top" : game.setPlayer1(player); break;
-			case "left" :game.setPlayer2(player); break;
-			case "bottom" :game.setPlayer3(player); break;
-			case "right" :game.setPlayer4(player); break;
-			}			
-			EntityTransaction tx = entityManager.getTransaction();
-			tx.begin();
-			entityManager.persist(game);
-			tx.commit();
-			return game.getId();
-			
-		}	
-		else {
-			System.out.println("Player already in game");
-			return -2;
-		}
-	}
 	public long createGame(String gamename, int winningscore, String player1,
 			String position1, String player2, String position2) {
 		if(!gamenamecheck(gamename)){
@@ -192,6 +168,7 @@ public class BelotImplementation implements BelotInterface {
 			game.setGameName(gamename);
 			game.setGameStatus("awaiting");
 			game.setWinningScore(winningscore);
+			game.setGame_info("Please wait for other players");
 			
 			switch(position1){
 			
@@ -234,6 +211,7 @@ public class BelotImplementation implements BelotInterface {
 			game.setGameName(gamename);
 			game.setGameStatus("awaiting");
 			game.setWinningScore(winningscore);
+			game.setGame_info("Please wait for other players");
 			
 			switch(position1){
 			
@@ -273,5 +251,31 @@ public class BelotImplementation implements BelotInterface {
 			System.out.println("Name deja existant");
 			return -1;
 		}
+	}	
+	public long joinGame(long gameid, String player,
+			String position) {
+
+		Game game = gameById(gameid);
+		if(!player.equals(game.getPlayer1()) && !player.equals(game.getPlayer2()) && !player.equals(game.getPlayer3()) && !player.equals(game.getPlayer4())){
+			
+			switch(position){
+			
+			case "top" : game.setPlayer1(player); break;
+			case "left" :game.setPlayer2(player); break;
+			case "bottom" :game.setPlayer3(player); break;
+			case "right" :game.setPlayer4(player); break;
+			}			
+			EntityTransaction tx = entityManager.getTransaction();
+			tx.begin();
+			entityManager.persist(game);
+			tx.commit();
+			return game.getId();
+			
+		}	
+		else {
+			System.out.println("Player already in game");
+			return -2;
+		}
 	}
+	
 }

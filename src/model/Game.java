@@ -61,6 +61,7 @@ public class Game {
 	private String player4_card6;
 	private String player4_card7;
 	private String player4_card8;
+	private String game_info;
 	
 	
 
@@ -459,6 +460,14 @@ public class Game {
 		this.current_card_4 = current_card_4;
 	}
 	
+	public String getGame_info() {
+		return game_info;
+	}
+
+	public void setGame_info(String game_info) {
+		this.game_info = game_info;
+	}
+
 	public String [] player1_getHand(){
 		String[] hand = {player1_card1,player1_card2,player1_card3,player1_card4,player1_card5,player1_card6,player1_card7,player1_card8};
 		return hand;
@@ -479,19 +488,16 @@ public class Game {
 	public String [] hidelist( String [] hand){
 		
 		String [] result;
-		if(hand == null)
-		{
-			result = new String [8];
-			Arrays.fill(result,"none");
-		}
-		else
-			result = hand;
-		
+		result = hand;	
 		int i;
 		
 		for(i = 0; i< result.length; i++){
+			if(result[i] == null)
+			{
+				result[i] = "none";
+			}
 			if(!result[i].equals("none")){
-				result[i]="b1fv" ;
+				result[i]="b1fv";
 			}
 		}
 		return result;
