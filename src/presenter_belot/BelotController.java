@@ -572,22 +572,49 @@ public class BelotController {
 		long id = (long) gameid;
 		String login = (String) session.getAttribute("login");
 		Game game = belotInterface.gameById(id); 
-		ArrayList<String> seats = new ArrayList<String>();
+		//ArrayList<String> seats = new ArrayList<String>();
+		
+		String seatTop = "";
+		String seatLeft = "";
+		String seatBottom = "";
+		String seatRight = "";
+		
 		if(game.getPlayer1() == null) {
-			seats.add("top");
+			//seats.add("top");
+			seatTop = "free";
 		}
+		else
+			seatTop = game.getPlayer1();
+		
 		if(game.getPlayer2() == null) {
-			seats.add("left");
+			//seats.add("left");
+			seatLeft = "free";
 		}
+		else
+			seatLeft = game.getPlayer2();
 		if(game.getPlayer3() == null) {
-			seats.add("bottom");
+			//seats.add("bottom");
+			seatBottom = "free";
 		}
+		else
+			seatBottom = game.getPlayer3();
 		if(game.getPlayer4() == null) {
-			seats.add("right");
+			//seats.add("right");
+			seatRight = "free";
 		}	
+		else
+			seatRight = game.getPlayer4();
+		
+		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("seats", seats);
+		//mav.addObject("seats", seats);
 		mav.addObject("gameid", gameid);
+		
+		mav.addObject("seatTop", seatTop);
+		mav.addObject("seatLeft", seatLeft);
+		mav.addObject("seatBottom", seatBottom);
+		mav.addObject("seatRight", seatRight);
+		
 		mav.setViewName("showGameSeats"); //jsp page
 		return mav;
 	}
