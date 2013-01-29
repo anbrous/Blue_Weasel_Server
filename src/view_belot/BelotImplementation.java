@@ -38,7 +38,7 @@ public class BelotImplementation implements BelotInterface {
 	public ArrayList<Game> gameList(String status, String login){
 		
 		ArrayList<Game> listOfGames = new ArrayList<>();
-		
+		System.out.println(status);
 		if(status.equals("all"))
 		{
 			listOfGames = (ArrayList<Game>) entityManager.createQuery("SELECT g FROM Game g WHERE g.gameStatus=:gameStatus OR g.gameStatus=:gameStatus2").setParameter("gameStatus", "awaiting").setParameter("gameStatus2", "started").getResultList();	
@@ -47,6 +47,12 @@ public class BelotImplementation implements BelotInterface {
 		{
 			listOfGames = (ArrayList<Game>) entityManager.createQuery("SELECT g FROM Game g WHERE g.gameStatus=:gameStatus AND (g.player1=:player1 OR g.player2=:player2 OR g.player3=:player3 OR g.player4=:player4)").setParameter("gameStatus", "finished").setParameter("player1", login).setParameter("player2", login).setParameter("player3", login).setParameter("player4", login).getResultList();
 		}
+		else if(status.equals("awaiting"))
+		{
+			listOfGames = (ArrayList<Game>) entityManager.createQuery("SELECT g FROM Game g WHERE g.gameStatus=:gameStatus").setParameter("gameStatus", "awaiting").getResultList();
+		}
+		else
+			System.out.println("error getting list");
 		return listOfGames;
 	}
 
@@ -153,6 +159,32 @@ public class BelotImplementation implements BelotInterface {
 		}
 	}
 
+	
+	public long joinGame(long gameid, String player,
+			String position) {
+
+		Game game = gameById(gameid);
+		if(!player.equals(game.getPlayer1()) && !player.equals(game.getPlayer2()) && !player.equals(game.getPlayer3()) && !player.equals(game.getPlayer4())){
+			
+			switch(position){
+			
+			case "top" : game.setPlayer1(player); break;
+			case "left" :game.setPlayer2(player); break;
+			case "bottom" :game.setPlayer3(player); break;
+			case "right" :game.setPlayer4(player); break;
+			}			
+			EntityTransaction tx = entityManager.getTransaction();
+			tx.begin();
+			entityManager.persist(game);
+			tx.commit();
+			return game.getId();
+			
+		}	
+		else {
+			System.out.println("Player already in game");
+			return -2;
+		}
+	}
 	public long createGame(String gamename, int winningscore, String player1,
 			String position1, String player2, String position2) {
 		if(!gamenamecheck(gamename)){

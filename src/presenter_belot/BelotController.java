@@ -546,7 +546,7 @@ public class BelotController {
 			ModelAndView mav = new ModelAndView();
 			mav.setViewName("redirectPage"); //jsp page
 			mav.addObject("titre", "Error");
-			mav.addObject("message", "You need to be logged to access this page, sorry <br> <a href='/Blue_Weasel_Server/connection.html'> connection</a>");
+			mav.addObject("message", "You need to be logged to access this page, sorry <br> <a href='/Blue_Weasel_Server/connection.html'>register</a>");
 			return mav;
 		}
 		
@@ -556,6 +556,38 @@ public class BelotController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("listOfGames", ListOfGamesFound);
 		mav.setViewName("showGamesServer"); //jsp page
+		return mav;
+	}
+	
+	@RequestMapping(value = "game_available_seats/", method = RequestMethod.POST)
+	public ModelAndView game_available_seats(HttpSession session, @RequestParam("gameid") long gameid ) {
+		if ( session.getAttribute("login") == null) {
+
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("redirectPage"); //jsp page
+			mav.addObject("titre", "Error");
+			mav.addObject("message", "You need to be logged to access this page, sorry <br> <a href='/Blue_Weasel_Server/connection.html'>register</a>");
+			return mav;
+		}
+		long id = (long) gameid;
+		String login = (String) session.getAttribute("login");
+		Game game = belotInterface.gameById(id); 
+		ArrayList<String> seats = new ArrayList<String>();
+		if(game.getPlayer1() == null) {
+			seats.add("top");
+		}
+		if(game.getPlayer2() == null) {
+			seats.add("left");
+		}
+		if(game.getPlayer3() == null) {
+			seats.add("bottom");
+		}
+		if(game.getPlayer4() == null) {
+			seats.add("right");
+		}	
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("seats", seats);	
+		mav.setViewName("showGameSeats"); //jsp page
 		return mav;
 	}
 	
