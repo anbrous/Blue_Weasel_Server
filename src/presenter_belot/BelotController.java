@@ -444,9 +444,10 @@ public class BelotController {
 		
 	}
 	
-	@RequestMapping("show_tablettable/")
-	public ModelAndView show_tablet(HttpSession session) {
-		session.setAttribute("gameid", 1); // remove after simulation
+	@RequestMapping(value = "show_tablettable/", method = RequestMethod.POST)
+	public ModelAndView show_tablet(HttpSession session, @RequestParam("device") String device) {
+		//session.setAttribute("gameid", 38); // remove after simulation
+		System.out.println("device: "+ device);
 		
 		if ( session.getAttribute("login") == null) {
 
@@ -469,7 +470,7 @@ public class BelotController {
 		String player = (String) session.getAttribute("login"); 
 		//Simulation
 		// all codes must be created in interafces and implementation, and it will be called from the controller
-		long id = 1;//(long) session.getAttribute("gameid");
+		long id =  (long) session.getAttribute("gameid");
 		
 		Game game = new Game();
 		game = belotInterface.gameById(id);

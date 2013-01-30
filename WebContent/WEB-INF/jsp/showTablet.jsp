@@ -16,8 +16,42 @@
    if( request.getAttribute("player_right_cards") != null ) {
 	   player_right_cards = (String []) request.getAttribute("player_right_cards");
    }
+   
+   String player_top;
+   String player_left;
+   String player_bottom;
+   String player_right;
+   
+   String current_trump;
+   
+   if(request.getAttribute("player_top") != null)
+   		player_top = (String)request.getAttribute("player_top");
+   else
+	   player_top = "awaiting";
+   
+   if(request.getAttribute("player_left") != null)
+	   player_left = (String)request.getAttribute("player_left");
+   else
+	   player_left = "awaiting";
+   
+   if(request.getAttribute("player_bottom") != null)
+	   player_bottom = (String)request.getAttribute("player_bottom");
+   else
+	   player_bottom = "awaiting";
+   
+   if(request.getAttribute("player_right") != null)
+	   player_right = (String)request.getAttribute("player_right");
+   else
+	   player_right = "awaiting";
+   
+   if(request.getAttribute("current_trump") != null)
+	   current_trump = (String)request.getAttribute("current_trump");
+   else
+	   current_trump = "nochosen";
+   
  %>
-player_top;${player_top}|player_left;${player_left}|player_bottom;${player_bottom}|player_right;${player_right}
+
+<name> <%= player_top%> <%= player_left%> <%= player_bottom%> <%= player_right%> </name>
 <br/>
 played_card_top;${played_card_top}|played_card_left;${played_card_left}|played_card_bottom;${played_card_bottom}|played_card_right;${played_card_right}
 
@@ -69,7 +103,7 @@ player_right_cards;
 <br/>	
 Status;${game_status}
 <br/>	
-Trump;${current_trump}
+Trump;<%=current_trump%>
 <br/>	
 TeamScore1;${team1_score}
 <br/>	
