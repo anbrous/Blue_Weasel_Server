@@ -34,7 +34,13 @@ public class BelotImplementation implements BelotInterface {
 		entityManager.merge(entity);
 		tx.commit();
 	}
-	
+	public void saveGame(Game game) {
+		EntityTransaction tx = this.entityManager.getTransaction();
+		tx.begin();
+		this.entityManager.persist(game);
+		//em.flush();
+		tx.commit();
+	}
 	public ArrayList<Game> gameList(String status, String login){
 		
 		ArrayList<Game> listOfGames = new ArrayList<>();
@@ -252,6 +258,11 @@ public class BelotImplementation implements BelotInterface {
 			return -1;
 		}
 	}	
+	
+	/*
+	 * GAME-PROCESS
+	 * @see view_belot.BelotInterface#joinGame(long, java.lang.String, java.lang.String)
+	 */
 	public long joinGame(long gameid, String player,
 			String position) {
 
@@ -280,5 +291,55 @@ public class BelotImplementation implements BelotInterface {
 			return -2;
 		}
 	}
-	
+
+	public void dealing1(long gameid) {
+		 
+		Game game = new Game();
+		game = entityManager.find(Game.class, gameid);
+		//setting the playing status to dealing1
+		if(!game.getPlayingStatus().contains("dealing")) {
+			// if we deal the first time turn
+			game.setPlayingStatus("dealing1");
+			game.setCurrentCardReceiver(game.nextRoundPlayer(game.getCurrentCardReceiver()));
+			System.out.println("First dealing process");
+			game.setGame_info("Please, scan 1st card for "+ game.getCurrentCardReceiver());
+			saveGame(game);
+			System.out.println();
+			
+			return;
+		}
+		else if (game.getPlayingStatus().equals("dealing1")) {
+			if(check3fistcards(game.playerx_getHand(game.getCurrentCardReceiver()))){
+				System.out.println("ok");
+			}
+		}
+		//ask for dealing cards to currentdealed
+		//ask for dealing cards to nextplayer
+		
+		//ask for dealing cards to nextplayer
+		
+		//ask for dealing cards to nextplayer
+		
+	}
+
+	public void startGame(long gameid) {
+		
+		//setting the game status to processing
+			Game game = new Game();
+			game = entityManager.find(Game.class, gameid);
+			game.setGameStatus("started");
+			game.setPlayingStatus("beginning");
+			System.out.println("Game started!!!!!!!!!!!!!!");
+		//setting current master to player 1 and currendealed to player1
+			game.setCurrentMaster(game.getPlayer1());
+			game.setCurrentCardReceiver(game.getPlayer1());
+			saveGame(game);
+
+		//starting the dealing1 methode
+			dealing1(gameid);
+	}
+	 public static boolean check3fistcards(String [] hand) {
+		 return true;
+	 }
+
 }

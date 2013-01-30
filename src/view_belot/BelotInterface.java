@@ -2,6 +2,8 @@ package view_belot;
 
 import java.util.ArrayList;
 
+import javax.persistence.EntityManager;
+
 import model.Card;
 import model.Game;
 import model.Member;
@@ -9,6 +11,10 @@ import model.Member;
 public interface BelotInterface {
 
 	public void createEntity();
+	
+	public void startGame(long gameid);
+	
+	public void saveGame(Game game);
 	
 	public void simulation();
 
@@ -26,4 +32,5 @@ public interface BelotInterface {
 
 	public long joinGame(long gameid, String player, String position); 
 		//return id of the game, return '-2' otherwise
+	
 }

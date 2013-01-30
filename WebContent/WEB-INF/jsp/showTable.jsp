@@ -3,6 +3,8 @@
     pageEncoding="ISO-8859-1"%>
   <%
    // initializing players
+   
+   String game_info = (String)request.getAttribute("game_info"); 
   	String player_top = "unknown", player_left = "unknown", player_right = "unknown", player_bottom = "unknown";
    if( request.getAttribute("player_top") != null ) {
 	   player_top = (String)request.getAttribute("player_top");
@@ -179,7 +181,7 @@
 				<tr>
 					<td>Team2</td><td><%= player_left %></td><td><%= player_right %></td><td>Score: <%= score2 %> </td>
 				</tr>
-				<tr><td>info:</td><td>${game_info}</td></tr>
+				<tr><td>info:</td><td><%=game_info %></td></tr>
 			</table>
 		</div>
 	</div>
