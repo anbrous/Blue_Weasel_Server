@@ -608,4 +608,51 @@ public class Game {
 		else
 			return "error";
 	}
+	
+	public String[] tabletConvert(String [] hand) {
+		String[] result = hand;
+		int i;
+		for (i=0;i<hand.length;i++){
+			
+			switch(hand[i]) {
+			
+			case "0-0": ; result[i] = "ass"; break;
+			case "0-1": ; result[i] = "ash"; break;
+			case "0-2": ; result[i] = "asc"; break;
+			case "0-3": ; result[i] = "asd"; break;
+			case "1-0": ; result[i] = "kis"; break;
+			case "1-1": ; result[i] = "kih"; break;
+			case "1-2": ; result[i] = "kic"; break;
+			case "1-3": ; result[i] = "kid"; break;
+			case "2-0": ; result[i] = "qus"; break;
+			case "2-1": ; result[i] = "quh"; break;
+			case "2-2": ; result[i] = "quc"; break;
+			case "2-3": ; result[i] = "qud"; break;
+			case "3-0": ; result[i] = "jas"; break;
+			case "3-1": ; result[i] = "jah"; break;
+			case "3-2": ; result[i] = "jac"; break;
+			case "3-3": ; result[i] = "jad"; break;
+			case "4-0": ; result[i] = "tes"; break;
+			case "4-1": ; result[i] = "teh"; break;
+			case "4-2": ; result[i] = "tec"; break;
+			case "4-3": ; result[i] = "ted"; break;
+			case "5-0": ; result[i] = "nis"; break;
+			case "5-1": ; result[i] = "nih"; break;
+			case "5-2": ; result[i] = "nic"; break;
+			case "5-3": ; result[i] = "nid"; break;
+			case "6-0": ; result[i] = "eis"; break;
+			case "6-1": ; result[i] = "eih"; break;
+			case "6-2": ; result[i] = "eic"; break;
+			case "6-3": ; result[i] = "eid"; break;
+			case "7-0": ; result[i] = "ses"; break;
+			case "7-1": ; result[i] = "seh"; break;
+			case "7-2": ; result[i] = "sec"; break;
+			case "7-3": ; result[i] = "sed"; break;
+			
+			}
+			
+		}
+		
+		return result;
+	}
 }

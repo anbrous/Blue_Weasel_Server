@@ -146,7 +146,7 @@ public class BelotController {
 		mav.addObject("team2_score",""+game.getTeam2_score());
 		mav.addObject("game_info",game.getGame_info());
 		
-		mav.setViewName("gameTable");
+		mav.setViewName("showTablet");
 		return mav;
 		
 	}
