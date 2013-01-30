@@ -69,6 +69,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="refresh" content="5" >
 	<link rel="stylesheet" href="../../css/game_style.css"/>
 <title>Belot_Game</title>
 <script type="text/javascript" src="../../js/jquery-1.9.0.js"></script>

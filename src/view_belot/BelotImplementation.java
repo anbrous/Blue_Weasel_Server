@@ -19,13 +19,13 @@ import model.Player.Type;
 public class BelotImplementation implements BelotInterface {
 
 	public BelotImplementation(EntityManagerFactory entityManagerFactory){
+		
 		entityManager = entityManagerFactory.createEntityManager();
 	}
 	
+
 	EntityManager entityManager;
 
-	@PersistenceContext
-	EntityManager em;
 	
 	public void createEntity() {
 		MonEntity entity = new MonEntity();
@@ -35,6 +35,7 @@ public class BelotImplementation implements BelotInterface {
 		tx.commit();
 	}
 	public void saveGame(Game game) {
+		
 		EntityTransaction tx = this.entityManager.getTransaction();
 		tx.begin();
 		this.entityManager.persist(game);
@@ -245,10 +246,7 @@ public class BelotImplementation implements BelotInterface {
 			game.setTeam2_score(0);
 			
 
-			EntityTransaction tx = entityManager.getTransaction();
-			tx.begin();
-			entityManager.persist(game);
-			tx.commit();
+			saveGame(game);
 			System.out.println(game.getId());
 			return game.getId();
 			
