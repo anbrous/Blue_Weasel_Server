@@ -17,6 +17,7 @@ public interface BelotInterface {
 	public void saveGame(Game game);
 	
 	public void simulation();
+	
 
 	public ArrayList<Game> gameList(String status, String login);
 	
@@ -32,5 +33,6 @@ public interface BelotInterface {
 
 	public long joinGame(long gameid, String player, String position); 
 		//return id of the game, return '-2' otherwise
+	public void playcard(long gameid, String action, String data);
 	
 }

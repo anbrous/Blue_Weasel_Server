@@ -823,5 +823,32 @@ public class BelotController {
 		mav.setViewName("showGamesServer"); //jsp page
 		return mav;
 	}
+	/*
+	 *  PLAYING PROCESS DOWN HERE
+	 * 
+	 */
 	
+	@RequestMapping(value = "playcard/", method = RequestMethod.POST)
+	public ModelAndView playCard(HttpSession session, @RequestParam("action") String action, @RequestParam("data") String data) {
+		if ( session.getAttribute("login") == null) {
+
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("redirectPage"); //jsp page
+			mav.addObject("titre", "Error");
+			mav.addObject("message", "You need to be logged to access this page, sorry <br> <a href='/Blue_Weasel_Server/connection.html'> connection</a>");
+			return mav;
+		}
+		String login = (String) session.getAttribute("login");
+		long gameid = (long) session.getAttribute("gameid");
+		belotInterface.playcard(gameid,action,data);	
+		//List<Game> ListOfGamesFound = new ArrayList<>();
+		//session.setAttribute("gameid", gameid);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirectPage");
+		mav.addObject("redirect", "");
+		mav.addObject("titre", "Action done");
+		mav.addObject("message", "The action is done");
+		return mav;
+	
+	}
 }

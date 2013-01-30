@@ -485,7 +485,7 @@ public class Game {
 	public void setGame_info(String game_info) {
 		this.game_info = game_info;
 	}
- 
+ 	
 	public String [] playerx_getHand(String player) {
 		
 		if (this.player1.equals(player))
@@ -601,8 +601,6 @@ public class Game {
 			return this.player2;
 		else if (this.player2.equals(currentplayer))
 			return this.player3;
-		else if (this.player3.equals(currentplayer))
-			return this.player1_card2;
 		else if (this.player3.equals(currentplayer))
 			return this.player4;
 		else if (this.player4.equals(currentplayer))

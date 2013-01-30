@@ -309,8 +309,7 @@ public class BelotImplementation implements BelotInterface {
 	}
 	public void dealing1(long gameid) {
 		 
-		Game game = new Game();
-		game = entityManager.find(Game.class, gameid);
+		Game game = entityManager.find(Game.class, gameid);
 		//setting the playing status to dealing1
 		if(!game.getPlayingStatus().contains("dealing")) {
 			// if we deal the first time turn
@@ -324,8 +323,22 @@ public class BelotImplementation implements BelotInterface {
 			return;
 		}
 		else if (game.getPlayingStatus().equals("dealing1")) {
-			if(check3fistcards(game.playerx_getHand(game.getCurrentCardReceiver()))){
-				System.out.println("ok");
+			if(!check3fistcards(game.playerx_getHand(game.getCurrentCardReceiver()))){
+				System.out.println("player "+ game.getCurrentCardReceiver()+" has not all his cards for the first dealing");
+				game.setGame_info("Please, scan another card for "+ game.getCurrentCardReceiver());
+				if(check3fistcards(game.playerx_getHand(game.getCurrentCardReceiver()))){
+					System.out.println("We just added the last card, now let's go to "+game.nextRoundPlayer(game.getCurrentCardReceiver()));
+				}
+				saveGame(game);
+			}
+			else if (!check3fistcards(game.playerx_getHand(game.nextRoundPlayer( game.getCurrentCardReceiver())))) {
+				// ok all 3 cards are for this player, we have checked and the next player has not all his cards so let's go there
+				System.out.println("this player has his 3 cards let's go to another player");
+				game.setCurrentCardReceiver(game.nextRoundPlayer(game.getCurrentCardReceiver()));
+				dealing1(gameid);
+			}
+			else {
+				System.out.println("everyone has his 3 cards");
 			}
 		}
 		//ask for dealing cards to currentdealed
@@ -336,8 +349,132 @@ public class BelotImplementation implements BelotInterface {
 		//ask for dealing cards to nextplayer
 		
 	}
+	
+	public void playcard(long gameid, String action, String data){
+		Game game = entityManager.find(Game.class, gameid);
+		
+		if( action.equals("playcard")){
+			System.out.println("--- ok someone is playing a card");
+			if(game.getPlayingStatus().equals("dealing1")){ 
+				System.out.println("--- ok we are at the first dealing");
+				
+				if(game.getCurrentCardReceiver() == game.getPlayer1() ){
+					System.out.println("--- ok it is about  player1");
+					String [] hand = game.player1_getHand();
+					if (hand[0] == null || hand[0].equals("") || hand[0].equals("none") ){
+						game.setPlayer1_card1(data);
+						System.out.println("--- ok card 1 is added");
+					}
+					else if(hand[1] == null || hand[1].equals("") || hand[1].equals("none") ){
+						game.setPlayer1_card2(data);
+						System.out.println("--- ok card 2 is added");
+					}
+					else if(hand[2] == null || hand[2].equals("") || hand[2].equals("none") ){
+						game.setPlayer1_card3(data);
+						System.out.println("--- ok card 3 is added");
+					}
+					else {
+						//all is done for this player
+						System.out.println("player has his 3 cards actually");
+						dealing1(gameid);
+					}
+					
+				}
+				else if(game.getCurrentCardReceiver() == game.getPlayer2() ){
+					System.out.println("--- ok it is about  player2");
+					String [] hand = game.player2_getHand();
+					if (hand[0] == null || hand[0].equals("") || hand[0].equals("none") ){
+						game.setPlayer2_card1(data);
+						System.out.println("--- ok card 1 is added");
+					}
+					else if(hand[1] == null || hand[1].equals("") || hand[1].equals("none") ){
+						game.setPlayer2_card2(data);
+						System.out.println("--- ok card 2 is added");
+					}
+					else if(hand[2] == null || hand[2].equals("") || hand[2].equals("none") ){
+						game.setPlayer2_card3(data);
+						System.out.println("--- ok card 3 is added");
+					}
+					else {
+						//all is done for this player
+						System.out.println("player has his 3 cards actually");
+						dealing1(gameid);
+					}
+					
+				}
+				else if(game.getCurrentCardReceiver() == game.getPlayer3() ){
+					System.out.println("--- ok it is about  player3");
+					String [] hand = game.player3_getHand();
+					if (hand[0] == null ||  hand[0].equals("") || hand[0].equals("none") ){
+						game.setPlayer3_card1(data);
+						System.out.println("--- ok card 1 is added");
+					}
+					else if(hand[1] == null || hand[1].equals("") || hand[1].equals("none") ){
+						game.setPlayer3_card2(data);
+
+						System.out.println("--- ok card2 is added");
+					}
+					else if(hand[2] == null ||hand[2].equals("") || hand[2].equals("none") ){
+						game.setPlayer3_card3(data);
+
+						System.out.println("--- ok card3 is added");
+					}
+					else {
+						//all is done for this player
+						System.out.println("player has his 3 cards actually");
+						dealing1(gameid);
+					}
+					
+				}
+				else if(game.getCurrentCardReceiver() == game.getPlayer4() ){
+					System.out.println("--- ok it is about  player4");
+					String [] hand = game.player4_getHand();
+					if (hand[0] == null || hand[0].equals("") || hand[0].equals("none") ){
+						game.setPlayer4_card1(data);
+
+						System.out.println("--- ok card1 is added");
+					}
+					else if(hand[1] == null || hand[1].equals("") || hand[1].equals("none") ){
+						game.setPlayer4_card2(data);
+
+						System.out.println("--- ok card 2 is added");
+					}
+					else if(hand[2] == null || hand[2].equals("") || hand[2].equals("none") ){
+						game.setPlayer4_card3(data);
+						System.out.println("--- ok card 3 is added");
+					}
+					else {
+						//all is done for this player
+						System.out.println("player has his 3 cards actually");
+						dealing1(gameid);
+					}
+				
+				}
+				
+				saveGame(game);
+				dealing1(gameid);
+			
+			}
+			
+		}
+	}
 	 public static boolean check3fistcards(String [] hand) {
-		 return true;
+		 	if (hand == null)
+		 		return false;
+			if (hand[0] == null || hand[0].equals("") || hand[0].equals("none") ){
+				System.out.println("first card missing");
+				return false;
+			}
+			else if(hand[1] == null || hand[1].equals("") || hand[1].equals("none") ){
+				System.out.println("second card missing");
+				return false;
+			}
+			else if(hand[2] == null || hand[2].equals("") || hand[2].equals("none") ){
+				System.out.println("third card missing");
+				return false;
+			}
+			else
+				return true;
 	 }
 
 }
