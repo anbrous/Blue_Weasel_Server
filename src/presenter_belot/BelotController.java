@@ -741,7 +741,7 @@ public class BelotController {
 			}
 			mav.addObject("redirect", "belot/show_gametable/");
 			mav.addObject("titre", "Player join the game");
-			mav.addObject("message", "The player "+player+" has join the game "+gameid+" in position "+position);
+			mav.addObject("message", "The player "+player+" has joined the game "+gameid+" in position "+position);
 			session.setAttribute("gameid", gameid);
 		}		
 		return mav;

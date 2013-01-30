@@ -290,6 +290,23 @@ public class BelotImplementation implements BelotInterface {
 		}
 	}
 
+
+	public void startGame(long gameid) {
+		
+		//setting the game status to processing
+			Game game = new Game();
+			game = entityManager.find(Game.class, gameid);
+			game.setGameStatus("started");
+			game.setPlayingStatus("beginning");
+			System.out.println("Game started!!!!!!!!!!!!!!");
+		//setting current master to player 1 and currendealed to player1
+			game.setCurrentMaster(game.getPlayer1());
+			game.setCurrentCardReceiver(game.getPlayer1());
+			saveGame(game);
+
+		//starting the dealing1 methode
+			dealing1(gameid);
+	}
 	public void dealing1(long gameid) {
 		 
 		Game game = new Game();
@@ -318,23 +335,6 @@ public class BelotImplementation implements BelotInterface {
 		
 		//ask for dealing cards to nextplayer
 		
-	}
-
-	public void startGame(long gameid) {
-		
-		//setting the game status to processing
-			Game game = new Game();
-			game = entityManager.find(Game.class, gameid);
-			game.setGameStatus("started");
-			game.setPlayingStatus("beginning");
-			System.out.println("Game started!!!!!!!!!!!!!!");
-		//setting current master to player 1 and currendealed to player1
-			game.setCurrentMaster(game.getPlayer1());
-			game.setCurrentCardReceiver(game.getPlayer1());
-			saveGame(game);
-
-		//starting the dealing1 methode
-			dealing1(gameid);
 	}
 	 public static boolean check3fistcards(String [] hand) {
 		 return true;
