@@ -192,6 +192,7 @@ $(function() {
 	        <li><a href="admin.html">Administration page</a></li>
 	        <li><a href="bw/game_list/">List of available games</a></li>
 	        <li><a href="pageDeSelectionListofGames.html">List of games</a></li>
+	        <li><a href="rfid_simul.html">RFID Reader</a></li>
 			</ul>
 <%
 	}
