@@ -484,13 +484,13 @@ public class BelotController {
 			mav.addObject("player_top", game.getPlayer3());
 			mav.addObject("player_left", game.getPlayer4());
 			
-			mav.addObject("played_card_bottom",game.getCurrent_card_1());
-			mav.addObject("played_card_right",game.getCurrent_card_2());
-			mav.addObject("played_card_top",game.getCurrent_card_3());
-			mav.addObject("played_card_left",game.getCurrent_card_4());
+			mav.addObject("played_card_bottom",game.tabletConvert(game.getCurrent_card_1()));
+			mav.addObject("played_card_right",game.tabletConvert(game.getCurrent_card_2()));
+			mav.addObject("played_card_top",game.tabletConvert(game.getCurrent_card_3()));
+			mav.addObject("played_card_left",game.tabletConvert(game.getCurrent_card_4()));
 			
 
-			mav.addObject("player_bottom_cards",game.player1_getHand());
+			mav.addObject("player_bottom_cards",game.tabletConvert(game.player1_getHand()));
 			mav.addObject("player_right_cards",game.hidelist(game.player2_getHand()));
 			mav.addObject("player_top_cards",game.hidelist(game.player3_getHand()));
 			mav.addObject("player_left_cards",game.hidelist(game.player4_getHand()));
@@ -504,15 +504,15 @@ public class BelotController {
 			mav.addObject("player_right", game.getPlayer3());
 			mav.addObject("player_top", game.getPlayer4());
 			
-			mav.addObject("played_card_left",game.getCurrent_card_1());
-			mav.addObject("played_card_bottom",game.getCurrent_card_2());
+			mav.addObject("played_card_left",game.tabletConvert(game.getCurrent_card_1()));
+			mav.addObject("played_card_bottom",game.tabletConvert(game.getCurrent_card_2()));
 			mav.addObject("played_card_right",game.getCurrent_card_3());
-			mav.addObject("played_card_top",game.getCurrent_card_4());
+			mav.addObject("played_card_top",game.tabletConvert(game.getCurrent_card_4()));
 			
-			mav.addObject("player_bottom_cards",game.hidelist(game.player1_getHand()));
-			mav.addObject("player_right_cards",game.player2_getHand());
-			mav.addObject("player_top_cards",game.hidelist(game.player3_getHand()));
-			mav.addObject("player_left_cards",game.hidelist(game.player4_getHand()));
+			mav.addObject("player_left_cards",game.hidelist(game.player1_getHand()));
+			mav.addObject("player_bottom_cards",game.tabletConvert(game.player2_getHand()));
+			mav.addObject("player_right_cards",game.hidelist(game.player3_getHand()));
+			mav.addObject("player_top_cards",game.hidelist(game.player4_getHand()));
 			
 		}
 		else if( player.equals(game.getPlayer3())) {
@@ -521,14 +521,14 @@ public class BelotController {
 			mav.addObject("player_left", game.getPlayer2());
 			mav.addObject("player_bottom", game.getPlayer3());
 			mav.addObject("player_right", game.getPlayer4());
-			mav.addObject("played_card_top",game.getCurrent_card_1());
-			mav.addObject("played_card_left",game.getCurrent_card_2());
-			mav.addObject("played_card_bottom",game.getCurrent_card_3());
-			mav.addObject("played_card_right",game.getCurrent_card_4());
+			mav.addObject("played_card_top",game.tabletConvert(game.getCurrent_card_1()));
+			mav.addObject("played_card_left",game.tabletConvert(game.getCurrent_card_2()));
+			mav.addObject("played_card_bottom",game.tabletConvert(game.getCurrent_card_3()));
+			mav.addObject("played_card_right",game.tabletConvert(game.getCurrent_card_4()));
 
 			mav.addObject("player_top_cards",game.hidelist(game.player1_getHand()));
 			mav.addObject("player_left_cards",game.hidelist(game.player2_getHand()));
-			mav.addObject("player_bottom_cards",game.player3_getHand());
+			mav.addObject("player_bottom_cards",game.tabletConvert(game.player3_getHand()));
 			mav.addObject("player_right_cards",game.hidelist(game.player4_getHand()));
 			
 		}
@@ -538,15 +538,15 @@ public class BelotController {
 			mav.addObject("player_top", game.getPlayer2());
 			mav.addObject("player_left", game.getPlayer3());
 			mav.addObject("player_bottom", game.getPlayer4());
-			mav.addObject("played_card_right",game.getCurrent_card_1());
-			mav.addObject("played_card_top",game.getCurrent_card_2());
-			mav.addObject("played_card_left",game.getCurrent_card_3());
-			mav.addObject("played_card_bottom",game.getCurrent_card_4());
+			mav.addObject("played_card_right",game.tabletConvert(game.getCurrent_card_1()));
+			mav.addObject("played_card_top",game.tabletConvert(game.getCurrent_card_2()));
+			mav.addObject("played_card_left",game.tabletConvert(game.getCurrent_card_3()));
+			mav.addObject("played_card_bottom",game.tabletConvert(game.getCurrent_card_4()));
 			
 			mav.addObject("player_right_cards",game.hidelist(game.player1_getHand()));
 			mav.addObject("player_top_cards",game.hidelist(game.player2_getHand()));
 			mav.addObject("player_left_cards",game.hidelist(game.player3_getHand()));
-			mav.addObject("player_bottom_cards",game.player4_getHand());
+			mav.addObject("player_bottom_cards",game.tabletConvert(game.player4_getHand()));
 		}
 		else {
 			
@@ -568,6 +568,132 @@ public class BelotController {
 		return mav;
 		
 	}
+	
+	
+	@RequestMapping(value = "show_tablettable/", method = RequestMethod.GET)
+	public ModelAndView show_tablet(HttpSession session) {
+		//session.setAttribute("gameid", 38); // remove after simulation
+		
+		if ( session.getAttribute("login") == null) {
+
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("redirectPage"); //jsp page
+			mav.addObject("titre", "Error");
+			mav.addObject("redirect", "connection.html");
+			mav.addObject("message", "You need to be logged to access this page, sorry <br> <a href='/Blue_Weasel_Server/connection.html'> connection</a>");
+			return mav;
+		}
+		else if (session.getAttribute("gameid") == null) {
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("redirectPage"); //jsp page
+			mav.addObject("titre", "Error");
+			mav.addObject("redirect", "");
+			mav.addObject("message", "ERROR, stop cheating, or spying, you don't belong to this game dude <br> <a href='/Blue_Weasel_Server/connection.html'> connection</a>");
+			return mav;
+		}
+		
+		String player = (String) session.getAttribute("login"); 
+		//Simulation
+		// all codes must be created in interafces and implementation, and it will be called from the controller
+		long id =  (long) session.getAttribute("gameid");
+		
+		Game game = new Game();
+		game = belotInterface.gameById(id);
+		
+		ModelAndView mav = new ModelAndView();
+		// the following conditions shows the cards accordingly to the fact that the current player always has his cards in the bottom position
+		if( player.equals(game.getPlayer1())) {
+
+			mav.addObject("player_bottom", game.getPlayer1());
+			mav.addObject("player_right", game.getPlayer2());
+			mav.addObject("player_top", game.getPlayer3());
+			mav.addObject("player_left", game.getPlayer4());
+			
+			mav.addObject("played_card_bottom",game.tabletConvert(game.getCurrent_card_1()));
+			mav.addObject("played_card_right",game.tabletConvert(game.getCurrent_card_2()));
+			mav.addObject("played_card_top",game.tabletConvert(game.getCurrent_card_3()));
+			mav.addObject("played_card_left",game.tabletConvert(game.getCurrent_card_4()));
+			
+
+			mav.addObject("player_bottom_cards",game.tabletConvert(game.player1_getHand()));
+			mav.addObject("player_right_cards",game.hidelist(game.player2_getHand()));
+			mav.addObject("player_top_cards",game.hidelist(game.player3_getHand()));
+			mav.addObject("player_left_cards",game.hidelist(game.player4_getHand()));
+			
+		}
+		
+		else if( player.equals(game.getPlayer2())) {
+
+			mav.addObject("player_left", game.getPlayer1());
+			mav.addObject("player_bottom", game.getPlayer2());
+			mav.addObject("player_right", game.getPlayer3());
+			mav.addObject("player_top", game.getPlayer4());
+			
+			mav.addObject("played_card_left",game.tabletConvert(game.getCurrent_card_1()));
+			mav.addObject("played_card_bottom",game.tabletConvert(game.getCurrent_card_2()));
+			mav.addObject("played_card_right",game.getCurrent_card_3());
+			mav.addObject("played_card_top",game.tabletConvert(game.getCurrent_card_4()));
+			
+			mav.addObject("player_left_cards",game.hidelist(game.player1_getHand()));
+			mav.addObject("player_bottom_cards",game.tabletConvert(game.player2_getHand()));
+			mav.addObject("player_right_cards",game.hidelist(game.player3_getHand()));
+			mav.addObject("player_top_cards",game.hidelist(game.player4_getHand()));
+			
+		}
+		else if( player.equals(game.getPlayer3())) {
+
+			mav.addObject("player_top", game.getPlayer1());
+			mav.addObject("player_left", game.getPlayer2());
+			mav.addObject("player_bottom", game.getPlayer3());
+			mav.addObject("player_right", game.getPlayer4());
+			mav.addObject("played_card_top",game.tabletConvert(game.getCurrent_card_1()));
+			mav.addObject("played_card_left",game.tabletConvert(game.getCurrent_card_2()));
+			mav.addObject("played_card_bottom",game.tabletConvert(game.getCurrent_card_3()));
+			mav.addObject("played_card_right",game.tabletConvert(game.getCurrent_card_4()));
+
+			mav.addObject("player_top_cards",game.hidelist(game.player1_getHand()));
+			mav.addObject("player_left_cards",game.hidelist(game.player2_getHand()));
+			mav.addObject("player_bottom_cards",game.tabletConvert(game.player3_getHand()));
+			mav.addObject("player_right_cards",game.hidelist(game.player4_getHand()));
+			
+		}
+		else if( player.equals(game.getPlayer4())) {
+
+			mav.addObject("player_right", game.getPlayer1());
+			mav.addObject("player_top", game.getPlayer2());
+			mav.addObject("player_left", game.getPlayer3());
+			mav.addObject("player_bottom", game.getPlayer4());
+			mav.addObject("played_card_right",game.tabletConvert(game.getCurrent_card_1()));
+			mav.addObject("played_card_top",game.tabletConvert(game.getCurrent_card_2()));
+			mav.addObject("played_card_left",game.tabletConvert(game.getCurrent_card_3()));
+			mav.addObject("played_card_bottom",game.tabletConvert(game.getCurrent_card_4()));
+			
+			mav.addObject("player_right_cards",game.hidelist(game.player1_getHand()));
+			mav.addObject("player_top_cards",game.hidelist(game.player2_getHand()));
+			mav.addObject("player_left_cards",game.hidelist(game.player3_getHand()));
+			mav.addObject("player_bottom_cards",game.tabletConvert(game.player4_getHand()));
+		}
+		else {
+			
+			mav.setViewName("redirectPage"); //jsp page
+			mav.addObject("titre", "Error");
+			mav.addObject("redirect", "");
+			mav.addObject("message", "ERROR 1542, stop cheating, or spying, you don't belong to this game dude <br> <a href='/Blue_Weasel_Server/connection.html'> connection</a>");
+			return mav;
+			
+		}
+		
+		mav.addObject("game_status",game.getGameStatus());
+		mav.addObject("current_trump",game.getCurrentTrump());
+		mav.addObject("team1_score",""+game.getTeam1_score());
+		mav.addObject("team2_score",""+game.getTeam2_score());
+		mav.addObject("game_info",game.getGame_info());
+
+		mav.setViewName("showTablet");
+		return mav;
+		
+	}
+	
 	
 	@RequestMapping(value = "gamelistServer/", method = RequestMethod.GET)
 	public ModelAndView gameListByUser(HttpSession session) {
@@ -849,6 +975,37 @@ public class BelotController {
 		mav.addObject("redirect", "");
 		mav.addObject("titre", "Action done");
 		mav.addObject("message", "The action is done");
+		return mav;
+	
+	}
+	@RequestMapping(value = "playrfidcard/", method = RequestMethod.POST)
+	public ModelAndView playRfidCard(HttpSession session, @RequestParam("action") String action, @RequestParam("data") String data) {
+		if ( session.getAttribute("login") == null) {
+
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("redirectPage"); //jsp page
+			mav.addObject("titre", "Error");
+			mav.addObject("message", "You need to be logged to access this page, sorry <br> <a href='/Blue_Weasel_Server/connection.html'> connection</a>");
+			return mav;
+		}
+		if ( session.getAttribute("gameid") == null) {
+
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("redirectPage"); //jsp page
+			mav.addObject("titre", "Error");
+			mav.addObject("message", "You don't belong to any game, sorry");
+			return mav;
+		}
+		String login = (String) session.getAttribute("login");
+		long gameid = (long) session.getAttribute("gameid");
+		belotInterface.playcard(gameid,action,belotInterface.getRfidCard(data));	
+		//List<Game> ListOfGamesFound = new ArrayList<>();
+		//session.setAttribute("gameid", gameid);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirectPage");
+		mav.addObject("redirect", "rfid_simul.html");
+		mav.addObject("titre", "Action done");
+		mav.addObject("message", "Card added");
 		return mav;
 	
 	}

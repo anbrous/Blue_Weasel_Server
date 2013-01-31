@@ -17,25 +17,27 @@
 	
 	<div id="content" class="content">
 	
-<h2>Send Action</h2>
+<h2>Play a card</h2>
 
-<form action="belot/playcard/" method="post" name="f1">
+<div class="pegoda_font">
+<form action="belot/playrfidcard/" method="post" name="f1">
 <input type="hidden" name="form" value="signup"/>
 	<table>
 		<tr>
 			<td>Action</td>
-			<td><input type="text"  name="action"/></td>
-			<td><div id="username_info"></div></td>
+			<td><input type="text" value="playcard" name="action"/></td>
+			<td></td>
 		</tr>
 		<tr>
-			<td>Data</td>
+			<td>Rfid Tag</td>
 			<td><input type="text" value=""  name="data"/></td>
-			<td><div id="email_info"></div></td>
+			<td></td>
 		</tr>
 		<tr><td></td><td><input type="submit" value="envoyer"></td></tr>
 	</table>
 	
 </form>
+</div>
 </div>
 	<br />
 	<br />

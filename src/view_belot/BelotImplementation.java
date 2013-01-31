@@ -245,7 +245,7 @@ public class BelotImplementation implements BelotInterface {
 			game.setTeam1_score(0);
 			game.setTeam2_score(0);
 			
-
+			//game.simulation(); // comment to remove after simulations
 			saveGame(game);
 			System.out.println(game.getId());
 			return game.getId();
@@ -347,6 +347,13 @@ public class BelotImplementation implements BelotInterface {
 		//ask for dealing cards to nextplayer
 		
 		//ask for dealing cards to nextplayer
+		
+	}
+	
+	public String getRfidCard(String data) {
+		
+		Card card = (Card) entityManager.createQuery("SELECT c FROM Card c WHERE c.idRFID LIKE :idrfid ").setParameter("idrfid", data).getSingleResult();
+	return card.ValueToInt()+"-"+card.ColorToInt();
 		
 	}
 	

@@ -35,4 +35,6 @@ public interface BelotInterface {
 		//return id of the game, return '-2' otherwise
 	public void playcard(long gameid, String action, String data);
 	
+	public String getRfidCard(String data);
+	
 }
