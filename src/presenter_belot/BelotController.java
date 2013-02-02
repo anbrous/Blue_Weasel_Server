@@ -160,7 +160,7 @@ public class BelotController {
 		 * 
 		 **/
  		//Simulation
-		belotInterface.simulation();
+		//belotInterface.simulation();
 		// all codes must be created in interafces and implementation, and it will be called from the controller
 		long id = 1;
 		Game game = new Game();
@@ -258,10 +258,10 @@ public class BelotController {
 			mav.addObject("played_card_right",game.getCurrent_card_3());
 			mav.addObject("played_card_top",game.getCurrent_card_4());
 			
-			mav.addObject("player_bottom_cards",game.player1_getHand());
-			mav.addObject("player_right_cards",game.player2_getHand());
-			mav.addObject("player_top_cards",game.player3_getHand());
-			mav.addObject("player_left_cards",game.player4_getHand());
+			mav.addObject("player_bottom_cards",game.player2_getHand());
+			mav.addObject("player_right_cards",game.player3_getHand());
+			mav.addObject("player_top_cards",game.player4_getHand());
+			mav.addObject("player_left_cards",game.player1_getHand());
 			
 		}
 		else if( player.equals(game.getPlayer3())) {
@@ -366,9 +366,9 @@ public class BelotController {
 			
 
 			mav.addObject("player_bottom_cards",game.player1_getHand());
-			mav.addObject("player_right_cards",game.hidelist(game.player2_getHand()));
-			mav.addObject("player_top_cards",game.hidelist(game.player3_getHand()));
-			mav.addObject("player_left_cards",game.hidelist(game.player4_getHand()));
+			mav.addObject("player_right_cards",game.player2_getHand());
+			mav.addObject("player_top_cards",game.player3_getHand());
+			mav.addObject("player_left_cards",game.player4_getHand());
 			
 		}
 		
@@ -384,10 +384,10 @@ public class BelotController {
 			mav.addObject("played_card_right",game.getCurrent_card_3());
 			mav.addObject("played_card_top",game.getCurrent_card_4());
 			
-			mav.addObject("player_bottom_cards",game.hidelist(game.player1_getHand()));
-			mav.addObject("player_right_cards",game.player2_getHand());
-			mav.addObject("player_top_cards",game.hidelist(game.player3_getHand()));
-			mav.addObject("player_left_cards",game.hidelist(game.player4_getHand()));
+			mav.addObject("player_bottom_cards",game.player2_getHand());
+			mav.addObject("player_right_cards",game.player3_getHand());
+			mav.addObject("player_top_cards",game.player4_getHand());
+			mav.addObject("player_left_cards",game.player1_getHand());
 			
 		}
 		else if( player.equals(game.getPlayer3())) {
@@ -401,10 +401,10 @@ public class BelotController {
 			mav.addObject("played_card_bottom",game.getCurrent_card_3());
 			mav.addObject("played_card_right",game.getCurrent_card_4());
 
-			mav.addObject("player_top_cards",game.hidelist(game.player1_getHand()));
-			mav.addObject("player_left_cards",game.hidelist(game.player2_getHand()));
+			mav.addObject("player_top_cards",game.player1_getHand());
+			mav.addObject("player_left_cards",game.player2_getHand());
 			mav.addObject("player_bottom_cards",game.player3_getHand());
-			mav.addObject("player_right_cards",game.hidelist(game.player4_getHand()));
+			mav.addObject("player_right_cards",game.player4_getHand());
 			
 		}
 		else if( player.equals(game.getPlayer4())) {
@@ -418,9 +418,9 @@ public class BelotController {
 			mav.addObject("played_card_left",game.getCurrent_card_3());
 			mav.addObject("played_card_bottom",game.getCurrent_card_4());
 			
-			mav.addObject("player_right_cards",game.hidelist(game.player1_getHand()));
-			mav.addObject("player_top_cards",game.hidelist(game.player2_getHand()));
-			mav.addObject("player_left_cards",game.hidelist(game.player3_getHand()));
+			mav.addObject("player_right_cards",game.player1_getHand());
+			mav.addObject("player_top_cards",game.player2_getHand());
+			mav.addObject("player_left_cards",game.player3_getHand());
 			mav.addObject("player_bottom_cards",game.player4_getHand());
 		}
 		else {

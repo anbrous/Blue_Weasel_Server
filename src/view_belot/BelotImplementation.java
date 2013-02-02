@@ -335,18 +335,58 @@ public class BelotImplementation implements BelotInterface {
 				// ok all 3 cards are for this player, we have checked and the next player has not all his cards so let's go there
 				System.out.println("this player has his 3 cards let's go to another player");
 				game.setCurrentCardReceiver(game.nextRoundPlayer(game.getCurrentCardReceiver()));
+				saveGame(game);
 				dealing1(gameid);
 			}
 			else {
-				System.out.println("everyone has his 3 cards");
+				System.out.println("everyone has his 3 cards, let's deal the 2 others");
+				game.setCurrentCardReceiver(game.nextRoundPlayer(game.getCurrentCardReceiver()));
+				game.setPlayingStatus("dealing2");
+				saveGame(game);
+				dealing2(gameid);
 			}
 		}
-		//ask for dealing cards to currentdealed
-		//ask for dealing cards to nextplayer
 		
-		//ask for dealing cards to nextplayer
-		
-		//ask for dealing cards to nextplayer
+	}
+	public void dealing2(long gameid) {
+		 
+		Game game = entityManager.find(Game.class, gameid);
+		//setting the playing status to dealing1
+//		if(!game.getPlayingStatus().contains("dealing")) {
+//			// if we deal the first time turn
+//			game.setPlayingStatus("dealing1");
+//			game.setCurrentCardReceiver(game.nextRoundPlayer(game.getCurrentCardReceiver()));
+//			System.out.println("First dealing process");
+//			game.setGame_info("Please, scan 1st card for "+ game.getCurrentCardReceiver());
+//			saveGame(game);
+//			System.out.println();
+//			
+//			return;
+//		}
+		if (game.getPlayingStatus().equals("dealing2")) {
+			if(!check5fistcards(game.playerx_getHand(game.getCurrentCardReceiver()))){
+				System.out.println("player "+ game.getCurrentCardReceiver()+" has not all his cards for the second round dealing");
+				game.setGame_info("Please, scan a card for "+ game.getCurrentCardReceiver());
+				if(check5fistcards(game.playerx_getHand(game.getCurrentCardReceiver()))){
+					System.out.println("We just added the last card, now let's go to "+game.nextRoundPlayer(game.getCurrentCardReceiver()));
+				}
+				saveGame(game);
+			}
+			else if (!check5fistcards(game.playerx_getHand(game.nextRoundPlayer( game.getCurrentCardReceiver())))) {
+				// ok all 5 cards are for this player, we have checked and the next player has not all his cards so let's go there
+				System.out.println("this player has his 5 cards let's go to another player");
+				game.setCurrentCardReceiver(game.nextRoundPlayer(game.getCurrentCardReceiver()));
+				saveGame(game);
+				dealing2(gameid);
+			}
+			else {
+				System.out.println("everyone has his 5 cards, let's choose the trump");
+				game.setCurrentCardReceiver(game.nextRoundPlayer(game.getCurrentCardReceiver()));
+				game.setPlayingStatus("choosetrump");
+				saveGame(game);
+				//trumpselection(gameid);
+			}
+		}
 		
 	}
 	
@@ -462,6 +502,89 @@ public class BelotImplementation implements BelotInterface {
 				dealing1(gameid);
 			
 			}
+			if(game.getPlayingStatus().equals("dealing2")){ 
+				System.out.println("--- ok we are at the second round dealing");
+				
+				if(game.getCurrentCardReceiver() == game.getPlayer1() ){
+					System.out.println("--- ok it is about  player1");
+					String [] hand = game.player1_getHand();
+					if (hand[3] == null || hand[3].equals("") || hand[3].equals("none") ){
+						game.setPlayer1_card4(data);
+						System.out.println("--- ok card 4 is added");
+					}
+					else if(hand[4] == null || hand[4].equals("") || hand[4].equals("none") ){
+						game.setPlayer1_card5(data);
+						System.out.println("--- ok card 5 is added");
+					}
+					else {
+						//all is done for this player
+						System.out.println("player has his 5 cards actually");
+						dealing2(gameid);
+					}
+					
+				}
+				else if(game.getCurrentCardReceiver() == game.getPlayer2() ){
+					System.out.println("--- ok it is about  player2");
+					String [] hand = game.player2_getHand();
+					if (hand[3] == null || hand[3].equals("") || hand[3].equals("none") ){
+						game.setPlayer2_card4(data);
+						System.out.println("--- ok card 4 is added");
+					}
+					else if(hand[4] == null || hand[4].equals("") || hand[4].equals("none") ){
+						game.setPlayer2_card5(data);
+						System.out.println("--- ok card 5 is added");
+					}
+					else {
+						//all is done for this player
+						System.out.println("player has his 5 cards actually");
+						dealing2(gameid);
+					}
+					
+				}
+				else if(game.getCurrentCardReceiver() == game.getPlayer3() ){
+					System.out.println("--- ok it is about  player3");
+					String [] hand = game.player3_getHand();
+					if (hand[3] == null ||  hand[3].equals("") || hand[3].equals("none") ){
+						game.setPlayer3_card4(data);
+						System.out.println("--- ok card 4 is added");
+					}
+					else if(hand[4] == null || hand[4].equals("") || hand[4].equals("none") ){
+						game.setPlayer3_card5(data);
+
+						System.out.println("--- ok card 5 is added");
+					}
+					else {
+						//all is done for this player
+						System.out.println("player has his 5 cards actually");
+						dealing2(gameid);
+					}
+					
+				}
+				else if(game.getCurrentCardReceiver() == game.getPlayer4() ){
+					System.out.println("--- ok it is about  player4");
+					String [] hand = game.player4_getHand();
+					if (hand[3] == null || hand[3].equals("") || hand[3].equals("none") ){
+						game.setPlayer4_card4(data);
+
+						System.out.println("--- ok card 4 is added");
+					}
+					else if(hand[4] == null || hand[4].equals("") || hand[4].equals("none") ){
+						game.setPlayer4_card5(data);
+
+						System.out.println("--- ok card 5 is added");
+					}
+					else {
+						//all is done for this player
+						System.out.println("player has his 5 cards actually");
+						dealing2(gameid);
+					}
+				
+				}
+				
+				saveGame(game);
+				dealing2(gameid);
+			
+			}
 			
 		}
 	}
@@ -478,6 +601,22 @@ public class BelotImplementation implements BelotInterface {
 			}
 			else if(hand[2] == null || hand[2].equals("") || hand[2].equals("none") ){
 				System.out.println("third card missing");
+				return false;
+			}
+			else
+				return true;
+	 }
+	 public static boolean check5fistcards(String [] hand) {
+		 	if (hand == null)
+		 		return false;
+		 	if (!check3fistcards(hand))
+		 		return false;
+			if (hand[3] == null || hand[3].equals("") || hand[3].equals("none") ){
+				System.out.println("fourth card missing");
+				return false;
+			}
+			else if(hand[4] == null || hand[4].equals("") || hand[4].equals("none") ){
+				System.out.println("fifth card missing");
 				return false;
 			}
 			else
